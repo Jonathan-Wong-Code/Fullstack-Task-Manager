@@ -1,0 +1,9 @@
+export const ADD_TASK = "ADD_TASK";
+export const EDIT_TASK = "EDIT_TASK";
+export const DELETE_TASK = "DELETE_TASK";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGOUT = "LOGOUT";
+export const LOGIN_FAIL = "LOGIN_FAIL";
+export const LOGOUT_FAIL = "LOGOUT_FAIL";
+export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
+export const SIGNUP_FAIL = "SIGNUP_FAIL";
