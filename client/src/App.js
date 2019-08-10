@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import axios from "axios";
+
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
 import CreateTask from "./components/CreateTask";
@@ -9,9 +11,9 @@ import LoginPage from "./components/LoginPage";
 import Signup from "./components/Signup";
 import { TaskProvider } from "./context/task-context";
 import { useAuthDispatch } from "./context/auth-context";
-
-import axios from "axios";
 import { LOGIN_SUCCESS } from "./context/types";
+import PrivateRoute from "./routes/PrivateRoute";
+import PublicRoute from "./routes/PublicRoute";
 
 const history = createBrowserHistory();
 
@@ -38,11 +40,11 @@ function App() {
         <TaskProvider>
           <Header />
           <Switch>
-            <Route exact path="/" component={LoginPage} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/create" component={CreateTask} />
-            <Route path="/edit/:id" component={EditTask} />
-            <Route path="/signup" component={Signup} />
+            <PublicRoute exact path="/" component={LoginPage} />
+            <PrivateRoute path="/dashboard" component={Dashboard} />
+            <PrivateRoute path="/create" component={CreateTask} />
+            <PrivateRoute path="/edit/:id" component={EditTask} />
+            <PrivateRoute path="/signup" component={Signup} />
           </Switch>
         </TaskProvider>
       </>

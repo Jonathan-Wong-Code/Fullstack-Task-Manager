@@ -40,8 +40,10 @@ export async function createTask({ title, description, completed }, dispatch) {
     });
 
     dispatch({ type: ADD_TASK, task: response.data.data.task });
+    return true;
   } catch (error) {
     dispatch({ type: TASK_ERROR, message: error.response.data.message });
+    return false;
   }
 }
 
@@ -76,7 +78,9 @@ export async function editTask(
     });
 
     dispatch({ type: EDIT_TASK, task: response.data.data.task });
+    return true;
   } catch (error) {
     dispatch({ type: TASK_ERROR, message: error.response.data.message });
+    return false;
   }
 }

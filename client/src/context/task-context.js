@@ -15,7 +15,6 @@ const TaskDispatchContext = createContext();
 const reducer = (state, action) => {
   switch (action.type) {
     case ADD_TASK:
-      console.log(action.task);
       return { ...state, tasks: [...state.tasks, action.task] };
     case EDIT_TASK:
       const editedTasks = state.tasks.map(task => {

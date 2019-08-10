@@ -22,7 +22,7 @@ function TaskForm({ type, history, editedTask }) {
   const taskDispatch = useTaskDispatch();
   const { error } = useTaskState();
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     const task = {
       title,
@@ -30,10 +30,15 @@ function TaskForm({ type, history, editedTask }) {
       completed,
       _id
     };
+
+    let success;
     if (type === "create") {
-      createTask(task, taskDispatch);
+      success = await createTask(task, taskDispatch);
     } else {
-      editTask(task, taskDispatch);
+      success = await editTask(task, taskDispatch);
+    }
+    if (success) {
+      history.push("/dashboard");
     }
   };
 
