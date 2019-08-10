@@ -1,8 +1,8 @@
 import React, { useReducer } from "react";
 import {
   useAuthDispatch,
-  loginUser,
-  useAuthState
+  useAuthState,
+  loginUser
 } from "../context/auth-context";
 
 const reducer = (state, newState) => {
@@ -16,11 +16,11 @@ function LoginPage() {
   });
 
   const { error } = useAuthState();
-  const dispatch = useAuthDispatch();
+  const authDispatch = useAuthDispatch();
 
   const handleSubmit = async e => {
     e.preventDefault();
-    await loginUser(dispatch, email, password);
+    await loginUser(authDispatch, email, password);
   };
 
   return (
@@ -40,7 +40,7 @@ function LoginPage() {
           value={password}
           onChange={e => setState({ password: e.target.value })}
         />
-        <button>Login</button>
+        <button type="submit">Login</button>
       </form>
       {error && <p>{error}</p>}
     </div>

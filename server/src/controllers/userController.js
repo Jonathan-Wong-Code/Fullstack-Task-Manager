@@ -100,7 +100,6 @@ exports.protect = catchAsync(async (req, res, next) => {
 
 exports.isLoggedIn = catchAsync(async (req, res, next) => {
   let token;
-
   if (req.cookies.jwt) {
     token = req.cookies.jwt;
   }
@@ -111,14 +110,14 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
     );
   }
 
-  const decoded = promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
   const user = await User.findById(decoded.id);
   if (!user) {
     return next(new APIError("No user found. Please login", 401));
   }
 
-  const passwordChanged = user.checkPasswordChanged(decodied.iat);
+  const passwordChanged = user.checkPasswordChanged(decoded.iat);
   if (passwordChanged) {
     return next(
       new APIError("User recently changed password. Please login again", 401)
@@ -127,9 +126,7 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
 
   req.user = user;
 
-  res.status(200).send({
-    status: "Success"
-  });
+  createSendToken(res, user, 200);
 });
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {

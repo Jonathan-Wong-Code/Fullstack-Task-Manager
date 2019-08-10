@@ -7,3 +7,6 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT_FAIL = "LOGOUT_FAIL";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAIL = "SIGNUP_FAIL";
+export const FETCH_TASKS = "FETCH_TASKS";
+export const SET_SAVED_TASKS = "SET_SAVED_TASKS";
+export const CLEAR_TASKS = "CLEAR_TASKS";

@@ -5,10 +5,10 @@ import {
   LOGIN_FAIL,
   LOGOUT_FAIL,
   SIGNUP_SUCCESS,
-  SIGNUP_FAIL
+  SIGNUP_FAIL,
+  CLEAR_TASKS
 } from "./types";
 import axios from "axios";
-// axios.defaults.withCredentials = true;
 
 const AuthStateContext = createContext();
 const AuthDispatchContext = createContext();
@@ -42,13 +42,13 @@ const reducer = (state, action) => {
 
 // CONTEXT
 export function AuthProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, {
+  const [state, authDispatch] = useReducer(reducer, {
     user: null
   });
 
   return (
     <AuthStateContext.Provider value={state}>
-      <AuthDispatchContext.Provider value={dispatch}>
+      <AuthDispatchContext.Provider value={authDispatch}>
         {children}
       </AuthDispatchContext.Provider>
     </AuthStateContext.Provider>
@@ -90,16 +90,18 @@ export async function loginUser(dispatch, email, password) {
   }
 }
 
-export async function logoutUser(dispatch) {
+export async function logoutUser(authDispatch, taskDispatch) {
   try {
     await axios({
       method: "GET",
-      url: "http://localhost:3000/api/v1/users/logout"
+      url: "http://localhost:3000/api/v1/users/logout",
+      withCredentials: true
     });
 
-    dispatch({ type: LOGOUT, user: null });
+    authDispatch({ type: LOGOUT, user: null });
+    taskDispatch({ type: CLEAR_TASKS });
   } catch (error) {
-    dispatch({ type: LOGOUT_FAIL, message: error.response.data.message });
+    authDispatch({ type: LOGOUT_FAIL, message: error.response.data.message });
   }
 }
 

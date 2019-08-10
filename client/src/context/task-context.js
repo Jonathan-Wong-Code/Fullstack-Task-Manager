@@ -1,5 +1,13 @@
 import React, { useContext, useReducer, createContext } from "react";
-import { EDIT_TASK, ADD_TASK, DELETE_TASK } from "./types";
+import {
+  EDIT_TASK,
+  ADD_TASK,
+  DELETE_TASK,
+  SET_SAVED_TASKS,
+  CLEAR_TASKS
+} from "./types";
+import axios from "axios";
+
 const TaskStateContext = createContext();
 const TaskDispatchContext = createContext();
 
@@ -15,24 +23,28 @@ const reducer = (state, action) => {
         return task;
       });
       return { ...state, tasks: editedTasks };
-    case DELETE_TASK: {
+    case DELETE_TASK:
       const filteredTasks = state.tasks.filter(task => task.id !== action.id);
       return { ...state, tasks: filteredTasks };
-    }
+    case SET_SAVED_TASKS:
+      return { ...state, tasks: action.tasks };
+    case CLEAR_TASKS:
+      return { ...state, tasks: [] };
     default:
       return state;
   }
 };
 
-export function TaskProvider({ children, initialTasks = [] }) {
-  const [state, dispatch] = useReducer(reducer, {
+export function TaskProvider({ children }) {
+  const [state, taskDispatch] = useReducer(reducer, {
     error: null,
     loading: false,
-    tasks: initialTasks
+    tasks: []
   });
+
   return (
     <TaskStateContext.Provider value={state}>
-      <TaskDispatchContext.Provider value={dispatch}>
+      <TaskDispatchContext.Provider value={taskDispatch}>
         {children}
       </TaskDispatchContext.Provider>
     </TaskStateContext.Provider>
@@ -55,4 +67,20 @@ export function useTaskDispatch() {
     );
   }
   return context;
+}
+
+export async function fetchAllTasks(dispatch) {
+  try {
+    const response = await axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:3000/api/v1/tasks"
+    });
+    dispatch({
+      type: SET_SAVED_TASKS,
+      tasks: response.data.data.tasks
+    });
+  } catch (error) {
+    console.log(error.response.data.message);
+  }
 }

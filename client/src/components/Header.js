@@ -5,11 +5,16 @@ import {
   logoutUser,
   useAuthDispatch
 } from "../context/auth-context";
-
+import { useTaskDispatch } from "./../context/task-context";
 function Header() {
   const { user } = useAuthState();
-  const dispatch = useAuthDispatch();
-  console.log(user);
+  const authDispatch = useAuthDispatch();
+  const taskDispatch = useTaskDispatch();
+
+  const handleLogoutClick = () => {
+    logoutUser(authDispatch, taskDispatch);
+  };
+
   return (
     <div>
       <h1>TASK MANAGER APP!</h1>
@@ -31,7 +36,7 @@ function Header() {
           )}
           {user && (
             <li>
-              <button onClick={() => logoutUser(dispatch)}>Logout</button>
+              <button onClick={handleLogoutClick}>Logout</button>
             </li>
           )}
         </ul>

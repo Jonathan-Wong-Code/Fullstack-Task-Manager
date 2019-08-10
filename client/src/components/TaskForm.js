@@ -15,7 +15,7 @@ function TaskForm({ type, history, editedTask = null }) {
     title: editedTask ? editedTask.title : ""
   });
 
-  const dispatch = useTaskDispatch();
+  const taskDispatch = useTaskDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -26,7 +26,7 @@ function TaskForm({ type, history, editedTask = null }) {
       id: editedTask ? editedTask.id : uuid()
     };
     const dispatchType = type === "create" ? ADD_TASK : EDIT_TASK;
-    dispatch({
+    taskDispatch({
       type: dispatchType,
       task
     });
