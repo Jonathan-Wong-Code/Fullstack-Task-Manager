@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import { useTaskDispatch } from "./../context/task-context";
-import { DELETE_TASK } from "./../context/types";
+import { deleteTask } from "./../async-helpers/tasks";
 
 function TaskListItem({ task }) {
   const taskDispatch = useTaskDispatch();
@@ -17,8 +16,8 @@ function TaskListItem({ task }) {
         defaultChecked={task.completed}
         onChange={updateUser()}
       />
-      <Link to={`/edit/${task.id}`}>Edit Task</Link>
-      <button onClick={() => taskDispatch({ type: DELETE_TASK, id: task.id })}>
+      <Link to={`/edit/${task._id}`}>Edit Task</Link>
+      <button onClick={() => deleteTask(task._id, taskDispatch)}>
         Delete Task
       </button>
     </div>

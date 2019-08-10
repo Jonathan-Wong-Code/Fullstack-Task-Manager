@@ -1,20 +1,18 @@
 import React, { useEffect } from "react";
-import {
-  useTaskState,
-  fetchAllTasks,
-  useTaskDispatch
-} from "./../context/task-context";
+import { useTaskState, useTaskDispatch } from "./../context/task-context";
+
+import { fetchAllTasks } from "./../async-helpers/tasks";
 import TaskListItem from "./TaskListItem";
 
 export default function TaskList() {
   const { tasks } = useTaskState();
   const taskDispatch = useTaskDispatch();
+
   useEffect(() => {
     fetchAllTasks(taskDispatch);
   }, [taskDispatch]);
   console.log(tasks);
-  if (tasks.length === 0) return <div />;
-
+  if (!tasks) return <div />;
   return (
     <div>
       {tasks.map(task => (

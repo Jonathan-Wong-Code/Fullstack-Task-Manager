@@ -1,12 +1,13 @@
-import React, { useContext, useReducer, createContext } from "react";
+import React, { useContext, useReducer, createContext, useEffect } from "react";
 import {
   EDIT_TASK,
   ADD_TASK,
   DELETE_TASK,
   SET_SAVED_TASKS,
-  CLEAR_TASKS
+  CLEAR_TASKS,
+  TASK_ERROR
 } from "./types";
-import axios from "axios";
+import { fetchAllTasks } from "./../async-helpers/tasks";
 
 const TaskStateContext = createContext();
 const TaskDispatchContext = createContext();
@@ -14,22 +15,25 @@ const TaskDispatchContext = createContext();
 const reducer = (state, action) => {
   switch (action.type) {
     case ADD_TASK:
+      console.log(action.task);
       return { ...state, tasks: [...state.tasks, action.task] };
     case EDIT_TASK:
       const editedTasks = state.tasks.map(task => {
-        if (task.id === action.task.id) {
+        if (task.id === action.task._id) {
           return action.task;
         }
         return task;
       });
       return { ...state, tasks: editedTasks };
     case DELETE_TASK:
-      const filteredTasks = state.tasks.filter(task => task.id !== action.id);
+      const filteredTasks = state.tasks.filter(task => task._id !== action.id);
       return { ...state, tasks: filteredTasks };
     case SET_SAVED_TASKS:
       return { ...state, tasks: action.tasks };
     case CLEAR_TASKS:
       return { ...state, tasks: [] };
+    case TASK_ERROR:
+      return { ...state, error: action.message };
     default:
       return state;
   }
@@ -41,7 +45,9 @@ export function TaskProvider({ children }) {
     loading: false,
     tasks: []
   });
-
+  useEffect(() => {
+    fetchAllTasks(taskDispatch);
+  }, [taskDispatch]);
   return (
     <TaskStateContext.Provider value={state}>
       <TaskDispatchContext.Provider value={taskDispatch}>
@@ -67,20 +73,4 @@ export function useTaskDispatch() {
     );
   }
   return context;
-}
-
-export async function fetchAllTasks(dispatch) {
-  try {
-    const response = await axios({
-      method: "GET",
-      withCredentials: true,
-      url: "http://localhost:3000/api/v1/tasks"
-    });
-    dispatch({
-      type: SET_SAVED_TASKS,
-      tasks: response.data.data.tasks
-    });
-  } catch (error) {
-    console.log(error.response.data.message);
-  }
 }

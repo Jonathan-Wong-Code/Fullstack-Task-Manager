@@ -1,10 +1,6 @@
 import React, { useReducer } from "react";
-import {
-  useAuthDispatch,
-  useAuthState,
-  signupUser
-} from "./../context/auth-context";
-
+import { useAuthDispatch, useAuthState } from "./../context/auth-context";
+import { signupUser } from "./../async-helpers/auth";
 const reducer = (state, newState) => {
   return { ...state, ...newState };
 };

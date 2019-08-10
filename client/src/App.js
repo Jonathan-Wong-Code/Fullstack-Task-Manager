@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
 import CreateTask from "./components/CreateTask";
@@ -16,7 +16,7 @@ import { LOGIN_SUCCESS } from "./context/types";
 const history = createBrowserHistory();
 
 function App() {
-  const dispatch = useAuthDispatch();
+  const authDispatch = useAuthDispatch();
   useEffect(() => {
     const checkLoggedIn = async () => {
       const response = await axios({
@@ -24,12 +24,14 @@ function App() {
         url: "http://localhost:3000/api/v1/users/checkLoggedIn",
         withCredentials: true
       });
-      if (response) {
-        dispatch({ type: LOGIN_SUCCESS, user: response.data.user });
+
+      if (response.data.user) {
+        authDispatch({ type: LOGIN_SUCCESS, user: response.data.user });
       }
     };
     checkLoggedIn();
-  }, [dispatch]);
+  }, [authDispatch]);
+
   return (
     <Router history={history}>
       <>

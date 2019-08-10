@@ -1,10 +1,7 @@
 import React, { useReducer } from "react";
-import {
-  useAuthDispatch,
-  useAuthState,
-  loginUser
-} from "../context/auth-context";
-
+import { loginUser } from "./../async-helpers/auth";
+import { useAuthDispatch, useAuthState } from "../context/auth-context";
+import { useTaskDispatch } from "./../context/task-context";
 const reducer = (state, newState) => {
   return { ...state, ...newState };
 };
@@ -20,7 +17,7 @@ function LoginPage() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    await loginUser(authDispatch, email, password);
+    await loginUser(authDispatch, email, password, useTaskDispatch);
   };
 
   return (
