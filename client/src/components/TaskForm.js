@@ -2,19 +2,22 @@ import React, { useReducer } from "react";
 import { withRouter } from "react-router-dom";
 
 import { useTaskDispatch, useTaskState } from "./../context/task-context";
-import { createTask } from "./../async-helpers/tasks";
+import { createTask, editTask } from "./../async-helpers/tasks";
 
 const reducer = (state, newState) => {
   return { ...state, ...newState };
 };
 
-function TaskForm({ type, history, editedTask = null }) {
-  const [{ title, description, completed }, setState] = useReducer(reducer, {
-    description: editedTask ? editedTask.description : "",
-    completed: editedTask ? editedTask.completed : false,
-    title: editedTask ? editedTask.title : "",
-    _id: editedTask ? editedTask._id : undefined
-  });
+function TaskForm({ type, history, editedTask }) {
+  const [{ title, description, completed, _id }, setState] = useReducer(
+    reducer,
+    {
+      description: editedTask ? editedTask.description : "",
+      completed: editedTask ? editedTask.completed : false,
+      title: editedTask ? editedTask.title : "",
+      _id: editedTask ? editedTask._id : undefined
+    }
+  );
 
   const taskDispatch = useTaskDispatch();
   const { error } = useTaskState();
@@ -24,12 +27,13 @@ function TaskForm({ type, history, editedTask = null }) {
     const task = {
       title,
       description,
-      completed
+      completed,
+      _id
     };
     if (type === "create") {
       createTask(task, taskDispatch);
     } else {
-      // call edit task
+      editTask(task, taskDispatch);
     }
   };
 

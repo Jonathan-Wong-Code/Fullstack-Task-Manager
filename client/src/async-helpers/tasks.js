@@ -3,7 +3,8 @@ import {
   SET_SAVED_TASKS,
   ADD_TASK,
   TASK_ERROR,
-  DELETE_TASK
+  DELETE_TASK,
+  EDIT_TASK
 } from "./../context/types";
 
 export async function fetchAllTasks(dispatch) {
@@ -53,6 +54,28 @@ export async function deleteTask(taskId, dispatch) {
     });
 
     dispatch({ type: DELETE_TASK, id: taskId });
+  } catch (error) {
+    dispatch({ type: TASK_ERROR, message: error.response.data.message });
+  }
+}
+
+export async function editTask(
+  { title, description, completed, _id },
+  dispatch
+) {
+  try {
+    const response = await axios({
+      method: "PATCH",
+      url: `http://localhost:3000/api/v1/tasks/${_id}`,
+      withCredentials: true,
+      data: {
+        title,
+        description,
+        completed
+      }
+    });
+
+    dispatch({ type: EDIT_TASK, task: response.data.data.task });
   } catch (error) {
     dispatch({ type: TASK_ERROR, message: error.response.data.message });
   }
