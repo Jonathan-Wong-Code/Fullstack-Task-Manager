@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import { Link } from "react-router-dom";
 import { loginUser } from "./../async-helpers/auth";
 import { useAuthDispatch, useAuthState } from "../context/auth-context";
 import { useTaskDispatch } from "./../context/task-context";
@@ -39,6 +40,7 @@ function LoginPage() {
         />
         <button type="submit">Login</button>
       </form>
+      <Link to="/forgotPassword">Forgot your password?</Link>
       {error && <p>{error}</p>}
     </div>
   );

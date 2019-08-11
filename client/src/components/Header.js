@@ -18,19 +18,26 @@ function Header() {
       <h1>TASK MANAGER APP!</h1>
       <nav>
         <ul>
-          <li>
-            <Link to="/">Login</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/create">Create</Link>
-          </li>
+          {user && (
+            <>
+              <li>
+                <Link to="/dashboard">Dashboard</Link>
+              </li>
+              <li>
+                <Link to="/create">Create</Link>
+              </li>
+            </>
+          )}
+
           {!user && (
-            <li>
-              <Link to="/signup">Signup</Link>
-            </li>
+            <>
+              <li>
+                <Link to="/signup">Signup</Link>
+              </li>
+              <li>
+                <Link to="/">Login</Link>
+              </li>
+            </>
           )}
           {user && (
             <li>
@@ -38,6 +45,14 @@ function Header() {
             </li>
           )}
         </ul>
+        <div>
+          {user && (
+            <>
+              <h3>{user.name}</h3>
+              <p>{user.email}</p>
+            </>
+          )}
+        </div>
       </nav>
     </div>
   );

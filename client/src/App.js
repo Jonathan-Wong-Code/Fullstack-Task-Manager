@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import axios from "axios";
 
 import { createBrowserHistory } from "history";
-import { Router, Route, Switch } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import CreateTask from "./components/CreateTask";
 import EditTask from "./components/EditTask";
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Header";
 import LoginPage from "./components/LoginPage";
 import Signup from "./components/Signup";
+import NotFoundPage from "./components/NotFoundPage";
 import { TaskProvider } from "./context/task-context";
 import { useAuthDispatch } from "./context/auth-context";
 import { LOGIN_SUCCESS } from "./context/types";
@@ -44,7 +45,8 @@ function App() {
             <PrivateRoute path="/dashboard" component={Dashboard} />
             <PrivateRoute path="/create" component={CreateTask} />
             <PrivateRoute path="/edit/:id" component={EditTask} />
-            <PrivateRoute path="/signup" component={Signup} />
+            <PublicRoute path="/signup" component={Signup} />
+            <Route component={NotFoundPage} />
           </Switch>
         </TaskProvider>
       </>

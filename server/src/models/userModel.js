@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const Task = require("./taskModel");
-
+const crypto = require("crypto");
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -56,7 +56,8 @@ const userSchema = new mongoose.Schema(
     },
 
     passwordChangedAt: Date,
-
+    passwordResetToken: String,
+    passwordResetExpiry: Date,
     active: {
       type: Boolean,
       required: true,
@@ -80,6 +81,25 @@ userSchema.post(/^findOneAnd/, async function(user) {
   }
 });
 
+userSchema.pre("save", async function(next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
+
+  this.password = await bcrypt.hash(this.password, 12);
+  this.confirmPassword = undefined;
+  next();
+});
+
+userSchema.pre("save", async function(next) {
+  if (!this.isModified("password") || this.isNew) {
+    return next();
+  }
+
+  this.passwordChangedAt = Date.now() - 1000;
+  next();
+});
+
 userSchema.methods.toJSON = function() {
   const returnedData = this.toObject();
   delete returnedData.password;
@@ -96,20 +116,22 @@ userSchema.methods.checkPassword = async function(
 
 userSchema.methods.checkPasswordChanged = function(JWTTimestamp) {
   if (this.passwordChangedAt) {
-    const changedTime = parseInt(this.passwordChangedAt.getTime() * 1000, 10);
+    const changedTime = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
     return JWTTimestamp < changedTime;
   }
 };
 
-userSchema.pre("save", async function(next) {
-  if (!this.isModified("password")) {
-    return next();
-  }
+userSchema.methods.createResetToken = function() {
+  const token = crypto.randomBytes(32).toString("hex");
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(token)
+    .digest("hex");
+  this.passwordResetToken = hashedToken;
+  this.passwordResetExpiry = Date.now() + 10 * 60 * 1000;
 
-  this.password = await bcrypt.hash(this.password, 12);
-  this.confirmPassword = undefined;
-  next();
-});
+  return token;
+};
 
 const User = mongoose.model("User", userSchema);
 
