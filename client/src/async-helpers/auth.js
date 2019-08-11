@@ -88,3 +88,34 @@ export async function sendResetToken(email, dispatch) {
     });
   }
 }
+
+export async function resetPassword(
+  dispatch,
+  password,
+  confirmPassword,
+  token
+) {
+  try {
+    const response = await axios({
+      method: "PATCH",
+      url: `http://localhost:3000/api/v1/users/resetPassword/${token}`,
+      withCredentials: true,
+      data: {
+        password,
+        confirmPassword
+      }
+    });
+
+    if (response.data.user) {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        user: response.data.user
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: AUTH_ERROR,
+      message: error.response.data.message
+    });
+  }
+}

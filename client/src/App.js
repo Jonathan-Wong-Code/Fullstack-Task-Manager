@@ -9,6 +9,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Header";
 import LoginPage from "./components/LoginPage";
+import ResetPassword from "./components/ResetPassword";
 import Signup from "./components/Signup";
 import NotFoundPage from "./components/NotFoundPage";
 import { TaskProvider } from "./context/task-context";
@@ -48,6 +49,10 @@ function App() {
             <PrivateRoute path="/edit/:id" component={EditTask} />
             <PublicRoute path="/signup" component={Signup} />
             <PublicRoute path="/forgotPassword" component={ForgotPassword} />
+            <PublicRoute
+              path="/resetPassword/:token"
+              component={ResetPassword}
+            />
             <Route component={NotFoundPage} />
           </Switch>
         </TaskProvider>
