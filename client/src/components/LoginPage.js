@@ -20,7 +20,6 @@ function LoginPage() {
     e.preventDefault();
     await loginUser(authDispatch, email, password, useTaskDispatch);
   };
-
   return (
     <div>
       <form action="" onSubmit={handleSubmit}>

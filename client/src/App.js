@@ -12,6 +12,8 @@ import LoginPage from "./components/LoginPage";
 import ResetPassword from "./components/ResetPassword";
 import Signup from "./components/Signup";
 import NotFoundPage from "./components/NotFoundPage";
+import UpdatePassword from "./components/UpdatePassword";
+
 import { TaskProvider } from "./context/task-context";
 import { useAuthDispatch } from "./context/auth-context";
 import { LOGIN_SUCCESS } from "./context/types";
@@ -22,6 +24,7 @@ const history = createBrowserHistory();
 
 function App() {
   const authDispatch = useAuthDispatch();
+
   useEffect(() => {
     const checkLoggedIn = async () => {
       const response = await axios({
@@ -47,7 +50,8 @@ function App() {
             <PrivateRoute path="/dashboard" component={Dashboard} />
             <PrivateRoute path="/create" component={CreateTask} />
             <PrivateRoute path="/edit/:id" component={EditTask} />
-            <PublicRoute path="/signup" component={Signup} />
+            <PrivateRoute path="/updatePassword" component={UpdatePassword} />
+            <PublicRoute exact path="/signup" component={Signup} />
             <PublicRoute path="/forgotPassword" component={ForgotPassword} />
             <PublicRoute
               path="/resetPassword/:token"

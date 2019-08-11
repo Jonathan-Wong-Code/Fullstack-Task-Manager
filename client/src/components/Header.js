@@ -40,9 +40,14 @@ function Header() {
             </>
           )}
           {user && (
-            <li>
-              <button onClick={handleLogoutClick}>Logout</button>
-            </li>
+            <>
+              <li>
+                <Link to="/updatePassword">Update Password</Link>
+              </li>
+              <li>
+                <button onClick={handleLogoutClick}>Logout</button>
+              </li>
+            </>
           )}
         </ul>
         <div>

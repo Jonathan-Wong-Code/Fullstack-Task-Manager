@@ -119,3 +119,33 @@ export async function resetPassword(
     });
   }
 }
+
+export async function updatePassword(
+  dispatch,
+
+  password,
+  updatedPassword,
+  confirmUpdatedPassword,
+  token
+) {
+  try {
+    const response = await axios({
+      method: "PATCH",
+      url: `http://localhost:3000/api/v1/users/updatePassword`,
+      withCredentials: true,
+      data: {
+        password,
+        updatedPassword,
+        confirmUpdatedPassword
+      }
+    });
+    if (response.status === 200) {
+      return "Password updated!";
+    }
+  } catch (error) {
+    dispatch({
+      type: AUTH_ERROR,
+      message: error.response.data.message
+    });
+  }
+}
