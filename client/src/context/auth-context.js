@@ -1,12 +1,5 @@
 import React, { useContext, useReducer, createContext } from "react";
-import {
-  LOGIN_SUCCESS,
-  LOGOUT,
-  LOGIN_FAIL,
-  LOGOUT_FAIL,
-  SIGNUP_SUCCESS,
-  SIGNUP_FAIL
-} from "./types";
+import { LOGIN_SUCCESS, LOGOUT, AUTH_ERROR, SIGNUP_SUCCESS } from "./types";
 
 const AuthStateContext = createContext();
 const AuthDispatchContext = createContext();
@@ -19,20 +12,17 @@ const reducer = (state, action) => {
       return {
         user: action.user
       };
-    case LOGOUT: {
+    case LOGOUT:
       return {
         user: null
       };
-    }
 
-    case LOGIN_FAIL:
-    case LOGOUT_FAIL:
-    case SIGNUP_FAIL: {
+    case AUTH_ERROR:
       return {
         ...state,
         error: action.message
       };
-    }
+
     default:
       return state;
   }

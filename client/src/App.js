@@ -5,6 +5,7 @@ import { createBrowserHistory } from "history";
 import { Router, Switch, Route } from "react-router-dom";
 import CreateTask from "./components/CreateTask";
 import EditTask from "./components/EditTask";
+import ForgotPassword from "./components/ForgotPassword";
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Header";
 import LoginPage from "./components/LoginPage";
@@ -46,6 +47,7 @@ function App() {
             <PrivateRoute path="/create" component={CreateTask} />
             <PrivateRoute path="/edit/:id" component={EditTask} />
             <PublicRoute path="/signup" component={Signup} />
+            <PublicRoute path="/forgotPassword" component={ForgotPassword} />
             <Route component={NotFoundPage} />
           </Switch>
         </TaskProvider>

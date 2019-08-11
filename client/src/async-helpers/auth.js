@@ -1,11 +1,9 @@
 import axios from "axios";
 import {
   LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  SIGNUP_FAIL,
+  AUTH_ERROR,
   SIGNUP_SUCCESS,
   LOGOUT,
-  LOGOUT_FAIL,
   CLEAR_TASKS
 } from "./../context/types";
 
@@ -28,7 +26,7 @@ export async function loginUser(dispatch, email, password) {
       });
     }
   } catch (error) {
-    dispatch({ type: LOGIN_FAIL, message: error.response.data.message });
+    dispatch({ type: AUTH_ERROR, message: error.response.data.message });
   }
 }
 
@@ -43,7 +41,7 @@ export async function logoutUser(authDispatch, taskDispatch) {
     authDispatch({ type: LOGOUT, user: null });
     taskDispatch({ type: CLEAR_TASKS });
   } catch (error) {
-    authDispatch({ type: LOGOUT_FAIL, message: error.response.data.message });
+    authDispatch({ type: AUTH_ERROR, message: error.response.data.message });
   }
 }
 
@@ -66,6 +64,27 @@ export async function signupUser(
     const user = response.data.user;
     dispatch({ type: SIGNUP_SUCCESS, user });
   } catch (error) {
-    dispatch({ type: SIGNUP_FAIL, message: error.response.data.message });
+    dispatch({ type: AUTH_ERROR, message: error.response.data.message });
+  }
+}
+
+export async function sendResetToken(email, dispatch) {
+  try {
+    const response = await axios({
+      method: "POST",
+      url: "http://localhost:3000/api/v1/users/forgotPassword",
+      data: {
+        email
+      }
+    });
+
+    if (response.status === 200) {
+      return "Password reset link sent!";
+    }
+  } catch (error) {
+    dispatch({
+      type: AUTH_ERROR,
+      message: error.response.data.message
+    });
   }
 }
