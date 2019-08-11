@@ -15,7 +15,7 @@ import NotFoundPage from "./components/NotFoundPage";
 import UpdatePassword from "./components/UpdatePassword";
 
 import { TaskProvider } from "./context/task-context";
-import { useAuthDispatch, useAuthState } from "./context/auth-context";
+import { useAuthDispatch } from "./context/auth-context";
 import { LOGIN_SUCCESS, AUTH_ERROR } from "./context/types";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
@@ -24,7 +24,6 @@ const history = createBrowserHistory();
 
 function App() {
   const authDispatch = useAuthDispatch();
-  const { error, user } = useAuthState();
   useEffect(() => {
     const checkLoggedIn = async () => {
       try {
@@ -44,7 +43,6 @@ function App() {
     checkLoggedIn();
   }, [authDispatch]);
 
-  if (!user && !error) return <div />;
   return (
     <Router history={history}>
       <>

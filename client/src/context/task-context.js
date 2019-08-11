@@ -18,7 +18,7 @@ const reducer = (state, action) => {
       return { ...state, tasks: [...state.tasks, action.task] };
     case EDIT_TASK:
       const editedTasks = state.tasks.map(task => {
-        if (task.id === action.task._id) {
+        if (task._id === action.task._id) {
           return action.task;
         }
         return task;

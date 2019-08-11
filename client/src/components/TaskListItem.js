@@ -1,20 +1,36 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTaskDispatch } from "./../context/task-context";
-import { deleteTask } from "./../async-helpers/tasks";
+import { useState } from "react";
+import { deleteTask, editTask } from "./../async-helpers/tasks";
 
 function TaskListItem({ task }) {
+  const [completed, setCompleted] = useState(task.completed);
   const taskDispatch = useTaskDispatch();
 
-  const updateUser = () => {};
+  const handleCheckChange = () => {
+    setCompleted(!completed);
+    editTask(
+      {
+        title: task.title,
+        description: task.description,
+        completed: !completed,
+        _id: task._id
+      },
+      taskDispatch
+    );
+  };
   return (
     <div>
       <h3>Title: {task.title}</h3>
       <p>Description: {task.description}</p>
+      <label htmlFor="completed">completed?</label>
       <input
         type="checkbox"
-        defaultChecked={task.completed}
-        onChange={updateUser()}
+        id="completed"
+        checked={completed}
+        value={completed}
+        onChange={handleCheckChange}
       />
       <Link to={`/edit/${task._id}`}>Edit Task</Link>
       <button onClick={() => deleteTask(task._id, taskDispatch)}>

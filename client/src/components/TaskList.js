@@ -7,11 +7,10 @@ import TaskListItem from "./TaskListItem";
 export default function TaskList() {
   const { tasks } = useTaskState();
   const taskDispatch = useTaskDispatch();
-
+  console.log(tasks);
   useEffect(() => {
     fetchAllTasks(taskDispatch);
   }, [taskDispatch]);
-  console.log(tasks);
   if (!tasks) return <div />;
   return (
     <div>

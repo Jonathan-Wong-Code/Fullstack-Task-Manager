@@ -14,7 +14,6 @@ export async function fetchAllTasks(dispatch) {
       withCredentials: true,
       url: "http://localhost:3000/api/v1/tasks"
     });
-    console.log(response);
     if (response.data.data.tasks) {
       dispatch({
         type: SET_SAVED_TASKS,
@@ -76,7 +75,7 @@ export async function editTask(
         completed
       }
     });
-
+    console.log(response.data.data.task);
     dispatch({ type: EDIT_TASK, task: response.data.data.task });
     return true;
   } catch (error) {
