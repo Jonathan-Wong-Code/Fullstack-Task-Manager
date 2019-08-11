@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useTaskState } from "./../context/task-context";
 import axios from "axios";
 
+// Fetches task on page load
 function useFetchTask(id) {
   const [fetchedTask, setFetchedTask] = useState();
   const { tasks } = useTaskState();

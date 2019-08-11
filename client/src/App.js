@@ -15,8 +15,8 @@ import NotFoundPage from "./components/NotFoundPage";
 import UpdatePassword from "./components/UpdatePassword";
 
 import { TaskProvider } from "./context/task-context";
-import { useAuthDispatch } from "./context/auth-context";
-import { LOGIN_SUCCESS } from "./context/types";
+import { useAuthDispatch, useAuthState } from "./context/auth-context";
+import { LOGIN_SUCCESS, AUTH_ERROR } from "./context/types";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
 
@@ -24,22 +24,27 @@ const history = createBrowserHistory();
 
 function App() {
   const authDispatch = useAuthDispatch();
-
+  const { error, user } = useAuthState();
   useEffect(() => {
     const checkLoggedIn = async () => {
-      const response = await axios({
-        method: "GET",
-        url: "http://localhost:3000/api/v1/users/checkLoggedIn",
-        withCredentials: true
-      });
+      try {
+        const response = await axios({
+          method: "GET",
+          url: "http://localhost:3000/api/v1/users/checkLoggedIn",
+          withCredentials: true
+        });
 
-      if (response.data.user) {
-        authDispatch({ type: LOGIN_SUCCESS, user: response.data.user });
+        if (response.data.user) {
+          authDispatch({ type: LOGIN_SUCCESS, user: response.data.user });
+        }
+      } catch (error) {
+        authDispatch({ type: AUTH_ERROR, error: error.response.data.message });
       }
     };
     checkLoggedIn();
   }, [authDispatch]);
 
+  if (!user && !error) return <div />;
   return (
     <Router history={history}>
       <>
