@@ -1,5 +1,6 @@
 const catchAsync = require("../utils/catchAsync");
 const APIError = require("../utils/apiError");
+const APIFeatures = require("../utils/APIFeatures");
 const Task = require("../models/taskModel");
 
 exports.createTask = catchAsync(async (req, res, next) => {
@@ -30,7 +31,13 @@ exports.getTask = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllTasks = catchAsync(async (req, res, next) => {
-  const tasks = await Task.find({ user: req.user._id });
+  const features = new APIFeatures(Task.find({ user: req.user._id }), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const tasks = await features.returnedQueryObj;
+  // const tasks = await Task.find({ user: req.user._id });
   res.status(200).json({
     status: "Success",
     data: {
