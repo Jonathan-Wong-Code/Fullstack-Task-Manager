@@ -7,12 +7,14 @@ import {
   EDIT_TASK
 } from "./../context/types";
 
-export async function fetchAllTasks(dispatch, limit, page) {
+export async function fetchAllTasks(dispatch, limit, page, completed) {
   try {
     const response = await axios({
       method: "GET",
       withCredentials: true,
-      url: `http://localhost:3000/api/v1/tasks?limit=${limit}&page=${page}`
+      url: `http://localhost:3000/api/v1/tasks?limit=${limit}&page=${page}
+      ${completed && `&completed=${completed}`}
+      `
     });
     if (response.data.data.tasks) {
       dispatch({
