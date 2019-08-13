@@ -21,7 +21,11 @@ function Header() {
           {user && (
             <>
               <li>
-                <Link to="/dashboard">Dashboard</Link>
+                <Link
+                  to={{ pathname: "/dashboard", search: "?page=1&perPage=8" }}
+                >
+                  Dashboard
+                </Link>
               </li>
               <li>
                 <Link to="/create">Create</Link>

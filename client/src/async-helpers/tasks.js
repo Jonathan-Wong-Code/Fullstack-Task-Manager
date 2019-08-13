@@ -75,7 +75,6 @@ export async function editTask(
         completed
       }
     });
-    console.log(response.data.data.task);
     dispatch({ type: EDIT_TASK, task: response.data.data.task });
     return true;
   } catch (error) {

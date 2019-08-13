@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-function Pagination({ page, tasks, perPage }) {
-  console.log("pagination page", page);
+function Pagination({ page, numTasks, perPage }) {
   return (
     <div>
       {page > 1 && (
@@ -14,7 +13,7 @@ function Pagination({ page, tasks, perPage }) {
           Prev
         </Link>
       )}
-      {page <= Math.ceil(tasks.length / perPage) && (
+      {page < Math.ceil(numTasks / perPage) && (
         <Link
           to={{
             pathname: "/dashboard",

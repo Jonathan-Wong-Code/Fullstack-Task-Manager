@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, createContext, useEffect } from "react";
+import React, { useContext, useReducer, createContext } from "react";
 import {
   EDIT_TASK,
   ADD_TASK,

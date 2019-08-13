@@ -15,8 +15,8 @@ import NotFoundPage from "./components/NotFoundPage";
 import UpdatePassword from "./components/UpdatePassword";
 
 import { TaskProvider } from "./context/task-context";
-import { useAuthDispatch, useAuthState } from "./context/auth-context";
-import { LOGIN_SUCCESS, AUTH_ERROR, LOGOUT } from "./context/types";
+import { useAuthDispatch } from "./context/auth-context";
+import { LOGIN_SUCCESS, LOGOUT } from "./context/types";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
 
