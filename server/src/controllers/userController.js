@@ -2,7 +2,6 @@ const catchAsync = require("../utils/catchAsync");
 const APIError = require("../utils/apiError");
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
-const { promisify } = require("util");
 
 const signToken = id =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -64,70 +63,6 @@ exports.logout = (req, res) => {
 
   res.status(200).json({ status: "Success" });
 };
-
-exports.protect = catchAsync(async (req, res, next) => {
-  let token;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
-  } else if (req.cookies.jwt) {
-    token = req.cookies.jwt;
-  }
-
-  if (!token) {
-    return next(
-      new APIError("Must be logged in access this. Please login", 401)
-    );
-  }
-
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-  const user = await User.findOne({ _id: decoded.id });
-  if (!user) {
-    return next(new APIError("No user found. Please login", 401));
-  }
-
-  const passwordChanged = user.checkPasswordChanged(decoded.iat);
-  if (passwordChanged) {
-    return next(
-      new APIError("User recently changed password. Please login again", 401)
-    );
-  }
-  req.user = user;
-  next();
-});
-
-exports.isLoggedIn = catchAsync(async (req, res, next) => {
-  let token;
-  if (req.cookies.jwt) {
-    token = req.cookies.jwt;
-  }
-
-  if (!token) {
-    return next(
-      new APIError("Must be logged in access this. Please login", 401)
-    );
-  }
-
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-
-  const user = await User.findById(decoded.id);
-  if (!user) {
-    return next(new APIError("No user found. Please login", 401));
-  }
-
-  const passwordChanged = user.checkPasswordChanged(decoded.iat);
-  if (passwordChanged) {
-    return next(
-      new APIError("User recently changed password. Please login again", 401)
-    );
-  }
-
-  req.user = user;
-
-  createSendToken(res, user, 200);
-});
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();

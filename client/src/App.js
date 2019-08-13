@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { createBrowserHistory } from "history";
@@ -15,14 +15,15 @@ import NotFoundPage from "./components/NotFoundPage";
 import UpdatePassword from "./components/UpdatePassword";
 
 import { TaskProvider } from "./context/task-context";
-import { useAuthDispatch } from "./context/auth-context";
-import { LOGIN_SUCCESS, AUTH_ERROR } from "./context/types";
+import { useAuthDispatch, useAuthState } from "./context/auth-context";
+import { LOGIN_SUCCESS, AUTH_ERROR, LOGOUT } from "./context/types";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
 
 const history = createBrowserHistory();
 
 function App() {
+  const [loading, setLoading] = useState(true);
   const authDispatch = useAuthDispatch();
   useEffect(() => {
     const checkLoggedIn = async () => {
@@ -35,14 +36,16 @@ function App() {
 
         if (response.data.user) {
           authDispatch({ type: LOGIN_SUCCESS, user: response.data.user });
+          setLoading(false);
         }
       } catch (error) {
-        authDispatch({ type: AUTH_ERROR, error: error.response.data.message });
+        authDispatch({ type: LOGOUT, error: error.response.data.message });
+        setLoading(false);
       }
     };
     checkLoggedIn();
   }, [authDispatch]);
-
+  if (loading) return <p>Loading...</p>;
   return (
     <Router history={history}>
       <>

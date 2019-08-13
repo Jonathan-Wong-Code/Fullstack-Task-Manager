@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const taskController = require("../controllers/taskController");
 const userController = require("../controllers/userController");
-
-router.use(userController.protect);
+const authController = require("../controllers/authController");
+router.use(authController.protect);
 
 router
   .route("/")

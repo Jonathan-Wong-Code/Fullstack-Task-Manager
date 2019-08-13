@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
-import { useTaskState, useTaskDispatch } from "./../context/task-context";
+import { useTaskDispatch } from "./../context/task-context";
 
 import { fetchAllTasks } from "./../async-helpers/tasks";
 import TaskListItem from "./TaskListItem";
 
-export default function TaskList() {
-  const { tasks } = useTaskState();
+export default function TaskList({ page, perPage, tasks }) {
   const taskDispatch = useTaskDispatch();
   console.log(tasks);
   useEffect(() => {
-    fetchAllTasks(taskDispatch);
-  }, [taskDispatch]);
+    fetchAllTasks(taskDispatch, perPage, page);
+  }, [taskDispatch, page, perPage]);
+
   if (!tasks) return <div />;
   return (
     <div>

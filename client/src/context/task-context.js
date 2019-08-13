@@ -7,7 +7,6 @@ import {
   CLEAR_TASKS,
   TASK_ERROR
 } from "./types";
-import { fetchAllTasks } from "./../async-helpers/tasks";
 
 const TaskStateContext = createContext();
 const TaskDispatchContext = createContext();
@@ -44,9 +43,7 @@ export function TaskProvider({ children }) {
     loading: false,
     tasks: []
   });
-  useEffect(() => {
-    fetchAllTasks(taskDispatch);
-  }, [taskDispatch]);
+
   return (
     <TaskStateContext.Provider value={state}>
       <TaskDispatchContext.Provider value={taskDispatch}>
