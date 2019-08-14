@@ -19,7 +19,7 @@ export default function Dashboard({
   const page = params.get("page") || 1;
   const perPage = params.get("perPage") || 5;
   const completed = params.get("completed") || undefined;
-  const numTasks = useGetNumTasks();
+  const numTasks = useGetNumTasks(completed);
 
   const [completedQueryStr, setCompletedQueryStr] = useState("");
 
@@ -32,8 +32,7 @@ export default function Dashboard({
       setCompletedQueryStr(`&completed=${completed}`);
     }
   }, [completed]);
-
-  console.log(completedQueryStr);
+  console.log(numTasks);
   return (
     <section>
       <h2>Task List!</h2>

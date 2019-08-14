@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function useGetNumTasks() {
+function useGetNumTasks(completed) {
   const [numTasks, setNumTasks] = useState();
-
   useEffect(() => {
     const fetchNumTasks = async () => {
       const response = await axios.get(
@@ -12,10 +11,20 @@ function useGetNumTasks() {
           withCredentials: true
         }
       );
-      setNumTasks(response.data.data.numTasks);
+      const { complete, incomplete } = response.data.data;
+      switch (completed) {
+        case "true":
+          setNumTasks(complete);
+          break;
+        case "false":
+          setNumTasks(incomplete);
+          break;
+        default:
+          setNumTasks(complete + incomplete);
+      }
     };
     fetchNumTasks();
-  }, []);
+  }, [completed]);
 
   return numTasks;
 }
