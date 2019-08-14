@@ -10,7 +10,7 @@ function Pagination({
   completedSortStr
 }) {
   const numTasks = useGetNumTasks(completed);
-
+  console.log(numTasks);
   return (
     <div>
       {page > 1 && (

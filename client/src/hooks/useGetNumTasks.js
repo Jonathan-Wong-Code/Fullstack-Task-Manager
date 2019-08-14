@@ -5,22 +5,27 @@ function useGetNumTasks(completed) {
   const [numTasks, setNumTasks] = useState();
   useEffect(() => {
     const fetchNumTasks = async () => {
-      const response = await axios.get(
-        "http://localhost:3000/api/v1/tasks/numTasks",
-        {
+      try {
+        const response = await axios({
+          method: "GET",
+          url: "http://localhost:3000/api/v1/tasks/numTasks",
           withCredentials: true
+        });
+
+        const { complete, incomplete } = response.data.data;
+        console.log(complete, incomplete);
+        switch (completed) {
+          case "true":
+            setNumTasks(complete);
+            break;
+          case "false":
+            setNumTasks(incomplete);
+            break;
+          default:
+            setNumTasks(complete + incomplete);
         }
-      );
-      const { complete, incomplete } = response.data.data;
-      switch (completed) {
-        case "true":
-          setNumTasks(complete);
-          break;
-        case "false":
-          setNumTasks(incomplete);
-          break;
-        default:
-          setNumTasks(complete + incomplete);
+      } catch (error) {
+        console.log(error.response.data.message);
       }
     };
     fetchNumTasks();

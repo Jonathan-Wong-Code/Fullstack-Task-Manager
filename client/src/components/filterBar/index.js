@@ -75,7 +75,7 @@ function FilterBar({
       return `&sort=${sort}`;
     }
   };
-  console.log(sortBy);
+
   return (
     <form action="">
       <label htmlFor="perPage">Number of results</label>

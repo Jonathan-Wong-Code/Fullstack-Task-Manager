@@ -18,7 +18,8 @@ import NotFoundPage from "./components/notFoundPage";
 import UpdatePassword from "./components/updatePassword";
 
 import { TaskProvider } from "./context/task-context";
-import { useAuthDispatch } from "./context/auth-context";
+import { UserProvider } from "./context/user-context";
+import { useAuthDispatch, useAuthState } from "./context/auth-context";
 import { LOGIN_SUCCESS, LOGOUT } from "./context/types";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
@@ -53,13 +54,14 @@ function App() {
   return (
     <Router history={history}>
       <>
+        {/* <UserProvider> */}
         <TaskProvider>
           <Header />
           <Switch>
             <PublicRoute exact path="/" component={LoginPage} />
             <PrivateRoute path="/dashboard" component={Dashboard} />
             <PrivateRoute path="/create" component={CreateTask} />
-            <PrivateRoute path="/edit/:id" component={EditTask} />{" "}
+            <PrivateRoute path="/edit/:id" component={EditTask} />
             <PrivateRoute path="/editMe" component={EditUser} />
             <PrivateRoute path="/updatePassword" component={UpdatePassword} />
             <PrivateRoute path="/myAccount" component={AccountPage} />
@@ -72,6 +74,7 @@ function App() {
             <Route component={NotFoundPage} />
           </Switch>
         </TaskProvider>
+        {/* </UserProvider> */}
       </>
     </Router>
   );
