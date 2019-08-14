@@ -147,3 +147,21 @@ export async function updatePassword(
     });
   }
 }
+
+export async function updateUser(dispatch, { name, email }) {
+  try {
+    const response = await axios({
+      method: "PATCH",
+      url: "http://localhost:3000/api/v1/users/updateMe",
+      withCredentials: true,
+      data: {
+        name,
+        email
+      }
+    });
+
+    return "Updated your details";
+  } catch (error) {
+    return error.response.data.message;
+  }
+}
