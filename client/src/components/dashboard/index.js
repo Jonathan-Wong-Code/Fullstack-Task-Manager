@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import TaskList from "./TaskList";
-import Pagination from "./Pagination";
-import { useTaskState, useTaskDispatch } from "./../context/task-context";
-import FilterBar from "./FilterBar";
-import { fetchAllTasks } from "./../async-helpers/tasks";
+import React, { useEffect, useReducer } from "react";
+import TaskList from "../taskList";
+import Pagination from "../pagination";
+import { useTaskState, useTaskDispatch } from "../../context/task-context";
+import FilterBar from "../filterBar";
+import { fetchAllTasks } from "../../async-helpers/tasks";
+import reducer from "./../../reducers/stateReducer";
 
 export default function Dashboard({
   history,
@@ -20,8 +21,15 @@ export default function Dashboard({
   const completed = params.get("completed") || undefined;
   const sort = params.get("sort") || undefined;
 
-  const [completedQueryStr, setCompletedQueryStr] = useState("");
-  const [completedSortStr, setCompletedSortStr] = useState("");
+  const [{ completedQueryStr, completedSortStr }, setState] = useReducer(
+    reducer,
+    {
+      completedQueryStr: "",
+      completedSortStr: ""
+    }
+  );
+  // const [completedQueryStr, setCompletedQueryStr] = useState("");
+  // const [completedSortStr, setCompletedSortStr] = useState("");
 
   useEffect(() => {
     fetchAllTasks(taskDispatch, perPage, page, completed, sort);
@@ -29,10 +37,14 @@ export default function Dashboard({
 
   useEffect(() => {
     if (completed) {
-      setCompletedQueryStr(`&completed=${completed}`);
+      // setCompletedQueryStr(`&completed=${completed}`);
+      setState({ completedQueryStr: `&completed=${completed}` });
     }
     if (sort) {
-      setCompletedSortStr(`&sort=${sort}`);
+      // setCompletedSortStr(`&sort=${sort}`);
+      setState({
+        completedSortStr: `&sort=${sort}`
+      });
     }
   }, [completed, sort]);
 
@@ -47,6 +59,7 @@ export default function Dashboard({
         completed={completed}
         sort={sort}
         completedQueryStr={completedQueryStr}
+        completedSortStr={completedSortStr}
       />
       <TaskList tasks={tasks} />
       <Pagination
@@ -54,6 +67,7 @@ export default function Dashboard({
         perPage={perPage}
         completed={completed}
         completedQueryStr={completedQueryStr}
+        completedSortStr={completedSortStr}
       />
     </section>
   );

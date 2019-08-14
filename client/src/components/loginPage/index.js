@@ -1,11 +1,9 @@
 import React, { useReducer } from "react";
 import { Link } from "react-router-dom";
-import { loginUser } from "./../async-helpers/auth";
-import { useAuthDispatch, useAuthState } from "../context/auth-context";
-import { useTaskDispatch } from "./../context/task-context";
-const reducer = (state, newState) => {
-  return { ...state, ...newState };
-};
+import { loginUser } from "../../async-helpers/auth";
+import { useAuthDispatch, useAuthState } from "../../context/auth-context";
+import { useTaskDispatch } from "../../context/task-context";
+import reducer from "../../reducers/stateReducer";
 
 function LoginPage() {
   const [{ email, password }, setState] = useReducer(reducer, {
@@ -20,6 +18,7 @@ function LoginPage() {
     e.preventDefault();
     await loginUser(authDispatch, email, password, useTaskDispatch);
   };
+
   return (
     <div>
       <form action="" onSubmit={handleSubmit}>

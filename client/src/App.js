@@ -3,16 +3,16 @@ import axios from "axios";
 
 import { createBrowserHistory } from "history";
 import { Router, Switch, Route } from "react-router-dom";
-import CreateTask from "./components/CreateTask";
-import EditTask from "./components/EditTask";
-import ForgotPassword from "./components/ForgotPassword";
-import Dashboard from "./components/Dashboard";
-import Header from "./components/Header";
-import LoginPage from "./components/LoginPage";
-import ResetPassword from "./components/ResetPassword";
-import Signup from "./components/Signup";
-import NotFoundPage from "./components/NotFoundPage";
-import UpdatePassword from "./components/UpdatePassword";
+import CreateTask from "./components/createTask";
+import EditTask from "./components/editTask";
+import ForgotPassword from "./components/forgotPassword";
+import Dashboard from "./components/dashboard";
+import Header from "./components/header";
+import LoginPage from "./components/loginPage";
+import ResetPassword from "./components/resetPassword";
+import Signup from "./components/signup";
+import NotFoundPage from "./components/notFoundPage";
+import UpdatePassword from "./components/updatePassword";
 
 import { TaskProvider } from "./context/task-context";
 import { useAuthDispatch } from "./context/auth-context";

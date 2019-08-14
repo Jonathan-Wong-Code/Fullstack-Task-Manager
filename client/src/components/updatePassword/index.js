@@ -1,10 +1,7 @@
 import React, { useReducer } from "react";
-import { useAuthState, useAuthDispatch } from "./../context/auth-context";
-import { updatePassword } from "./../async-helpers/auth";
-
-const reducer = (state, newState) => {
-  return { ...state, ...newState };
-};
+import { useAuthState, useAuthDispatch } from "../../context/auth-context";
+import { updatePassword } from "../../async-helpers/auth";
+import reducer from "../../reducers/stateReducer";
 
 function UpdatePassword() {
   const [

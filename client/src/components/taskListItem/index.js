@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useTaskDispatch } from "./../context/task-context";
+import { useTaskDispatch } from "../../context/task-context";
 import { useState } from "react";
-import { deleteTask, editTask } from "./../async-helpers/tasks";
+import { deleteTask, editTask } from "../../async-helpers/tasks";
 
 function TaskListItem({ task }) {
   const [completed, setCompleted] = useState(task.completed);

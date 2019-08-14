@@ -1,9 +1,7 @@
 import React, { useReducer } from "react";
-import { useAuthDispatch, useAuthState } from "./../context/auth-context";
-import { signupUser } from "./../async-helpers/auth";
-const reducer = (state, newState) => {
-  return { ...state, ...newState };
-};
+import { useAuthDispatch, useAuthState } from "../../context/auth-context";
+import { signupUser } from "../../async-helpers/auth";
+import reducer from "../../reducers/stateReducer";
 
 function Signup() {
   const dispatch = useAuthDispatch();

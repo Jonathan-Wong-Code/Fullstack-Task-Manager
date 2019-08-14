@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
+import reducer from "../../reducers/stateReducer";
 
 function FilterBar({
   perPage,
@@ -6,42 +7,49 @@ function FilterBar({
   history,
   completed,
   completedQueryStr,
-  sort
+  sort,
+  completedSortStr
 }) {
-  const [completedValue, setCompletedValue] = useState("All");
-  const [sortBy, setSortBy] = useState("new");
+  const [{ completedValue, sortBy }, setState] = useReducer(reducer, {
+    completedValue: "",
+    sortBy: "-createdAt"
+  });
+  // const [completedValue, setCompletedValue] = useState("-createdAt");
+  // const [sortBy, setSortBy] = useState("new");
 
   useEffect(() => {
     if (completed) {
       // setCompletedValue(setCompletedString(completed));
-      setCompletedValue(completed);
+      // setCompletedValue(completed);
+      setState({ completedValue: completed });
     }
     if (sort) {
-      setSortBy(sort);
+      // setSortBy(sort);
+      setState({ sortBy: sort });
     }
   }, [completed, sort]);
 
-  const setCompletedBoolean = completed => {
-    switch (completed) {
-      case "completed":
-        return "true";
-      case "incomplete":
-        return "false";
-      default:
-        return "";
-    }
-  };
+  // const setCompletedBoolean = completed => {
+  //   switch (completed) {
+  //     case "completed":
+  //       return "true";
+  //     case "incomplete":
+  //       return "false";
+  //     default:
+  //       return "";
+  //   }
+  // };
 
-  const setCompletedString = completed => {
-    switch (completed) {
-      case "true":
-        return "completed";
-      case "false":
-        return "incomplete";
-      default:
-        return "All";
-    }
-  };
+  // const setCompletedString = completed => {
+  //   switch (completed) {
+  //     case "true":
+  //       return "completed";
+  //     case "false":
+  //       return "incomplete";
+  //     default:
+  //       return "All";
+  //   }
+  // };
 
   // const setSortString = sortBy => {
   //   switch (completed) {
@@ -79,7 +87,7 @@ function FilterBar({
           history.push(
             `/dashboard?page=${page}&perPage=${
               e.target.value
-            }${completedQueryStr}`
+            }${completedQueryStr}${completedSortStr}`
           );
         }}
       >
@@ -97,7 +105,7 @@ function FilterBar({
           history.push(
             `/dashboard?page=${page}&perPage=${perPage}${setCompletedQuery(
               e.target.value
-            )}`
+            )}${completedSortStr}`
           );
         }}
       >

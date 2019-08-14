@@ -1,6 +1,6 @@
 import React from "react";
 
-import TaskListItem from "./TaskListItem";
+import TaskListItem from "../taskListItem";
 
 export default function TaskList({ tasks }) {
   console.log(tasks);

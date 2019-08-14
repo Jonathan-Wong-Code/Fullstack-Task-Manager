@@ -1,12 +1,9 @@
 import React, { useReducer } from "react";
 import { withRouter } from "react-router-dom";
 
-import { useTaskDispatch, useTaskState } from "./../context/task-context";
-import { createTask, editTask } from "./../async-helpers/tasks";
-
-const reducer = (state, newState) => {
-  return { ...state, ...newState };
-};
+import { useTaskDispatch, useTaskState } from "../../context/task-context";
+import { createTask, editTask } from "../../async-helpers/tasks";
+import reducer from "../../reducers/stateReducer";
 
 function TaskForm({ type, history, editedTask }) {
   const [{ title, description, completed, _id }, setState] = useReducer(

@@ -1,8 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import useGetNumTasks from "./../hooks/useGetNumTasks";
+import useGetNumTasks from "../../hooks/useGetNumTasks";
 
-function Pagination({ page, perPage, completedQueryStr, completed }) {
+function Pagination({
+  page,
+  perPage,
+  completedQueryStr,
+  completed,
+  completedSortStr
+}) {
   const numTasks = useGetNumTasks(completed);
 
   return (
@@ -12,7 +18,7 @@ function Pagination({ page, perPage, completedQueryStr, completed }) {
           to={{
             pathname: "/dashboard",
             search: `?page=${page * 1 -
-              1}&perPage=${perPage}${completedQueryStr}`
+              1}&perPage=${perPage}${completedQueryStr}${completedSortStr}`
           }}
         >
           Prev
@@ -23,7 +29,7 @@ function Pagination({ page, perPage, completedQueryStr, completed }) {
           to={{
             pathname: "/dashboard",
             search: `?page=${page * 1 +
-              1}&perPage=${perPage}${completedQueryStr}`
+              1}&perPage=${perPage}${completedQueryStr}${completedSortStr}`
           }}
         >
           Next

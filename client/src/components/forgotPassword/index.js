@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useAuthState, useAuthDispatch } from "./../context/auth-context";
-import { sendResetToken } from "./../async-helpers/auth";
+import { useAuthState, useAuthDispatch } from "../../context/auth-context";
+import { sendResetToken } from "../../async-helpers/auth";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");

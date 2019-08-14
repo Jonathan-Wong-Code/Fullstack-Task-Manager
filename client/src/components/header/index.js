@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { logoutUser } from "./../async-helpers/auth";
-import { useAuthState, useAuthDispatch } from "../context/auth-context";
-import { useTaskDispatch } from "./../context/task-context";
+import { logoutUser } from "../../async-helpers/auth";
+import { useAuthState, useAuthDispatch } from "../../context/auth-context";
+import { useTaskDispatch } from "../../context/task-context";
 
 function Header() {
   const { user } = useAuthState();
@@ -22,7 +22,7 @@ function Header() {
             <>
               <li>
                 <Link
-                  to={{ pathname: "/dashboard", search: "?page=1&perPage=8" }}
+                  to={{ pathname: "/dashboard", search: "?page=1&perPage=5" }}
                 >
                   Dashboard
                 </Link>
