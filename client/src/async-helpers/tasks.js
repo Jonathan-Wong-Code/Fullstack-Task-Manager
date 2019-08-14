@@ -7,10 +7,17 @@ import {
   EDIT_TASK
 } from "./../context/types";
 
-export async function fetchAllTasks(dispatch, limit, page, completed) {
+export async function fetchAllTasks(dispatch, limit, page, completed, sort) {
   const setCompletedQuery = completed => {
     if (completed) {
       return `&completed=${completed}`;
+    }
+    return "";
+  };
+
+  const setSortQuery = sort => {
+    if (sort) {
+      return `&sort=${sort}`;
     }
     return "";
   };
@@ -20,7 +27,7 @@ export async function fetchAllTasks(dispatch, limit, page, completed) {
       method: "GET",
       withCredentials: true,
       url: `http://localhost:3000/api/v1/tasks?limit=${limit}&page=${page}
-      ${setCompletedQuery(completed)}`
+      ${setCompletedQuery(completed)}${setSortQuery(sort)}`
     });
     if (response.data.data.tasks) {
       dispatch({

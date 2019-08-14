@@ -18,18 +18,24 @@ export default function Dashboard({
   const page = params.get("page") || 1;
   const perPage = params.get("perPage") || 5;
   const completed = params.get("completed") || undefined;
+  const sort = params.get("sort") || undefined;
 
   const [completedQueryStr, setCompletedQueryStr] = useState("");
+  const [completedSortStr, setCompletedSortStr] = useState("");
 
   useEffect(() => {
-    fetchAllTasks(taskDispatch, perPage, page, completed);
-  }, [page, perPage, taskDispatch, completed]);
+    fetchAllTasks(taskDispatch, perPage, page, completed, sort);
+  }, [page, perPage, taskDispatch, completed, sort]);
 
   useEffect(() => {
     if (completed) {
       setCompletedQueryStr(`&completed=${completed}`);
     }
-  }, [completed]);
+    if (sort) {
+      setCompletedSortStr(`&sort=${sort}`);
+    }
+  }, [completed, sort]);
+
   return (
     <section>
       <h2>Task List!</h2>
@@ -39,6 +45,7 @@ export default function Dashboard({
         page={page}
         history={history}
         completed={completed}
+        sort={sort}
         completedQueryStr={completedQueryStr}
       />
       <TaskList tasks={tasks} />

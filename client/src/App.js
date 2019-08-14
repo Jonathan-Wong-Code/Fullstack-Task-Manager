@@ -45,6 +45,7 @@ function App() {
     };
     checkLoggedIn();
   }, [authDispatch]);
+
   if (loading) return <p>Loading...</p>;
   return (
     <Router history={history}>
