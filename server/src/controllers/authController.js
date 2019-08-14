@@ -5,7 +5,6 @@ const APIError = require("../utils/apiError");
 const sendMail = require("./../utils/email");
 const User = require("./../models/userModel");
 const { promisify } = require("util");
-
 const signToken = id =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN
@@ -29,30 +28,6 @@ const createSendToken = (res, user, statusCode) => {
       email: user.email
     }
   });
-};
-
-exports.login = catchAsync(async (req, res, next) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
-  if (!user) {
-    return next(new APIError("Invalid email/password try again.", 400));
-  }
-
-  const isMatch = await user.checkPassword(password, user.password);
-  if (!isMatch) {
-    return next(new APIError("Invalid email/password try again.", 400));
-  }
-
-  createSendToken(res, user, 200);
-});
-
-exports.logout = (req, res) => {
-  res.cookie("jwt", "loggedout", {
-    expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: true
-  });
-
-  res.status(200).json({ status: "Success" });
 };
 
 exports.protect = catchAsync(async (req, res, next) => {

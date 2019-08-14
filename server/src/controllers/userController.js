@@ -40,6 +40,30 @@ exports.signup = catchAsync(async (req, res, next) => {
   createSendToken(res, user, 201);
 });
 
+exports.login = catchAsync(async (req, res, next) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    return next(new APIError("Invalid email/password try again.", 400));
+  }
+
+  const isMatch = await user.checkPassword(password, user.password);
+  if (!isMatch) {
+    return next(new APIError("Invalid email/password try again.", 400));
+  }
+
+  createSendToken(res, user, 200);
+});
+
+exports.logout = (req, res) => {
+  res.cookie("jwt", "loggedout", {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true
+  });
+
+  res.status(200).json({ status: "Success" });
+};
+
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();
 
