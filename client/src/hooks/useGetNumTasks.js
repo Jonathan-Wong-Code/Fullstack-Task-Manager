@@ -16,6 +16,7 @@ function useGetNumTasks() {
     };
     fetchNumTasks();
   }, []);
+
   return numTasks;
 }
 
