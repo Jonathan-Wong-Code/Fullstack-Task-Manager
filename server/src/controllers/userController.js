@@ -1,68 +1,6 @@
 const catchAsync = require("../utils/catchAsync");
 const APIError = require("../utils/apiError");
 const User = require("../models/userModel");
-const jwt = require("jsonwebtoken");
-
-const signToken = id =>
-  jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN
-  });
-
-const createSendToken = (res, user, statusCode) => {
-  const token = signToken(user._id);
-  const cookieOptions = {
-    httpOnly: true,
-    expiry: new Date(Date.now() + 24 * 60 * 60 * 1000)
-  };
-  if (process.env.NODE_ENV.trim() === "production") cookieOptions.secure = true;
-
-  res.cookie("jwt", token, cookieOptions);
-
-  res.status(statusCode).json({
-    status: "Success",
-    token,
-    user: {
-      name: user.name,
-      email: user.email
-    }
-  });
-};
-
-exports.signup = catchAsync(async (req, res, next) => {
-  const { name, email, password, confirmPassword } = req.body;
-  const user = await User.create({
-    name,
-    email,
-    password,
-    confirmPassword
-  });
-
-  createSendToken(res, user, 201);
-});
-
-exports.login = catchAsync(async (req, res, next) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
-  if (!user) {
-    return next(new APIError("Invalid email/password try again.", 400));
-  }
-
-  const isMatch = await user.checkPassword(password, user.password);
-  if (!isMatch) {
-    return next(new APIError("Invalid email/password try again.", 400));
-  }
-
-  createSendToken(res, user, 200);
-});
-
-exports.logout = (req, res) => {
-  res.cookie("jwt", "loggedout", {
-    expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: true
-  });
-
-  res.status(200).json({ status: "Success" });
-};
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();
@@ -113,12 +51,3 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
     data: null
   });
 });
-
-exports.restrictTo = (...roles) => {
-  return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      return next(new APIError("You don't have permission to do that", 403));
-    }
-    next();
-  };
-};

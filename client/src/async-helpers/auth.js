@@ -122,11 +122,9 @@ export async function resetPassword(
 
 export async function updatePassword(
   dispatch,
-
   password,
   updatedPassword,
-  confirmUpdatedPassword,
-  token
+  confirmUpdatedPassword
 ) {
   try {
     const response = await axios({

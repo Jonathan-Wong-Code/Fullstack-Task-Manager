@@ -4,7 +4,6 @@ import Pagination from "./Pagination";
 import { useTaskState, useTaskDispatch } from "./../context/task-context";
 import FilterBar from "./FilterBar";
 import { fetchAllTasks } from "./../async-helpers/tasks";
-import useGetNumTasks from "./../hooks/useGetNumTasks";
 
 export default function Dashboard({
   history,
@@ -19,7 +18,6 @@ export default function Dashboard({
   const page = params.get("page") || 1;
   const perPage = params.get("perPage") || 5;
   const completed = params.get("completed") || undefined;
-  const numTasks = useGetNumTasks(completed);
 
   const [completedQueryStr, setCompletedQueryStr] = useState("");
 
@@ -32,7 +30,6 @@ export default function Dashboard({
       setCompletedQueryStr(`&completed=${completed}`);
     }
   }, [completed]);
-  console.log(numTasks);
   return (
     <section>
       <h2>Task List!</h2>
@@ -48,7 +45,7 @@ export default function Dashboard({
       <Pagination
         page={page}
         perPage={perPage}
-        numTasks={numTasks}
+        completed={completed}
         completedQueryStr={completedQueryStr}
       />
     </section>

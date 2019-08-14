@@ -29,7 +29,41 @@ const createSendToken = (res, user, statusCode) => {
     }
   });
 };
+exports.signup = catchAsync(async (req, res, next) => {
+  const { name, email, password, confirmPassword } = req.body;
+  const user = await User.create({
+    name,
+    email,
+    password,
+    confirmPassword
+  });
 
+  createSendToken(res, user, 201);
+});
+
+exports.login = catchAsync(async (req, res, next) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    return next(new APIError("Invalid email/password try again.", 400));
+  }
+
+  const isMatch = await user.checkPassword(password, user.password);
+  if (!isMatch) {
+    return next(new APIError("Invalid email/password try again.", 400));
+  }
+
+  createSendToken(res, user, 200);
+});
+
+exports.logout = (req, res) => {
+  res.cookie("jwt", "loggedout", {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true
+  });
+
+  res.status(200).json({ status: "Success" });
+};
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
   if (
@@ -157,3 +191,12 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 
   createSendToken(res, req.user, 200);
 });
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(new APIError("You don't have permission to do that", 403));
+    }
+    next();
+  };
+};
