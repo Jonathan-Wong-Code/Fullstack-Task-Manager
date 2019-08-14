@@ -37,6 +37,7 @@ function FilterBar({ perPage, page, history, completed, completedQueryStr }) {
     }
     return "";
   };
+
   return (
     <form action="">
       <label htmlFor="perPage">Number of results</label>

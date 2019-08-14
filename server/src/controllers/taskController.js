@@ -95,5 +95,4 @@ exports.getNumTasks = catchAsync(async (req, res, next) => {
       numTasks: stats[0].numTasks
     }
   });
-  console.log(stats);
 });
