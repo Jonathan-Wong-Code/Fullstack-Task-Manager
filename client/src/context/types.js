@@ -9,3 +9,4 @@ export const SET_SAVED_TASKS = "SET_SAVED_TASKS";
 export const CLEAR_TASKS = "CLEAR_TASKS";
 export const TASK_ERROR = "TASK_ERROR";
 export const AUTH_ERROR = "AUTH_ERROR";
+export const UPDATE_USER = "UPDATE_USER";

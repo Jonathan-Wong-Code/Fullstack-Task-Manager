@@ -1,15 +1,13 @@
 import React, { useEffect, useReducer } from "react";
-import { Redirect } from "react-router-dom";
 
 import TaskList from "../taskList";
 import Pagination from "../pagination";
-import useGetNumTasks from "../../hooks/useGetNumTasks";
-
-import { useTaskState, useTaskDispatch } from "../../context/task-context";
 import FilterBar from "../filterBar";
+
+import useGetNumTasks from "../../hooks/useGetNumTasks";
+import { useTaskState, useTaskDispatch } from "../../context/task-context";
 import { fetchAllTasks } from "../../async-helpers/tasks";
 import reducer from "./../../reducers/stateReducer";
-// if page > Math.ceil redirect to page - 1
 
 export default function Dashboard({
   history,

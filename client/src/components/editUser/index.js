@@ -1,11 +1,12 @@
 import React, { useReducer } from "react";
-import { useAuthDispatch, useAuthState } from "../../context/auth-context";
-import { updateUser } from "../../async-helpers/auth";
+import { useAuthState } from "../../context/auth-context";
+import { useUserDispatch } from "../../context/user-context";
+import { updateUser } from "../../async-helpers/users";
 import reducer from "../../reducers/stateReducer";
 
 function EditUser() {
   const { user } = useAuthState();
-  const authDispatch = useAuthDispatch();
+  const userDispatch = useUserDispatch();
 
   const [{ name, email, message }, setState] = useReducer(reducer, {
     name: user.name,
@@ -16,7 +17,7 @@ function EditUser() {
   const handleSubmit = async e => {
     e.preventDefault();
     const user = { name, email };
-    const message = await updateUser(authDispatch, user);
+    const message = await updateUser(userDispatch, user);
     setState({ message, name: "", email: "" });
   };
 

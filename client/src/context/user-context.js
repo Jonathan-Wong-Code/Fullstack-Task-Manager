@@ -1,10 +1,12 @@
 import React, { useContext, useReducer, createContext } from "react";
-
+import { UPDATE_USER } from "../context/types";
 const UserStateContext = createContext();
 const UserDispatchContext = createContext();
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case UPDATE_USER:
+      return { ...state, user: action.user };
     default:
       return state;
   }
