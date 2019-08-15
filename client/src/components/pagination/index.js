@@ -6,6 +6,7 @@ function Pagination({
   perPage,
   completedQueryStr,
   completedSortStr,
+  completedSearchStr,
   numTasks
 }) {
   return (
@@ -15,7 +16,7 @@ function Pagination({
           to={{
             pathname: "/dashboard",
             search: `?page=${page * 1 -
-              1}&perPage=${perPage}${completedQueryStr}${completedSortStr}`
+              1}&perPage=${perPage}${completedQueryStr}${completedSortStr}${completedSearchStr}`
           }}
         >
           Prev
@@ -26,7 +27,7 @@ function Pagination({
           to={{
             pathname: "/dashboard",
             search: `?page=${page * 1 +
-              1}&perPage=${perPage}${completedQueryStr}${completedSortStr}`
+              1}&perPage=${perPage}${completedQueryStr}${completedSortStr}${completedSearchStr}`
           }}
         >
           Next

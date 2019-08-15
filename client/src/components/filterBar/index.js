@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import reducer from "../../reducers/stateReducer";
 
 function FilterBar({
@@ -9,21 +9,23 @@ function FilterBar({
   completedQueryStr,
   sort,
   completedSortStr,
-  numTasks
+  query
 }) {
-  const [{ completedValue, sortBy }, setState] = useReducer(reducer, {
-    completedValue: "",
-    sortBy: "-createdAt"
-  });
+  const [search, setSearch] = useState("");
+  // const [{ completedValue, sortBy }, setState] = useReducer(reducer, {
+  //   completedValue: completed,
+  //   sortBy: sort,
+  //   search: ""
+  // });
 
-  useEffect(() => {
-    if (completed) {
-      setState({ completedValue: completed });
-    }
-    if (sort) {
-      setState({ sortBy: sort });
-    }
-  }, [completed, sort]);
+  // useEffect(() => {
+  //   if (completed) {
+  //     setState({ completedValue: completed });
+  //   }
+  //   if (sort) {
+  //     setState({ sortBy: sort });
+  //   }
+  // }, [completed, sort]);
 
   const setCompletedQuery = completed => {
     if (completed) {
@@ -38,24 +40,40 @@ function FilterBar({
     }
   };
 
-  const handleFilterChange = e => {
-    console.log(page >= Math.ceil(numTasks / perPage));
-    if (page >= Math.ceil(numTasks / perPage)) {
-      return history.push(
-        `/dashboard?page=${1}&perPage=${perPage}${setCompletedQuery(
-          e.target.value
-        )}${completedSortStr}`
-      );
+  const setSearchQuery = search => {
+    console.log(search);
+    if (search) {
+      return `&query=${search}`;
     }
-    return history.push(
-      `/dashboard?page=${page}&perPage=${perPage}${setCompletedQuery(
+  };
+
+  const handleFilterChange = e => {
+    history.push(
+      `/dashboard?page=1&perPage=${perPage}${setCompletedQuery(
         e.target.value
       )}${completedSortStr}`
     );
   };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    history.push(
+      `/dashboard?page=1&perPage=${perPage}${setCompletedQuery(
+        e.target.value
+      )}${completedSortStr}${setSearchQuery(search)}`
+    );
+  };
+
   return (
-    <form action="">
+    <form action="" onSubmit={handleSubmit}>
+      <label htmlFor="search"> Search by title</label>
+      <input
+        type="text"
+        id="search"
+        name="search"
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+      />
       <label htmlFor="perPage">Number of results</label>
       <select
         name="perPage"
@@ -78,7 +96,7 @@ function FilterBar({
       <select
         name="showCompleted"
         id="showCompleted"
-        value={completedValue}
+        value={completed}
         onChange={handleFilterChange}
       >
         <option value="">All</option>
@@ -90,7 +108,7 @@ function FilterBar({
       <select
         name="sortBy"
         id="sortBy"
-        value={sortBy}
+        value={sort}
         onChange={e => {
           history.push(
             `/dashboard?page=${page}&perPage=${perPage}${completedQueryStr}${setSortQuery(

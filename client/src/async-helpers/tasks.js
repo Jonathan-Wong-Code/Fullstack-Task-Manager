@@ -7,7 +7,14 @@ import {
   EDIT_TASK
 } from "./../context/types";
 
-export async function fetchAllTasks(dispatch, limit, page, completed, sort) {
+export async function fetchAllTasks(
+  dispatch,
+  limit,
+  page,
+  completed,
+  sort,
+  query
+) {
   const setCompletedQuery = completed => {
     if (completed) {
       return `&completed=${completed}`;
@@ -22,12 +29,21 @@ export async function fetchAllTasks(dispatch, limit, page, completed, sort) {
     return "";
   };
 
+  const setSearchQuery = sort => {
+    if (sort) {
+      return `&title=${query}`;
+    }
+    return "";
+  };
+
   try {
     const response = await axios({
       method: "GET",
       withCredentials: true,
       url: `http://localhost:3000/api/v1/tasks?limit=${limit}&page=${page}
-      ${setCompletedQuery(completed)}${setSortQuery(sort)}`
+      ${setCompletedQuery(completed)}${setSortQuery(sort)}${setSearchQuery(
+        query
+      )}`
     });
     if (response.data.data.tasks) {
       dispatch({

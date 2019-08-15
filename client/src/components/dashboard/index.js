@@ -22,21 +22,23 @@ export default function Dashboard({
   const page = params.get("page") || 1;
   const perPage = params.get("perPage") || 5;
   const completed = params.get("completed") || undefined;
-  const sort = params.get("sort") || undefined;
+  const sort = params.get("sort") || "-createdAt";
+  const query = params.get("query") || "";
 
-  const [{ completedQueryStr, completedSortStr }, setState] = useReducer(
-    reducer,
-    {
-      completedQueryStr: "",
-      completedSortStr: ""
-    }
-  );
+  const [
+    { completedQueryStr, completedSortStr, completedSearchStr },
+    setState
+  ] = useReducer(reducer, {
+    completedQueryStr: "",
+    completedSortStr: "",
+    completedSearchStr: ""
+  });
 
   const numTasks = useGetNumTasks(completed);
 
   useEffect(() => {
-    fetchAllTasks(taskDispatch, perPage, page, completed, sort);
-  }, [page, perPage, taskDispatch, completed, sort]);
+    fetchAllTasks(taskDispatch, perPage, page, completed, sort, query);
+  }, [page, perPage, taskDispatch, completed, sort, query]);
 
   useEffect(() => {
     if (completed) {
@@ -47,7 +49,10 @@ export default function Dashboard({
         completedSortStr: `&sort=${sort}`
       });
     }
-  }, [completed, sort]);
+    if (query) {
+      setState({ completedSearchStr: `&title=${query}` });
+    }
+  }, [completed, sort, query]);
   return (
     <section>
       <h2>Task List!</h2>
@@ -61,6 +66,7 @@ export default function Dashboard({
         completedQueryStr={completedQueryStr}
         completedSortStr={completedSortStr}
         numTasks={numTasks}
+        query={query}
       />
       <TaskList tasks={tasks} />
       <Pagination
@@ -69,6 +75,7 @@ export default function Dashboard({
         completed={completed}
         completedQueryStr={completedQueryStr}
         completedSortStr={completedSortStr}
+        completedSearchStr={completedSearchStr}
         numTasks={numTasks}
       />
     </section>
