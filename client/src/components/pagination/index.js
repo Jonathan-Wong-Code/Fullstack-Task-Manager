@@ -1,16 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import useGetNumTasks from "../../hooks/useGetNumTasks";
 
 function Pagination({
   page,
   perPage,
   completedQueryStr,
-  completed,
-  completedSortStr
+  completedSortStr,
+  numTasks
 }) {
-  const numTasks = useGetNumTasks(completed);
-  console.log(numTasks);
   return (
     <div>
       {page > 1 && (

@@ -13,7 +13,6 @@ function useGetNumTasks(completed) {
         });
 
         const { complete, incomplete } = response.data.data;
-        console.log(complete, incomplete);
         switch (completed) {
           case "true":
             setNumTasks(complete);

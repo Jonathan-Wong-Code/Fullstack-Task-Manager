@@ -8,63 +8,25 @@ function FilterBar({
   completed,
   completedQueryStr,
   sort,
-  completedSortStr
+  completedSortStr,
+  numTasks
 }) {
   const [{ completedValue, sortBy }, setState] = useReducer(reducer, {
     completedValue: "",
     sortBy: "-createdAt"
   });
-  // const [completedValue, setCompletedValue] = useState("-createdAt");
-  // const [sortBy, setSortBy] = useState("new");
 
   useEffect(() => {
     if (completed) {
-      // setCompletedValue(setCompletedString(completed));
-      // setCompletedValue(completed);
       setState({ completedValue: completed });
     }
     if (sort) {
-      // setSortBy(sort);
       setState({ sortBy: sort });
     }
   }, [completed, sort]);
 
-  // const setCompletedBoolean = completed => {
-  //   switch (completed) {
-  //     case "completed":
-  //       return "true";
-  //     case "incomplete":
-  //       return "false";
-  //     default:
-  //       return "";
-  //   }
-  // };
-
-  // const setCompletedString = completed => {
-  //   switch (completed) {
-  //     case "true":
-  //       return "completed";
-  //     case "false":
-  //       return "incomplete";
-  //     default:
-  //       return "All";
-  //   }
-  // };
-
-  // const setSortString = sortBy => {
-  //   switch (completed) {
-  //     case "true":
-  //       return "completed";
-  //     case "false":
-  //       return "incomplete";
-  //     default:
-  //       return "All";
-  //   }
-  // };
-
   const setCompletedQuery = completed => {
     if (completed) {
-      // return `&completed=${setCompletedBoolean(completed)}`;
       return `&completed=${completed}`;
     }
     return "";
@@ -74,6 +36,22 @@ function FilterBar({
     if (sort) {
       return `&sort=${sort}`;
     }
+  };
+
+  const handleFilterChange = e => {
+    console.log(page >= Math.ceil(numTasks / perPage));
+    if (page >= Math.ceil(numTasks / perPage)) {
+      return history.push(
+        `/dashboard?page=${1}&perPage=${perPage}${setCompletedQuery(
+          e.target.value
+        )}${completedSortStr}`
+      );
+    }
+    return history.push(
+      `/dashboard?page=${page}&perPage=${perPage}${setCompletedQuery(
+        e.target.value
+      )}${completedSortStr}`
+    );
   };
 
   return (
@@ -101,13 +79,7 @@ function FilterBar({
         name="showCompleted"
         id="showCompleted"
         value={completedValue}
-        onChange={e => {
-          history.push(
-            `/dashboard?page=${page}&perPage=${perPage}${setCompletedQuery(
-              e.target.value
-            )}${completedSortStr}`
-          );
-        }}
+        onChange={handleFilterChange}
       >
         <option value="">All</option>
         <option value="false">incomplete</option>

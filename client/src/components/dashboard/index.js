@@ -1,10 +1,15 @@
 import React, { useEffect, useReducer } from "react";
+import { Redirect } from "react-router-dom";
+
 import TaskList from "../taskList";
 import Pagination from "../pagination";
+import useGetNumTasks from "../../hooks/useGetNumTasks";
+
 import { useTaskState, useTaskDispatch } from "../../context/task-context";
 import FilterBar from "../filterBar";
 import { fetchAllTasks } from "../../async-helpers/tasks";
 import reducer from "./../../reducers/stateReducer";
+// if page > Math.ceil redirect to page - 1
 
 export default function Dashboard({
   history,
@@ -28,8 +33,8 @@ export default function Dashboard({
       completedSortStr: ""
     }
   );
-  // const [completedQueryStr, setCompletedQueryStr] = useState("");
-  // const [completedSortStr, setCompletedSortStr] = useState("");
+
+  const numTasks = useGetNumTasks(completed);
 
   useEffect(() => {
     fetchAllTasks(taskDispatch, perPage, page, completed, sort);
@@ -37,17 +42,14 @@ export default function Dashboard({
 
   useEffect(() => {
     if (completed) {
-      // setCompletedQueryStr(`&completed=${completed}`);
       setState({ completedQueryStr: `&completed=${completed}` });
     }
     if (sort) {
-      // setCompletedSortStr(`&sort=${sort}`);
       setState({
         completedSortStr: `&sort=${sort}`
       });
     }
   }, [completed, sort]);
-
   return (
     <section>
       <h2>Task List!</h2>
@@ -60,6 +62,7 @@ export default function Dashboard({
         sort={sort}
         completedQueryStr={completedQueryStr}
         completedSortStr={completedSortStr}
+        numTasks={numTasks}
       />
       <TaskList tasks={tasks} />
       <Pagination
@@ -68,6 +71,7 @@ export default function Dashboard({
         completed={completed}
         completedQueryStr={completedQueryStr}
         completedSortStr={completedSortStr}
+        numTasks={numTasks}
       />
     </section>
   );

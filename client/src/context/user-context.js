@@ -10,9 +10,9 @@ const reducer = (state, action) => {
   }
 };
 
-function UserProvider({ children }) {
+function UserProvider({ initialUser, children }) {
   const [state, dispatch] = useReducer(reducer, {
-    user: null
+    user: initialUser
   });
 
   return (

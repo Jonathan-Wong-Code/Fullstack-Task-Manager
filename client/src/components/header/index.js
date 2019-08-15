@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../../async-helpers/auth";
-import { useAuthState, useAuthDispatch } from "../../context/auth-context";
+import { useAuthDispatch } from "../../context/auth-context";
 import { useTaskDispatch } from "../../context/task-context";
+import { useUserState } from "../../context/user-context";
 
 function Header() {
-  const { user } = useAuthState();
+  const { user } = useUserState();
   const authDispatch = useAuthDispatch();
   const taskDispatch = useTaskDispatch();
 

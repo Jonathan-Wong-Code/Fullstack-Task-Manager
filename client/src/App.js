@@ -29,6 +29,8 @@ const history = createBrowserHistory();
 function App() {
   const [loading, setLoading] = useState(true);
   const authDispatch = useAuthDispatch();
+  const { user } = useAuthState();
+
   useEffect(() => {
     const checkLoggedIn = async () => {
       try {
@@ -54,27 +56,27 @@ function App() {
   return (
     <Router history={history}>
       <>
-        {/* <UserProvider> */}
-        <TaskProvider>
-          <Header />
-          <Switch>
-            <PublicRoute exact path="/" component={LoginPage} />
-            <PrivateRoute path="/dashboard" component={Dashboard} />
-            <PrivateRoute path="/create" component={CreateTask} />
-            <PrivateRoute path="/edit/:id" component={EditTask} />
-            <PrivateRoute path="/editMe" component={EditUser} />
-            <PrivateRoute path="/updatePassword" component={UpdatePassword} />
-            <PrivateRoute path="/myAccount" component={AccountPage} />
-            <PublicRoute exact path="/signup" component={Signup} />
-            <PublicRoute path="/forgotPassword" component={ForgotPassword} />
-            <PublicRoute
-              path="/resetPassword/:token"
-              component={ResetPassword}
-            />
-            <Route component={NotFoundPage} />
-          </Switch>
-        </TaskProvider>
-        {/* </UserProvider> */}
+        <UserProvider initialUser={user}>
+          <TaskProvider>
+            <Header />
+            <Switch>
+              <PublicRoute exact path="/" component={LoginPage} />
+              <PrivateRoute path="/dashboard" component={Dashboard} />
+              <PrivateRoute path="/create" component={CreateTask} />
+              <PrivateRoute path="/edit/:id" component={EditTask} />
+              <PrivateRoute path="/editMe" component={EditUser} />
+              <PrivateRoute path="/updatePassword" component={UpdatePassword} />
+              <PrivateRoute path="/myAccount" component={AccountPage} />
+              <PublicRoute exact path="/signup" component={Signup} />
+              <PublicRoute path="/forgotPassword" component={ForgotPassword} />
+              <PublicRoute
+                path="/resetPassword/:token"
+                component={ResetPassword}
+              />
+              <Route component={NotFoundPage} />
+            </Switch>
+          </TaskProvider>
+        </UserProvider>
       </>
     </Router>
   );

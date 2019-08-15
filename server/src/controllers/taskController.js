@@ -109,12 +109,11 @@ exports.getNumTasks = catchAsync(async (req, res, next) => {
       }
     }
   ]);
-  console.log(stats);
   res.status(200).json({
     status: "Success",
     data: {
-      incomplete: stats[1] ? stats[1].nTasks : 0,
-      complete: stats[0] ? stats[0].nTasks : 0
+      complete: stats[0] ? stats[0].nTasks : 0,
+      incomplete: stats[1] ? stats[1].nTasks : 0
     }
   });
 });
