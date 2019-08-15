@@ -79,24 +79,6 @@ exports.updateTask = catchAsync(async (req, res, next) => {
   });
 });
 
-// exports.getNumTasks = catchAsync(async (req, res, next) => {
-//   const stats = await Task.aggregate([
-//     {
-//       $match: { user: req.user._id }
-//     },
-//     {
-//       $count: "numTasks"
-//     }
-//   ]);
-
-//   res.status(200).json({
-//     status: "Success",
-//     data: {
-//       numTasks: stats[0].numTasks
-//     }
-//   });
-// });
-
 exports.getNumTasks = catchAsync(async (req, res, next) => {
   const stats = await Task.aggregate([
     {

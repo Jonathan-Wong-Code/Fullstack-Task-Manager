@@ -75,7 +75,7 @@ userSchema.pre(/^find/, function(next) {
   next();
 });
 
-userSchema.post(/^findOneAnd/, async function(user) {
+userSchema.post(/^findOneAndDelete/, async function(user) {
   if (!this.active) {
     await Task.deleteMany({ user: user._id });
   }

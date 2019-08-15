@@ -20,7 +20,6 @@ const filterObj = (updates, ...allowedUpdates) => {
       updateObject[key] = updates[key];
     }
   });
-
   return updateObject;
 };
 

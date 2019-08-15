@@ -1,11 +1,11 @@
 import React, { useReducer } from "react";
-import { useAuthState } from "../../context/auth-context";
+import { useUserState } from "../../context/user-context";
 import { useUserDispatch } from "../../context/user-context";
 import { updateUser } from "../../async-helpers/users";
 import reducer from "../../reducers/stateReducer";
 
 function EditUser() {
-  const { user } = useAuthState();
+  const { user } = useUserState();
   const userDispatch = useUserDispatch();
 
   const [{ name, email, message }, setState] = useReducer(reducer, {

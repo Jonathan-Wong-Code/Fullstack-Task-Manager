@@ -47,9 +47,6 @@ function Header() {
           {user && (
             <>
               <li>
-                <Link to="/updatePassword">Update Password</Link>
-              </li>
-              <li>
                 <Link to="/myAccount">My Account</Link>
               </li>
               <li>

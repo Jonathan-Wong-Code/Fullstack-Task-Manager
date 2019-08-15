@@ -13,6 +13,7 @@ function AccountPage() {
       <p>Name: {user.name}</p>
       <p>Email {user.email}</p>
       <Link to="/editMe">Edit details</Link>
+      <Link to="/updatePassword">Edit password</Link>
     </section>
   );
 }

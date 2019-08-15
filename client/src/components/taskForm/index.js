@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useRef } from "react";
 import { withRouter } from "react-router-dom";
 
 import { useTaskDispatch, useTaskState } from "../../context/task-context";
@@ -15,6 +15,8 @@ function TaskForm({ type, history, editedTask }) {
       _id: editedTask ? editedTask._id : undefined
     }
   );
+
+  const checkbox = useRef();
 
   const taskDispatch = useTaskDispatch();
   const { error } = useTaskState();
@@ -38,7 +40,7 @@ function TaskForm({ type, history, editedTask }) {
       history.push("/dashboard");
     }
   };
-
+  console.log(completed);
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -64,7 +66,10 @@ function TaskForm({ type, history, editedTask }) {
           type="checkbox"
           checked={completed}
           value={completed}
-          onChange={e => setState({ completed: e.target.value })}
+          ref={checkbox}
+          onChange={e => {
+            setState({ completed: checkbox.current.checked });
+          }}
         />
         <button> {type === "create" ? "Create" : "Edit"}</button>
       </form>
