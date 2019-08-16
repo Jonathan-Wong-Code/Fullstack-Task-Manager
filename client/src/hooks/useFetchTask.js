@@ -10,11 +10,12 @@ function useFetchTask(id) {
   useEffect(() => {
     const task = tasks.find(task => task._id === id);
     const getTask = async () => {
-      const response = await axios({
-        method: "GET",
-        url: `http://localhost:3000/api/v1/tasks/${id}`,
-        withCredentials: true
-      });
+      const response = await axios.get(
+        `http://localhost:3000/api/v1/tasks/${id}`,
+        {
+          withCredentials: true
+        }
+      );
       setFetchedTask(response.data.data.task);
     };
     if (task) {

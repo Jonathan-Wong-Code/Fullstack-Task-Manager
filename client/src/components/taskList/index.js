@@ -8,9 +8,13 @@ export default function TaskList({ tasks }) {
   if (!tasks) return <div />;
   return (
     <div>
-      {tasks.map(task => (
-        <TaskListItem task={task} key={task._id} />
-      ))}
+      <ul>
+        {tasks.map(task => (
+          <li key={task._id}>
+            <TaskListItem task={task} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

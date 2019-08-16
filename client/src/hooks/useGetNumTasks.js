@@ -6,11 +6,12 @@ function useGetNumTasks(completed) {
   useEffect(() => {
     const fetchNumTasks = async () => {
       try {
-        const response = await axios({
-          method: "GET",
-          url: "http://localhost:3000/api/v1/tasks/numTasks",
-          withCredentials: true
-        });
+        const response = await axios.get(
+          "http://localhost:3000/api/v1/tasks/numTasks",
+          {
+            withCredentials: true
+          }
+        );
 
         const { complete, incomplete } = response.data.data;
         switch (completed) {

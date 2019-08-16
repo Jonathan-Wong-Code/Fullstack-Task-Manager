@@ -21,7 +21,7 @@ function TaskListItem({ task }) {
     );
   };
   return (
-    <div>
+    <>
       <h3>Title: {task.title}</h3>
       <p>Description: {task.description}</p>
       <label htmlFor="completed">completed?</label>
@@ -36,7 +36,7 @@ function TaskListItem({ task }) {
       <button onClick={() => deleteTask(task._id, taskDispatch)}>
         Delete Task
       </button>
-    </div>
+    </>
   );
 }
 

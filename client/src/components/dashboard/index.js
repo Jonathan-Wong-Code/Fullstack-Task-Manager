@@ -53,6 +53,7 @@ export default function Dashboard({
       setState({ completedSearchStr: `&title=${query}` });
     }
   }, [completed, sort, query]);
+
   return (
     <section>
       <h2>Task List!</h2>

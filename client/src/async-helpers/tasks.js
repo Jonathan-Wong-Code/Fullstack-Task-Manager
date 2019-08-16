@@ -37,14 +37,16 @@ export async function fetchAllTasks(
   };
 
   try {
-    const response = await axios({
-      method: "GET",
-      withCredentials: true,
-      url: `http://localhost:3000/api/v1/tasks?limit=${limit}&page=${page}
+    const response = await axios.get(
+      `http://localhost:3000/api/v1/tasks?limit=${limit}&page=${page}
       ${setCompletedQuery(completed)}${setSortQuery(sort)}${setSearchQuery(
         query
-      )}`
-    });
+      )}`,
+      {
+        withCredentials: true
+      }
+    );
+    console.log(response);
     if (response.data.data.tasks) {
       dispatch({
         type: SET_SAVED_TASKS,
