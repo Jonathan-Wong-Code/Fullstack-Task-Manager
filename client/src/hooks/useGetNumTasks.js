@@ -12,7 +12,6 @@ function useGetNumTasks(completed) {
             withCredentials: true
           }
         );
-
         const { complete, incomplete } = response.data.data;
         switch (completed) {
           case "true":

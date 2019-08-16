@@ -14,13 +14,30 @@ const mockData = {
           description: "Task 1",
           completed: false,
           _id: "test-1"
+        },
+        {
+          title: "Task 2",
+          description: "Task 2",
+          completed: true,
+          _id: "test-12"
         }
       ]
     }
   }
 };
+
+const mockNumTasks = {
+  data: {
+    data: {
+      complete: 1,
+      incomplete: 1
+    }
+  }
+};
 describe("<Dashboard />", () => {
-  axios.get.mockImplementation(() => Promise.resolve(mockData));
+  axios.get.mockImplementationOnce(() => Promise.resolve(mockNumTasks));
+
+  axios.get.mockImplementationOnce(() => Promise.resolve(mockData));
 
   const history = { location: { search: "" } };
   test("it renders", async () => {

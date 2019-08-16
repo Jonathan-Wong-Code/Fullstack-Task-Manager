@@ -35,7 +35,6 @@ export default function Dashboard({
   });
 
   const numTasks = useGetNumTasks(completed);
-
   useEffect(() => {
     fetchAllTasks(taskDispatch, perPage, page, completed, sort, query);
   }, [page, perPage, taskDispatch, completed, sort, query]);

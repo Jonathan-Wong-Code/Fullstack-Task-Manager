@@ -131,6 +131,35 @@ exports[`<Dashboard /> it renders 1`] = `
             Delete Task
           </button>
         </li>
+        <li>
+          <h3>
+            Title: 
+            Task 2
+          </h3>
+          <p>
+            Description: 
+            Task 2
+          </p>
+          <label
+            for="completed"
+          >
+            completed?
+          </label>
+          <input
+            checked=""
+            id="completed"
+            type="checkbox"
+            value="true"
+          />
+          <a
+            href="/edit/test-12"
+          >
+            Edit Task
+          </a>
+          <button>
+            Delete Task
+          </button>
+        </li>
       </ul>
     </div>
     <div />

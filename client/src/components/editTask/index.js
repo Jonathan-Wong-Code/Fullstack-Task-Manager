@@ -4,7 +4,6 @@ import useFetchTask from "./../../hooks/useFetchTask";
 
 export default function EditTask({ match }) {
   const task = useFetchTask(match.params.id);
-  console.log(task);
   if (!task) return <div />;
   return (
     <div>
