@@ -136,10 +136,13 @@ export async function updatePassword(
         confirmUpdatedPassword
       }
     });
+
     if (response.status === 200) {
       return "Password updated!";
     }
   } catch (error) {
+    console.log(error);
     return error.response.data.message;
+    // return "error";
   }
 }

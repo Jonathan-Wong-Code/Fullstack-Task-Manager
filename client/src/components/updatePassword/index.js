@@ -32,7 +32,7 @@ function UpdatePassword() {
   return (
     <div>
       <h2>Update password</h2>
-      <form action="" onSubmit={handleSubmit}>
+      <form action="" onSubmit={handleSubmit} data-testid="update-pass-form">
         <label htmlFor="update-password">Enter Current Password</label>
         <input
           type="text"
@@ -60,7 +60,7 @@ function UpdatePassword() {
         />
         <button type="submit">Submit</button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p data-testid="update-pass-message">{message}</p>}
     </div>
   );
 }

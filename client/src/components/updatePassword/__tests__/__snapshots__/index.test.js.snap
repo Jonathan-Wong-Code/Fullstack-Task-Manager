@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<updatePassword /> should display an error when fields are missing 1`] = `
+<div>
+  <div>
+    <h2>
+      Update password
+    </h2>
+    <form
+      action=""
+      data-testid="update-pass-form"
+    >
+      <label
+        for="update-password"
+      >
+        Enter Current Password
+      </label>
+      <input
+        id="update-password"
+        type="text"
+        value=""
+      />
+      <label
+        for="update-new-password"
+      >
+        Enter New Password
+      </label>
+      <input
+        id="update-new-password"
+        type="text"
+        value=""
+      />
+      <label
+        for="update-confirm-updated-password"
+      >
+        Confirm Updated Password
+      </label>
+      <input
+        id="update-confirm-updated-password"
+        type="text"
+        value=""
+      />
+      <button
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+    
+  </div>
+</div>
+`;
