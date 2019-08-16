@@ -121,7 +121,6 @@ export async function resetPassword(
 }
 
 export async function updatePassword(
-  dispatch,
   password,
   updatedPassword,
   confirmUpdatedPassword

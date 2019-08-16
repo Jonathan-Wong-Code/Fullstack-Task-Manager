@@ -1,5 +1,4 @@
 import React, { useReducer } from "react";
-import { useAuthDispatch } from "../../context/auth-context";
 import { updatePassword } from "../../async-helpers/auth";
 import reducer from "../../reducers/stateReducer";
 
@@ -14,12 +13,9 @@ function UpdatePassword() {
     message: ""
   });
 
-  const dispatch = useAuthDispatch();
-
   const handleSubmit = async e => {
     e.preventDefault();
     const message = await updatePassword(
-      dispatch,
       password,
       updatedPassword,
       confirmUpdatedPassword
