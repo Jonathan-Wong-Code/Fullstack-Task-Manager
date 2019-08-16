@@ -1,6 +1,6 @@
 import React from "react";
 import useFetchTask from "./../useFetchTask";
-import { renderHook, act } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react-hooks";
 import axios from "axios";
 import { TaskProvider } from "./../../context/task-context";
 jest.mock("axios");
@@ -26,6 +26,5 @@ test("Should return a task", async () => {
   });
 
   await waitForNextUpdate();
-  console.log(result.current);
   expect(result.current).toEqual(mockData.data.data.task);
 });
