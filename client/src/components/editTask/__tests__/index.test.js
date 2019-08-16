@@ -1,8 +1,7 @@
 import React from "react";
 import EditTask from "..";
-import { cleanup } from "@testing-library/react";
+import { cleanup, wait } from "@testing-library/react";
 import { renderWithContextRouter } from "./../../../testUtils/testUtils";
-import { act } from "react-dom/test-utils";
 import axios from "axios";
 
 jest.mock("axios");
@@ -20,16 +19,20 @@ const mockData = {
     }
   }
 };
+
 describe("<EditTask />", () => {
   axios.get.mockImplementation(() => Promise.resolve(mockData));
 
   const match = { params: { id: "test123" } };
 
   test("it renders", async () => {
+    const testUser = { name: "Jon", email: "jon@jon.com" };
+
     const { container } = renderWithContextRouter(<EditTask match={match} />, {
-      route: "/create"
+      route: "/create",
+      authValue: testUser
     });
 
-    expect(container).toMatchSnapshot();
+    await wait(() => expect(container).toMatchSnapshot());
   });
 });

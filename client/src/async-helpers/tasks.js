@@ -46,7 +46,6 @@ export async function fetchAllTasks(
         withCredentials: true
       }
     );
-    console.log(response);
     if (response.data.data.tasks) {
       dispatch({
         type: SET_SAVED_TASKS,
