@@ -22,7 +22,7 @@ function EditUser() {
   };
 
   return (
-    <section>
+    <section data-testid="edit-me-screen">
       <h2>Change your details</h2>
       <form action="" onSubmit={handleSubmit}>
         <label htmlFor="user-name">Name:</label>

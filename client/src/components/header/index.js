@@ -1,25 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../../async-helpers/auth";
-import { useAuthDispatch } from "../../context/auth-context";
+import { useAuthDispatch, useAuthState } from "../../context/auth-context";
 import { useTaskDispatch } from "../../context/task-context";
-import { useUserState } from "../../context/user-context";
+import { useUserState, useUserDispatch } from "../../context/user-context";
 
 function Header() {
   const { user } = useUserState();
+  const { user: authUser } = useAuthState();
   const authDispatch = useAuthDispatch();
+  const userDispatch = useUserDispatch();
   const taskDispatch = useTaskDispatch();
 
   const handleLogoutClick = () => {
-    logoutUser(authDispatch, taskDispatch);
+    logoutUser(authDispatch, taskDispatch, userDispatch);
   };
-
+  console.log();
   return (
     <div>
       <h1>TASK MANAGER APP!</h1>
       <nav>
         <ul>
-          {user && (
+          {authUser && (
             <>
               <li>
                 <Link
@@ -34,7 +36,7 @@ function Header() {
             </>
           )}
 
-          {!user && (
+          {!authUser && (
             <>
               <li>
                 <Link to="/signup">Signup</Link>
@@ -44,7 +46,7 @@ function Header() {
               </li>
             </>
           )}
-          {user && (
+          {authUser && (
             <>
               <li>
                 <Link to="/myAccount">My Account</Link>

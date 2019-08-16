@@ -14,7 +14,7 @@ const reducer = (state, action) => {
       };
     case LOGOUT:
       return {
-        user: null
+        user: action.user
       };
 
     case AUTH_ERROR:
@@ -29,11 +29,10 @@ const reducer = (state, action) => {
 };
 
 // CONTEXT
-export function AuthProvider({ children }) {
+export function AuthProvider({ children, value }) {
   const [state, authDispatch] = useReducer(reducer, {
-    user: null
+    user: null || value
   });
-
   return (
     <AuthStateContext.Provider value={state}>
       <AuthDispatchContext.Provider value={authDispatch}>

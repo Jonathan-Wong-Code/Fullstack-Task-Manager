@@ -1,29 +1,33 @@
 import React, { useReducer } from "react";
-import { useAuthDispatch, useAuthState } from "../../context/auth-context";
+import { useAuthDispatch } from "../../context/auth-context";
 import { signupUser } from "../../async-helpers/auth";
 import reducer from "../../reducers/stateReducer";
 
 function Signup() {
   const dispatch = useAuthDispatch();
-  const { error } = useAuthState();
-  const [{ name, email, password, confirmPassword }, setState] = useReducer(
-    reducer,
-    {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: ""
-    }
-  );
+  const [
+    { name, email, password, confirmPassword, error },
+    setState
+  ] = useReducer(reducer, {
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    error: ""
+  });
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    signupUser(dispatch, {
+    const error = await signupUser(dispatch, {
       name,
       email,
       password,
       confirmPassword
     });
+
+    if (error) {
+      setState({ error });
+    }
   };
 
   return (
@@ -35,6 +39,7 @@ function Signup() {
           id="name"
           value={name}
           onChange={e => setState({ name: e.target.value })}
+          required
         />
         <label htmlFor="email">Email</label>
         <input
@@ -42,6 +47,7 @@ function Signup() {
           id="email"
           value={email}
           onChange={e => setState({ email: e.target.value })}
+          required
         />
         <label htmlFor="password">Password</label>
         <input
@@ -49,6 +55,7 @@ function Signup() {
           id="password"
           value={password}
           onChange={e => setState({ password: e.target.value })}
+          required
         />
         <label htmlFor="confirmPassword">Confirm Password</label>
         <input
@@ -56,6 +63,7 @@ function Signup() {
           id="confirmPassword"
           value={confirmPassword}
           onChange={e => setState({ confirmPassword: e.target.value })}
+          required
         />
         <button type="submit">Signup</button>
       </form>

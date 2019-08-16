@@ -1,5 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
-import reducer from "../../reducers/stateReducer";
+import React, { useState } from "react";
 
 function FilterBar({
   perPage,
@@ -31,7 +30,6 @@ function FilterBar({
     if (completed) {
       return `&completed=${completed}`;
     }
-    return "";
   };
 
   const setSortQuery = sort => {
@@ -41,7 +39,6 @@ function FilterBar({
   };
 
   const setSearchQuery = search => {
-    console.log(search);
     if (search) {
       return `&query=${search}`;
     }

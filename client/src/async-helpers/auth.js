@@ -4,10 +4,11 @@ import {
   AUTH_ERROR,
   SIGNUP_SUCCESS,
   LOGOUT,
-  CLEAR_TASKS
+  CLEAR_TASKS,
+  CLEAR_USER
 } from "./../context/types";
 
-export async function loginUser(dispatch, email, password) {
+export async function loginUser(dispatch, userDispatch, email, password) {
   try {
     const response = await axios({
       method: "POST",
@@ -24,13 +25,17 @@ export async function loginUser(dispatch, email, password) {
         type: LOGIN_SUCCESS,
         user: response.data.user
       });
+      userDispatch({
+        type: LOGIN_SUCCESS,
+        user: response.data.user
+      });
     }
   } catch (error) {
-    dispatch({ type: AUTH_ERROR, message: error.response.data.message });
+    return error.response.data.message;
   }
 }
 
-export async function logoutUser(authDispatch, taskDispatch) {
+export async function logoutUser(authDispatch, taskDispatch, userDispatch) {
   try {
     await axios({
       method: "GET",
@@ -39,6 +44,7 @@ export async function logoutUser(authDispatch, taskDispatch) {
     });
 
     authDispatch({ type: LOGOUT, user: null });
+    userDispatch({ type: CLEAR_USER, user: null });
     taskDispatch({ type: CLEAR_TASKS });
   } catch (error) {
     authDispatch({ type: AUTH_ERROR, message: error.response.data.message });
@@ -64,7 +70,7 @@ export async function signupUser(
     const user = response.data.user;
     dispatch({ type: SIGNUP_SUCCESS, user });
   } catch (error) {
-    dispatch({ type: AUTH_ERROR, message: error.response.data.message });
+    return error.response.data.message;
   }
 }
 
@@ -82,10 +88,7 @@ export async function sendResetToken(email, dispatch) {
       return "Password reset link sent!";
     }
   } catch (error) {
-    dispatch({
-      type: AUTH_ERROR,
-      message: error.response.data.message
-    });
+    return error.response.data.message;
   }
 }
 
@@ -113,10 +116,7 @@ export async function resetPassword(
       });
     }
   } catch (error) {
-    dispatch({
-      type: AUTH_ERROR,
-      message: error.response.data.message
-    });
+    return error.response.data.message;
   }
 }
 
@@ -141,9 +141,6 @@ export async function updatePassword(
       return "Password updated!";
     }
   } catch (error) {
-    dispatch({
-      type: AUTH_ERROR,
-      message: error.response.data.message
-    });
+    return error.response.data.message;
   }
 }

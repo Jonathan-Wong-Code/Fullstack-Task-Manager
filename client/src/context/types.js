@@ -10,3 +10,5 @@ export const CLEAR_TASKS = "CLEAR_TASKS";
 export const TASK_ERROR = "TASK_ERROR";
 export const AUTH_ERROR = "AUTH_ERROR";
 export const UPDATE_USER = "UPDATE_USER";
+export const CLEAR_USER = "CLEAR_USER";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";

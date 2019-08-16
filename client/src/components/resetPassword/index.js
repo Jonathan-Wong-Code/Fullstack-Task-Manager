@@ -1,29 +1,33 @@
 import React, { useReducer } from "react";
-import { useAuthState, useAuthDispatch } from "../../context/auth-context";
+import { useAuthDispatch } from "../../context/auth-context";
 import { resetPassword } from "../../async-helpers/auth";
 import reducer from "../../reducers/stateReducer";
 
 function ResetPassword({ match }) {
-  const [{ password, confirmPassword }, setState] = useReducer(reducer, {
+  const [{ password, confirmPassword, error }, setState] = useReducer(reducer, {
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    error: ""
   });
 
   const dispatch = useAuthDispatch();
-  const { error } = useAuthState();
 
   const handleSubmit = async e => {
     e.preventDefault();
-    await resetPassword(
+    const message = await resetPassword(
       dispatch,
       password,
       confirmPassword,
       match.params.token
     );
-    setState({
-      password: "",
-      confirmPassword: ""
-    });
+
+    if (message) {
+      setState({
+        password: "",
+        confirmPassword: "",
+        error: message
+      });
+    }
   };
 
   return (

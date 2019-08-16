@@ -56,7 +56,7 @@ function App() {
   return (
     <Router history={history}>
       <>
-        <UserProvider initialUser={user}>
+        <UserProvider value={user}>
           <TaskProvider>
             <Header />
             <Switch>

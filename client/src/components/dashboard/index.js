@@ -65,7 +65,6 @@ export default function Dashboard({
         sort={sort}
         completedQueryStr={completedQueryStr}
         completedSortStr={completedSortStr}
-        numTasks={numTasks}
         query={query}
       />
       <TaskList tasks={tasks} />

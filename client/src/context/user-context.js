@@ -1,5 +1,5 @@
 import React, { useContext, useReducer, createContext } from "react";
-import { UPDATE_USER } from "../context/types";
+import { UPDATE_USER, CLEAR_USER, LOGIN_SUCCESS } from "../context/types";
 const UserStateContext = createContext();
 const UserDispatchContext = createContext();
 
@@ -7,14 +7,20 @@ const reducer = (state, action) => {
   switch (action.type) {
     case UPDATE_USER:
       return { ...state, user: action.user };
+    case LOGIN_SUCCESS:
+      return { user: action.user };
+    case CLEAR_USER:
+      return {
+        user: null
+      };
     default:
       return state;
   }
 };
 
-function UserProvider({ initialUser, children }) {
+function UserProvider({ value, children }) {
   const [state, dispatch] = useReducer(reducer, {
-    user: initialUser
+    user: value
   });
 
   return (

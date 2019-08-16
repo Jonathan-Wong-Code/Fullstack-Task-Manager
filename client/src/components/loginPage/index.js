@@ -1,21 +1,31 @@
 import React, { useReducer } from "react";
 import { Link } from "react-router-dom";
 import { loginUser } from "../../async-helpers/auth";
-import { useAuthDispatch, useAuthState } from "../../context/auth-context";
+import { useAuthDispatch } from "../../context/auth-context";
+import { useUserDispatch } from "../../context/user-context";
 import reducer from "../../reducers/stateReducer";
 
 function LoginPage() {
-  const [{ email, password }, setState] = useReducer(reducer, {
+  const [{ email, password, error }, setState] = useReducer(reducer, {
     email: "",
-    password: ""
+    password: "",
+    error: ""
   });
 
-  const { error } = useAuthState();
   const authDispatch = useAuthDispatch();
+  const userDispatch = useUserDispatch();
 
   const handleSubmit = async e => {
     e.preventDefault();
-    await loginUser(authDispatch, email, password);
+    const message = await loginUser(
+      authDispatch,
+      userDispatch,
+      email,
+      password
+    );
+    if (message) {
+      setState({ error: message });
+    }
   };
 
   return (
@@ -27,6 +37,7 @@ function LoginPage() {
           id="email"
           value={email}
           onChange={e => setState({ email: e.target.value })}
+          required
         />
         <label htmlFor="password">Password</label>
         <input
@@ -34,6 +45,7 @@ function LoginPage() {
           id="password"
           value={password}
           onChange={e => setState({ password: e.target.value })}
+          required
         />
         <button type="submit">Login</button>
       </form>

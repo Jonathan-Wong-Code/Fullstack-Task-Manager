@@ -1,21 +1,20 @@
 import React, { useReducer } from "react";
-import { useAuthState, useAuthDispatch } from "../../context/auth-context";
+import { useAuthDispatch } from "../../context/auth-context";
 import { updatePassword } from "../../async-helpers/auth";
 import reducer from "../../reducers/stateReducer";
 
 function UpdatePassword() {
   const [
-    { password, updatedPassword, confirmUpdatedPassword, successMessage },
+    { password, updatedPassword, confirmUpdatedPassword, message },
     setState
   ] = useReducer(reducer, {
     password: "",
     updatedPassword: "",
     confirmUpdatedPassword: "",
-    successMessage: ""
+    message: ""
   });
 
   const dispatch = useAuthDispatch();
-  const { error } = useAuthState();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -27,7 +26,7 @@ function UpdatePassword() {
     );
 
     setState({
-      successMessage: message,
+      message: message,
       password: "",
       confirmUpdatedPassword: "",
       updatedPassword: ""
@@ -65,8 +64,7 @@ function UpdatePassword() {
         />
         <button type="submit">Submit</button>
       </form>
-      {successMessage && <p>{successMessage}</p>}
-      {error && !successMessage && <p>{error}</p>}
+      {message && <p>{message}</p>}
     </div>
   );
 }
