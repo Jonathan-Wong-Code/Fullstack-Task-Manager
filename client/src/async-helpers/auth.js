@@ -141,7 +141,6 @@ export async function updatePassword(
       return "Password updated!";
     }
   } catch (error) {
-    console.log(error);
     return error.response.data.message;
     // return "error";
   }
