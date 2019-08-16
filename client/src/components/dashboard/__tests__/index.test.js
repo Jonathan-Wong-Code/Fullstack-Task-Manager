@@ -36,7 +36,6 @@ const mockNumTasks = {
 };
 describe("<Dashboard />", () => {
   axios.get.mockImplementationOnce(() => Promise.resolve(mockNumTasks));
-
   axios.get.mockImplementationOnce(() => Promise.resolve(mockData));
 
   const history = { location: { search: "" } };
