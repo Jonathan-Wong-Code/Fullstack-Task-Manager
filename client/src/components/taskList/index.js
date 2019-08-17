@@ -3,7 +3,7 @@ import React from "react";
 import TaskListItem from "../taskListItem";
 
 export default function TaskList({ tasks }) {
-  console.log(tasks);
+  // console.log(tasks);
 
   if (!tasks) return <div />;
   return (

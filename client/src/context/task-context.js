@@ -8,8 +8,8 @@ import {
   TASK_ERROR
 } from "./types";
 
-const TaskStateContext = createContext();
-const TaskDispatchContext = createContext();
+export const TaskStateContext = createContext();
+export const TaskDispatchContext = createContext();
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -37,11 +37,9 @@ const reducer = (state, action) => {
   }
 };
 
-export function TaskProvider({ children }) {
+export function TaskProvider({ children, value }) {
   const [state, taskDispatch] = useReducer(reducer, {
-    error: null,
-    loading: false,
-    tasks: []
+    tasks: value || [] // for testing
   });
 
   return (

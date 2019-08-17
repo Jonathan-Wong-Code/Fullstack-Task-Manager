@@ -14,8 +14,9 @@ function useFetchTask(id) {
 
   useEffect(() => {
     const task = tasks.find(task => task._id === id);
-    setState({ loading: true });
     const getTask = async () => {
+      setState({ loading: true });
+
       try {
         const response = await axios.get(
           `http://localhost:3000/api/v1/tasks/${id}`,
@@ -23,7 +24,6 @@ function useFetchTask(id) {
             withCredentials: true
           }
         );
-        console.log(response);
         setState({ fetchedTask: response.data.data.task });
       } catch (error) {
         setState({ error: error.response.data.message });
@@ -31,6 +31,7 @@ function useFetchTask(id) {
         setState({ loading: false });
       }
     };
+
     if (task) {
       setState({ fetchedTask: task });
     } else {
