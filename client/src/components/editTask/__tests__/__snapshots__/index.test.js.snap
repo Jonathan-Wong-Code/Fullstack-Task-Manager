@@ -47,6 +47,7 @@ exports[`<EditTask /> it renders 1`] = `
       </button>
     </form>
     
+    
   </div>
 </div>
 `;

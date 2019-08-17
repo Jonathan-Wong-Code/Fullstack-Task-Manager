@@ -3,12 +3,12 @@ import TaskForm from "../taskForm";
 import useFetchTask from "./../../hooks/useFetchTask";
 
 export default function EditTask({ match }) {
-  const task = useFetchTask(match.params.id);
-  if (!task) return <div />;
+  const { fetchedTask, loading, error } = useFetchTask(match.params.id);
+  if (loading) return <div> Loading Edit </div>;
   return (
     <div>
       <h2>Edit Task</h2>
-      <TaskForm type="edit" editedTask={task} />
+      <TaskForm type="edit" editedTask={fetchedTask} fetchError={error} />
     </div>
   );
 }

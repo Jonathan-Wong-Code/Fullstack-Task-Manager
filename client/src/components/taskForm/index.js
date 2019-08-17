@@ -4,7 +4,7 @@ import { useTaskDispatch } from "../../context/task-context";
 import { createTask, editTask } from "../../async-helpers/tasks";
 import reducer from "../../reducers/stateReducer";
 
-function TaskForm({ type, history, editedTask }) {
+function TaskForm({ type, history, editedTask, fetchError }) {
   const [{ title, description, completed, _id, error }, setState] = useReducer(
     reducer,
     {
@@ -77,6 +77,7 @@ function TaskForm({ type, history, editedTask }) {
         <button> {type === "create" ? "Create" : "Edit"}</button>
       </form>
       {error && <p>{error}</p>}
+      {fetchError && <p>{fetchError}</p>}
     </>
   );
 }

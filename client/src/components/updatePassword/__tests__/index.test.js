@@ -12,10 +12,9 @@ describe("<updatePassword />", () => {
     render(<UpdatePassword />);
   });
 
-  const error = new Error();
-  error.response = { data: { message: "error" } };
-
   test("should display an error when fields are missing", async () => {
+    const error = new Error();
+    error.response = { data: { message: "error" } };
     axios.mockImplementation(() => Promise.reject(error));
 
     const { getByTestId, queryByTestId, container } = render(

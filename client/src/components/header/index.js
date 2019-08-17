@@ -17,7 +17,7 @@ function Header() {
   };
   console.log();
   return (
-    <div>
+    <header>
       <h1>TASK MANAGER APP!</h1>
       <nav>
         <ul>
@@ -66,7 +66,7 @@ function Header() {
           )}
         </div>
       </nav>
-    </div>
+    </header>
   );
 }
 

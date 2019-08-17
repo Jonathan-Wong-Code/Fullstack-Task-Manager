@@ -18,7 +18,7 @@ function ForgotPassword() {
   };
 
   return (
-    <div>
+    <section>
       <h2>Forgot your password?</h2>
       <form action="" onSubmit={handleSubmit}>
         <label htmlFor="reset-email">
@@ -33,7 +33,7 @@ function ForgotPassword() {
         <button type="submit">Submit</button>
       </form>
       {message && <p>{message}</p>}
-    </div>
+    </section>
   );
 }
 
