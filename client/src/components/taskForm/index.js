@@ -46,7 +46,7 @@ function TaskForm({ type, history, editedTask, fetchError }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} data-testid="task-form">
         <label htmlFor="title">Title:</label>
         <input
           type="text"
@@ -76,7 +76,7 @@ function TaskForm({ type, history, editedTask, fetchError }) {
         />
         <button> {type === "create" ? "Create" : "Edit"}</button>
       </form>
-      {error && <p>{error}</p>}
+      {error && <p data-testid="task-form-error">{error}</p>}
       {fetchError && <p>{fetchError}</p>}
     </>
   );

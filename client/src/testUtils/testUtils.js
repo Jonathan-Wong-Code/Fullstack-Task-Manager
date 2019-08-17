@@ -19,6 +19,22 @@ export const renderRouter = (
   };
 };
 
+export function renderContext(
+  ui,
+  { authValue, userValue, taskValue, ...options }
+) {
+  return {
+    ...render(
+      <AuthProvider value={authValue}>
+        <UserProvider value={userValue}>
+          <TaskProvider value={taskValue}>{ui}</TaskProvider>
+        </UserProvider>
+      </AuthProvider>,
+      options
+    )
+  };
+}
+
 export function renderWithContextRouter(
   ui,
   {

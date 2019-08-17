@@ -3,7 +3,7 @@ import "@testing-library/jest-dom/extend-expect";
 import TaskListItem from "..";
 import { renderWithContextRouter } from "./../../../testUtils/testUtils";
 import axios from "axios";
-import { fireEvent, wait, act } from "@testing-library/react";
+import { fireEvent, wait } from "@testing-library/react";
 import { editTask, deleteTask } from "./../../../async-helpers/tasks";
 
 jest.mock("./../../../async-helpers/tasks");

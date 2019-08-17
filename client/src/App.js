@@ -24,7 +24,7 @@ import { LOGIN_SUCCESS, LOGOUT } from "./context/types";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
 
-const history = createBrowserHistory();
+export const history = createBrowserHistory();
 
 function App() {
   const [loading, setLoading] = useState(true);
