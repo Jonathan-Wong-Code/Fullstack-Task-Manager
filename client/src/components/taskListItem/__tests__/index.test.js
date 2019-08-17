@@ -3,15 +3,20 @@ import "@testing-library/jest-dom/extend-expect";
 import TaskListItem from "..";
 import { renderWithContextRouter } from "./../../../testUtils/testUtils";
 import axios from "axios";
-import { fireEvent, wait } from "@testing-library/react";
+import { fireEvent, wait, act } from "@testing-library/react";
+import { editTask, deleteTask } from "./../../../async-helpers/tasks";
 
+jest.mock("./../../../async-helpers/tasks");
 jest.mock("axios");
+
+editTask.mockImplementation(() => jest.fn());
+deleteTask.mockImplementation(() => jest.fn());
 
 const task = {
   title: "test task",
   description: "test task description",
   completed: false,
-  id: "test123"
+  _id: "test123"
 };
 
 describe("<TaskListItem />,", () => {
@@ -22,20 +27,41 @@ describe("<TaskListItem />,", () => {
   });
 
   test("Should return an edited task when the completed button is clicked", async () => {
-    axios.mockImplementation(() =>
-      Promise.resolve({ ...task, completed: true })
-    );
-
-    const { getByLabelText } = renderWithContextRouter(
-      <TaskListItem task={task} />,
+    const response = {
+      data: {
+        data: {
+          task
+        }
+      }
+    };
+    const { getByLabelText, container } = renderWithContextRouter(
+      <TaskListItem task={task} editTask={editTask} />,
       {
         route: "/edit/test123"
       }
     );
 
-    const checkbox = getByLabelText(/completed?/i);
-    expect(checkbox.checked).toBe(false);
-    // fireEvent.change(checkbox);
-    // await wait(() => expect(checkbox.checked).toBe(true));
+    axios.mockImplementation(() => Promise.resolve(response));
+
+    const checkbox = getByLabelText("completed?");
+    expect(checkbox).toHaveAttribute("value", "false");
+    fireEvent.click(checkbox);
+
+    await wait(() => {
+      expect(checkbox).toHaveAttribute("value", "true");
+      expect(editTask).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  test("Should call deleteTask when delete button clicked", () => {
+    const { getByText } = renderWithContextRouter(
+      <TaskListItem task={task} deleteTask={deleteTask} />,
+      {
+        route: "/edit/test123"
+      }
+    );
+
+    fireEvent.click(getByText(/delete task/i));
+    expect(deleteTask).toHaveBeenCalledTimes(1);
   });
 });

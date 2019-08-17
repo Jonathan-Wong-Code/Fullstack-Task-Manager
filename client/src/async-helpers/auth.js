@@ -137,7 +137,6 @@ export async function updatePassword(
       }
     });
 
-    console.log(response.data);
     return response.data.message;
   } catch (error) {
     return error.response.data.message;

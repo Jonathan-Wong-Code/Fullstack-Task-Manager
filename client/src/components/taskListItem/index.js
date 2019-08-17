@@ -13,9 +13,9 @@ function TaskListItem({ task }) {
     checkbox.current.checked = task.completed;
   });
 
-  const handleCheckChange = () => {
+  const handleCheckChange = async () => {
     setCompleted(checkbox.current.checked);
-    editTask(
+    await editTask(
       {
         title: task.title,
         description: task.description,
