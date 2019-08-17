@@ -30,18 +30,21 @@ function FilterBar({
     if (completed) {
       return `&completed=${completed}`;
     }
+    return "";
   };
 
   const setSortQuery = sort => {
     if (sort) {
       return `&sort=${sort}`;
     }
+    return "";
   };
 
   const setSearchQuery = search => {
     if (search) {
       return `&query=${search}`;
     }
+    return "";
   };
 
   const handleFilterChange = e => {

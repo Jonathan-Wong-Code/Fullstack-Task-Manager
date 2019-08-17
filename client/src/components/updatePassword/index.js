@@ -21,8 +21,6 @@ function UpdatePassword() {
       confirmUpdatedPassword
     );
 
-    console.log(message);
-
     setState({
       message: message,
       password: "",

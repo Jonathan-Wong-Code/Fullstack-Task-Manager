@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTaskDispatch } from "../../context/task-context";
 import { useState } from "react";
@@ -7,14 +7,19 @@ import { deleteTask, editTask } from "../../async-helpers/tasks";
 function TaskListItem({ task }) {
   const [completed, setCompleted] = useState(task.completed);
   const taskDispatch = useTaskDispatch();
+  const checkbox = useRef();
+
+  useEffect(() => {
+    checkbox.current.checked = task.completed;
+  });
 
   const handleCheckChange = () => {
-    setCompleted(!completed);
+    setCompleted(checkbox.current.checked);
     editTask(
       {
         title: task.title,
         description: task.description,
-        completed: !completed,
+        completed: checkbox.current.checked,
         _id: task._id
       },
       taskDispatch
@@ -29,6 +34,7 @@ function TaskListItem({ task }) {
         type="checkbox"
         id="completed"
         checked={completed}
+        ref={checkbox}
         value={completed}
         onChange={handleCheckChange}
       />
