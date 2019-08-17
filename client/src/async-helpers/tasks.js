@@ -55,7 +55,6 @@ export async function fetchAllTasks(
       });
     }
   } catch (error) {
-    console.log(error.response.data.message);
     return setState({ error: error.response.data.message });
   } finally {
     setState({ loading: false });

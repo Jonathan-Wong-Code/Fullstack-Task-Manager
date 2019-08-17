@@ -10,7 +10,7 @@ const signToken = id =>
     expiresIn: process.env.JWT_EXPIRES_IN
   });
 
-const createSendToken = (res, user, statusCode) => {
+const createSendToken = (res, user, statusCode, message = null) => {
   const token = signToken(user._id);
   const cookieOptions = {
     httpOnly: true,
@@ -23,6 +23,7 @@ const createSendToken = (res, user, statusCode) => {
   res.status(statusCode).json({
     status: "Success",
     token,
+    message: message ? message : undefined,
     user: {
       name: user.name,
       email: user.email
@@ -188,8 +189,8 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   req.user.password = updatedPassword;
   req.user.confirmPassword = confirmUpdatedPassword;
   await req.user.save();
-
-  createSendToken(res, req.user, 200);
+  const message = "Password updated!";
+  createSendToken(res, req.user, 200, message);
 });
 
 exports.restrictTo = (...roles) => {

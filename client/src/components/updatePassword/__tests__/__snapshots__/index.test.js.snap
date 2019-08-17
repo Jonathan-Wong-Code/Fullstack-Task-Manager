@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<updatePassword /> should display an error when fields are missing 1`] = `
+exports[`<updatePassword /> should display an error from the API or when fields are missing 1`] = `
 <div>
   <div>
     <h2>

@@ -137,11 +137,9 @@ export async function updatePassword(
       }
     });
 
-    if (response.status === 200) {
-      return "Password updated!";
-    }
+    console.log(response.data);
+    return response.data.message;
   } catch (error) {
     return error.response.data.message;
-    // return "error";
   }
 }
