@@ -37,7 +37,7 @@ exports.getAllTasks = catchAsync(async (req, res, next) => {
     .limitFields()
     .paginate();
   const tasks = await features.returnedQueryObj;
-  // const tasks = await Task.find({ user: req.user._id });
+
   res.status(200).json({
     status: "Success",
     data: {

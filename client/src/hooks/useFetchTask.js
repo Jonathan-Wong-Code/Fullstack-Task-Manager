@@ -38,6 +38,7 @@ function useFetchTask(id) {
       getTask();
     }
   }, [tasks, id]);
+
   return { fetchedTask, error, loading };
 }
 

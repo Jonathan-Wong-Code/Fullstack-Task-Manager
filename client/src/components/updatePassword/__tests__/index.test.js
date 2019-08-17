@@ -23,7 +23,6 @@ describe("<updatePassword />", () => {
 
     expect(queryByTestId("update-pass-message")).toBeNull();
     fireEvent.submit(getByTestId("update-pass-form"));
-    expect(container).toMatchSnapshot();
     await wait(() => {
       expect(getByTestId("update-pass-message")).toBeTruthy();
       expect(getByTestId("update-pass-message")).toHaveTextContent("error");

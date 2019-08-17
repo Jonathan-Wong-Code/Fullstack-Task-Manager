@@ -13,7 +13,8 @@ export async function fetchAllTasks(
   page,
   completed,
   sort,
-  query
+  query,
+  setState
 ) {
   const setCompletedQuery = completed => {
     if (completed) {
@@ -37,6 +38,7 @@ export async function fetchAllTasks(
   };
 
   try {
+    setState({ loading: true });
     const response = await axios.get(
       `http://localhost:3000/api/v1/tasks?limit=${limit}&page=${page}
       ${setCompletedQuery(completed)}${setSortQuery(sort)}${setSearchQuery(
@@ -54,6 +56,9 @@ export async function fetchAllTasks(
     }
   } catch (error) {
     console.log(error.response.data.message);
+    return setState({ error: error.response.data.message });
+  } finally {
+    setState({ loading: false });
   }
 }
 

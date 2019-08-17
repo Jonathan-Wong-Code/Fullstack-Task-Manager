@@ -26,17 +26,27 @@ export default function Dashboard({
   const query = params.get("query") || "";
 
   const [
-    { completedQueryStr, completedSortStr, completedSearchStr },
+    { completedQueryStr, completedSortStr, completedSearchStr, loading, error },
     setState
   ] = useReducer(reducer, {
     completedQueryStr: "",
     completedSortStr: "",
-    completedSearchStr: ""
+    completedSearchStr: "",
+    loading: false,
+    error: ""
   });
 
   const numTasks = useGetNumTasks(completed);
   useEffect(() => {
-    fetchAllTasks(taskDispatch, perPage, page, completed, sort, query);
+    fetchAllTasks(
+      taskDispatch,
+      perPage,
+      page,
+      completed,
+      sort,
+      query,
+      setState
+    );
   }, [page, perPage, taskDispatch, completed, sort, query]);
 
   useEffect(() => {
@@ -53,6 +63,8 @@ export default function Dashboard({
     }
   }, [completed, sort, query]);
 
+  if (loading) return <div>Loading...</div>;
+
   return (
     <section>
       <h2>Task List!</h2>
@@ -67,6 +79,7 @@ export default function Dashboard({
         completedSortStr={completedSortStr}
         query={query}
       />
+      {error && <p>{error}</p>}
       <TaskList tasks={tasks} />
       <Pagination
         page={page}
