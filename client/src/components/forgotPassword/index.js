@@ -18,10 +18,8 @@ function ForgotPassword() {
   return (
     <section>
       <h2>Forgot your password?</h2>
-      <form action="" onSubmit={handleSubmit}>
-        <label htmlFor="reset-email">
-          Enter your email to receive a reset link!
-        </label>
+      <form action="" onSubmit={handleSubmit} data-testid="forgot-pass-form">
+        <label htmlFor="reset-email">Enter email:</label>
         <input
           type="email"
           id="reset-email"

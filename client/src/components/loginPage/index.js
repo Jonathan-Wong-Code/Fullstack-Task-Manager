@@ -1,13 +1,12 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { loginUser } from "../../async-helpers/auth";
 import { useAuthDispatch } from "../../context/auth-context";
 import { useUserDispatch } from "../../context/user-context";
 import useSafeDispatch from "../../hooks/useSafeDispatch";
-import reducer from "../../reducers/stateReducer";
 
 function LoginPage() {
-  const [{ email, password, error }, setSafeState] = useSafeDispatch({
+  const [{ email, password, error, loading }, setSafeState] = useSafeDispatch({
     email: "",
     password: "",
     error: "",
@@ -54,6 +53,7 @@ function LoginPage() {
       </form>
       <Link to="/forgotPassword">Forgot your password?</Link>
       {error && <p>{error}</p>}
+      {loading && <p>Logging in...</p>}
     </div>
   );
 }

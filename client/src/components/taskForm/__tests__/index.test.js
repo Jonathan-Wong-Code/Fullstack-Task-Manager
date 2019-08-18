@@ -34,7 +34,13 @@ describe("<TaskForm>", () => {
 
   test("it should successfully create a new task", async () => {
     axios.mockImplementation(() => Promise.resolve(response));
-    const { getByLabelText, getByTestId, queryByTestId } = renderContext(
+    const {
+      getByLabelText,
+      getByTestId,
+      queryByTestId,
+      getByText,
+      queryByText
+    } = renderContext(
       <Router history={history}>
         <TaskForm history={history} type="create" />,
       </Router>,
@@ -42,7 +48,8 @@ describe("<TaskForm>", () => {
         route: "/create"
       }
     );
-
+    expect(getByText("Create")).toBeDefined();
+    expect(queryByText("Edit")).toBeNull();
     const title = getByLabelText(/title:/i);
     const description = getByLabelText(/description:/i);
     const completed = getByLabelText("completed?");
@@ -67,7 +74,7 @@ describe("<TaskForm>", () => {
     error.response = { data: { message: "failure" } };
     axios.mockImplementationOnce(() => Promise.reject(error));
 
-    const { getByLabelText, getByTestId, container } = renderContext(
+    const { getByLabelText, getByTestId } = renderContext(
       <Router history={history}>
         <TaskForm history={history} type="create" />
       </Router>,

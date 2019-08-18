@@ -95,7 +95,7 @@ export async function sendResetToken(email, setState) {
     });
 
     if (response.status === 200) {
-      return "Password reset link sent!";
+      return response.data.message;
     }
   } catch (error) {
     return error.response.data.message;
