@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import useSafeSetState from "./useSafeSetState";
 function useGetNumTasks(completed) {

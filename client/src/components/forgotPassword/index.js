@@ -1,20 +1,18 @@
-import React, { useReducer } from "react";
-import { useAuthDispatch } from "../../context/auth-context";
+import React from "react";
 import { sendResetToken } from "../../async-helpers/auth";
-import reducer from "./../../reducers/stateReducer";
+import useSafeDispatch from "./../../hooks/useSafeDispatch";
 
 function ForgotPassword() {
-  const [{ email, message }, setState] = useReducer(reducer, {
+  const [{ email, message, loading }, setSafeState] = useSafeDispatch({
     email: "",
-    message: ""
+    message: "",
+    loading: false
   });
-
-  const dispatch = useAuthDispatch();
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const message = await sendResetToken(email, dispatch);
-    setState({ email: "", message });
+    const message = await sendResetToken(email, setSafeState);
+    setSafeState({ email: "", message });
   };
 
   return (
@@ -28,11 +26,12 @@ function ForgotPassword() {
           type="email"
           id="reset-email"
           value={email}
-          onChange={e => setState({ email })}
+          onChange={e => setSafeState({ email: e.target.value })}
         />
         <button type="submit">Submit</button>
       </form>
       {message && <p>{message}</p>}
+      {loading && <p>Sending email...</p>}
     </section>
   );
 }

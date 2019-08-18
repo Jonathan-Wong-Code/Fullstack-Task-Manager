@@ -8,8 +8,15 @@ import {
   CLEAR_USER
 } from "./../context/types";
 
-export async function loginUser(dispatch, userDispatch, email, password) {
+export async function loginUser(
+  dispatch,
+  userDispatch,
+  email,
+  password,
+  setState
+) {
   try {
+    setState({ loading: true });
     const response = await axios({
       method: "POST",
       url: "http://localhost:3000/api/v1/users/login",
@@ -32,6 +39,8 @@ export async function loginUser(dispatch, userDispatch, email, password) {
     }
   } catch (error) {
     return error.response.data.message;
+  } finally {
+    setState({ loading: false });
   }
 }
 
@@ -74,8 +83,9 @@ export async function signupUser(
   }
 }
 
-export async function sendResetToken(email, dispatch) {
+export async function sendResetToken(email, setState) {
   try {
+    setState({ loading: true });
     const response = await axios({
       method: "POST",
       url: "http://localhost:3000/api/v1/users/forgotPassword",
@@ -89,6 +99,8 @@ export async function sendResetToken(email, dispatch) {
     }
   } catch (error) {
     return error.response.data.message;
+  } finally {
+    setState({ loading: false });
   }
 }
 
@@ -123,9 +135,12 @@ export async function resetPassword(
 export async function updatePassword(
   password,
   updatedPassword,
-  confirmUpdatedPassword
+  confirmUpdatedPassword,
+
+  setState
 ) {
   try {
+    setState({ loading: true });
     const response = await axios({
       method: "PATCH",
       url: `http://localhost:3000/api/v1/users/updatePassword`,
@@ -140,5 +155,7 @@ export async function updatePassword(
     return response.data.message;
   } catch (error) {
     return error.response.data.message;
+  } finally {
+    setState({ loading: false });
   }
 }

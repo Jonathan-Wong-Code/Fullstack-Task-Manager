@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 import { loginUser } from "../../async-helpers/auth";
 import { useAuthDispatch } from "../../context/auth-context";
 import { useUserDispatch } from "../../context/user-context";
+import useSafeDispatch from "../../hooks/useSafeDispatch";
 import reducer from "../../reducers/stateReducer";
 
 function LoginPage() {
-  const [{ email, password, error }, setState] = useReducer(reducer, {
+  const [{ email, password, error }, setSafeState] = useSafeDispatch({
     email: "",
     password: "",
-    error: ""
+    error: "",
+    loading: ""
   });
 
   const authDispatch = useAuthDispatch();
@@ -21,10 +23,11 @@ function LoginPage() {
       authDispatch,
       userDispatch,
       email,
-      password
+      password,
+      setSafeState
     );
     if (message) {
-      setState({ error: message });
+      setSafeState({ error: message });
     }
   };
 
@@ -36,7 +39,7 @@ function LoginPage() {
           type="text"
           id="email"
           value={email}
-          onChange={e => setState({ email: e.target.value })}
+          onChange={e => setSafeState({ email: e.target.value })}
           required
         />
         <label htmlFor="password">Password</label>
@@ -44,7 +47,7 @@ function LoginPage() {
           type="text"
           id="password"
           value={password}
-          onChange={e => setState({ password: e.target.value })}
+          onChange={e => setSafeState({ password: e.target.value })}
           required
         />
         <button type="submit">Login</button>

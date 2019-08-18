@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef } from "react";
+import React, { useEffect } from "react";
 import TaskList from "../taskList";
 import Pagination from "../pagination";
 import FilterBar from "../filterBar";
@@ -6,7 +6,6 @@ import FilterBar from "../filterBar";
 import useGetNumTasks from "../../hooks/useGetNumTasks";
 import { useTaskState, useTaskDispatch } from "../../context/task-context";
 import { fetchAllTasks } from "../../async-helpers/tasks";
-import reducer from "./../../reducers/stateReducer";
 import useSafeDispatch from "./../../hooks/useSafeDispatch";
 export default function Dashboard({
   history,

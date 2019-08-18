@@ -1,4 +1,10 @@
-import React, { useContext, useReducer, createContext } from "react";
+import React, {
+  useContext,
+  useReducer,
+  createContext,
+  useRef,
+  useEffect
+} from "react";
 import { UPDATE_USER, CLEAR_USER, LOGIN_SUCCESS } from "../context/types";
 const UserStateContext = createContext();
 const UserDispatchContext = createContext();
@@ -41,11 +47,23 @@ function useUserState() {
 }
 
 function useUserDispatch() {
-  const context = useContext(UserDispatchContext);
-  if (!context) {
+  const dispatch = useContext(UserDispatchContext);
+  if (!dispatch) {
     throw new Error("UserDispatch provider must use UserDispatchContext");
   }
-  return context;
+  const mountedRef = useRef(false);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      return (mountedRef.current = false);
+    };
+  }, []);
+
+  const safeDispatch = (...args) => {
+    return mountedRef.current && dispatch(...args);
+  };
+
+  return safeDispatch;
 }
 
 export { UserProvider, useUserState, useUserDispatch };

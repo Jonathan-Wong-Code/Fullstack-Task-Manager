@@ -1,27 +1,31 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { updatePassword } from "../../async-helpers/auth";
-import reducer from "../../reducers/stateReducer";
+import useSafeDispatch from "./../../hooks/useSafeDispatch";
 
 function UpdatePassword() {
   const [
-    { password, updatedPassword, confirmUpdatedPassword, message },
-    setState
-  ] = useReducer(reducer, {
+    { password, updatedPassword, confirmUpdatedPassword, message, loading },
+    setSafeState
+  ] = useSafeDispatch({
     password: "",
     updatedPassword: "",
     confirmUpdatedPassword: "",
-    message: ""
+    message: "",
+    loading: false
   });
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setSafeState({ message: "" });
+
     const message = await updatePassword(
       password,
       updatedPassword,
-      confirmUpdatedPassword
+      confirmUpdatedPassword,
+      setSafeState
     );
 
-    setState({
+    setSafeState({
       message: message,
       password: "",
       confirmUpdatedPassword: "",
@@ -38,7 +42,7 @@ function UpdatePassword() {
           type="text"
           id="update-password"
           value={password}
-          onChange={e => setState({ password: e.target.value })}
+          onChange={e => setSafeState({ password: e.target.value })}
         />
 
         <label htmlFor="update-new-password">Enter New Password</label>
@@ -46,7 +50,7 @@ function UpdatePassword() {
           type="text"
           id="update-new-password"
           value={updatedPassword}
-          onChange={e => setState({ updatedPassword: e.target.value })}
+          onChange={e => setSafeState({ updatedPassword: e.target.value })}
         />
 
         <label htmlFor="update-confirm-updated-password">
@@ -56,10 +60,13 @@ function UpdatePassword() {
           type="text"
           id="update-confirm-updated-password"
           value={confirmUpdatedPassword}
-          onChange={e => setState({ confirmUpdatedPassword: e.target.value })}
+          onChange={e =>
+            setSafeState({ confirmUpdatedPassword: e.target.value })
+          }
         />
         <button type="submit">Submit</button>
       </form>
+      {loading && <p>Updating...</p>}
       {message && <p data-testid="update-pass-message">{message}</p>}
     </div>
   );
