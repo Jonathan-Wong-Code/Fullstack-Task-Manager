@@ -6,13 +6,12 @@ import {
 } from "./../../../testUtils/testUtils";
 import TaskForm from "..";
 import axios from "axios";
-import { fireEvent, wait } from "@testing-library/react";
+import { fireEvent, wait, cleanup } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
+jest.mock("axios");
 
 const history = createMemoryHistory();
-history.push = jest.fn();
-jest.mock("axios");
 
 const mockTask = {
   title: "Test task",
@@ -28,8 +27,13 @@ const response = {
     }
   }
 };
+afterEach(cleanup);
 
 describe("<TaskForm>", () => {
+  beforeEach(() => {
+    history.push = jest.fn();
+  });
+
   test("it should successfully create a new task", async () => {
     axios.mockImplementation(() => Promise.resolve(response));
     const { getByLabelText, getByTestId, queryByTestId } = renderContext(
@@ -58,5 +62,36 @@ describe("<TaskForm>", () => {
       expect(queryByTestId("task-form-error")).toBeNull();
       expect(history.push).toHaveBeenCalledTimes(1);
     });
+  });
+
+  test("it should throw an error if create task fails", async () => {
+    const error = new Error();
+    error.response = { data: { message: "failure" } };
+    axios.mockImplementationOnce(() => Promise.reject(error));
+
+    const { getByLabelText, getByTestId, container } = renderContext(
+      <Router history={history}>
+        <TaskForm history={history} type="create" />
+      </Router>,
+      {}
+    );
+
+    const title = getByLabelText(/title:/i);
+    const description = getByLabelText(/description:/i);
+    const completed = getByLabelText("completed?");
+
+    fireEvent.change(title, { target: { value: mockTask.title } });
+    fireEvent.change(description, {
+      target: { value: mockTask.description }
+    });
+    fireEvent.click(completed);
+    fireEvent.submit(getByTestId("task-form"));
+    await wait(() => {
+      expect(getByTestId("task-form-error")).toBeTruthy();
+      expect(getByTestId("task-form-error").textContent).toBe("failure");
+      expect(container).toMatchSnapshot();
+    });
+
+    expect(history.push).not.toHaveBeenCalled();
   });
 });

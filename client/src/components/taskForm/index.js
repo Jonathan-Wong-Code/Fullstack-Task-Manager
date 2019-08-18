@@ -38,9 +38,10 @@ function TaskForm({ type, history, editedTask, fetchError }) {
     }
 
     if (message) {
+      console.log(message);
       return setState({ error: message });
     }
-
+    console.log(message);
     history.push("/dashboard");
   };
 
