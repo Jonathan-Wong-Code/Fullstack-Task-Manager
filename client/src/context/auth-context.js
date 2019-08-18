@@ -1,4 +1,10 @@
-import React, { useContext, useReducer, createContext } from "react";
+import React, {
+  useContext,
+  useReducer,
+  createContext,
+  useRef,
+  useEffect
+} from "react";
 import { LOGIN_SUCCESS, LOGOUT, AUTH_ERROR, SIGNUP_SUCCESS } from "./types";
 
 const AuthStateContext = createContext();
@@ -51,9 +57,24 @@ export function useAuthState() {
 }
 
 export function useAuthDispatch() {
-  const context = useContext(AuthDispatchContext);
-  if (!context) {
-    throw new Error("AuthDispatchProvider must use AuthDispatchContext");
+  const dispatch = useContext(AuthDispatchContext);
+  if (!dispatch) {
+    throw new Error(
+      "TaskDispatchContext Provider must use TaskDispatchContext"
+    );
   }
-  return context;
+
+  const mountedRef = useRef(false);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+  const safeDispatch = (...args) => {
+    return mountedRef.current && dispatch(...args);
+  };
+
+  return safeDispatch;
 }

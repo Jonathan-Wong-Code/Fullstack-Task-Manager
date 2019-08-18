@@ -1,4 +1,10 @@
-import React, { useContext, useReducer, createContext } from "react";
+import React, {
+  useContext,
+  useReducer,
+  createContext,
+  useEffect,
+  useRef
+} from "react";
 import {
   EDIT_TASK,
   ADD_TASK,
@@ -41,7 +47,6 @@ export function TaskProvider({ children, value }) {
   const [state, taskDispatch] = useReducer(reducer, {
     tasks: value || [] // for testing
   });
-
   return (
     <TaskStateContext.Provider value={state}>
       <TaskDispatchContext.Provider value={taskDispatch}>
@@ -52,19 +57,32 @@ export function TaskProvider({ children, value }) {
 }
 
 export function useTaskState() {
-  const context = useContext(TaskStateContext);
-  if (!context) {
+  const state = useContext(TaskStateContext);
+  if (!state) {
     throw new Error("TaskStateContext Provider must use TaskStateContext");
   }
-  return context;
+  return state;
 }
 
 export function useTaskDispatch() {
-  const context = useContext(TaskDispatchContext);
-  if (!context) {
+  const dispatch = useContext(TaskDispatchContext);
+  if (!dispatch) {
     throw new Error(
       "TaskDispatchContext Provider must use TaskDispatchContext"
     );
   }
-  return context;
+
+  const mountedRef = useRef(false);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+  const safeDispatch = (...args) => {
+    return mountedRef.current && dispatch(...args);
+  };
+
+  return safeDispatch;
 }

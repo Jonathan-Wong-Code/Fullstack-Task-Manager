@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import useSafeSetState from "./useSafeSetState";
 function useGetNumTasks(completed) {
-  const [numTasks, setNumTasks] = useState();
+  const [state, safeSetState] = useSafeSetState();
+  // const [numTasks, setNumTasks] = useState();
+
   useEffect(() => {
     const fetchNumTasks = async () => {
       try {
@@ -15,13 +17,13 @@ function useGetNumTasks(completed) {
         const { complete, incomplete } = response.data.data;
         switch (completed) {
           case "true":
-            setNumTasks(complete);
+            safeSetState(complete);
             break;
           case "false":
-            setNumTasks(incomplete);
+            safeSetState(incomplete);
             break;
           default:
-            setNumTasks(complete + incomplete);
+            safeSetState(complete + incomplete);
         }
       } catch (error) {
         console.log(error.response.data.message);
@@ -30,7 +32,7 @@ function useGetNumTasks(completed) {
     fetchNumTasks();
   }, [completed]);
 
-  return numTasks;
+  return state;
 }
 
 export default useGetNumTasks;

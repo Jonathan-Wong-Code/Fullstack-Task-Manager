@@ -1,14 +1,12 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import {
-  renderWithContextRouter,
-  renderContext
-} from "./../../../testUtils/testUtils";
+import { renderContext } from "./../../../testUtils/testUtils";
 import TaskForm from "..";
 import axios from "axios";
 import { fireEvent, wait, cleanup } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
+
 jest.mock("axios");
 
 const history = createMemoryHistory();
@@ -86,10 +84,10 @@ describe("<TaskForm>", () => {
     });
     fireEvent.click(completed);
     fireEvent.submit(getByTestId("task-form"));
+
     await wait(() => {
       expect(getByTestId("task-form-error")).toBeTruthy();
       expect(getByTestId("task-form-error").textContent).toBe("failure");
-      expect(container).toMatchSnapshot();
     });
 
     expect(history.push).not.toHaveBeenCalled();

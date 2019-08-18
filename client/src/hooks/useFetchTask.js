@@ -1,10 +1,17 @@
-import { useEffect, useReducer } from "react";
+import { useEffect } from "react";
 import { useTaskState } from "./../context/task-context";
+import useSafeDispatch from "./useSafeDispatch";
 import axios from "axios";
-import reducer from "./../reducers/stateReducer";
+
 // Fetches task on page load
 function useFetchTask(id) {
-  const [{ fetchedTask, error, loading }, setState] = useReducer(reducer, {
+  // const [{ fetchedTask, error, loading }, setState] = useReducer(reducer, {
+  //   fetchedTask: null,
+  //   loading: false,
+  //   error: ""
+  // });
+
+  const [{ fetchedTask, error, loading }, setSafeState] = useSafeDispatch({
     fetchedTask: null,
     loading: false,
     error: ""
@@ -15,7 +22,7 @@ function useFetchTask(id) {
   useEffect(() => {
     const task = tasks.find(task => task._id === id);
     const getTask = async () => {
-      setState({ loading: true });
+      setSafeState({ loading: true });
 
       try {
         const response = await axios.get(
@@ -24,16 +31,16 @@ function useFetchTask(id) {
             withCredentials: true
           }
         );
-        setState({ fetchedTask: response.data.data.task });
+        setSafeState({ fetchedTask: response.data.data.task });
       } catch (error) {
-        setState({ error: error.response.data.message });
+        setSafeState({ error: error.response.data.message });
       } finally {
-        setState({ loading: false });
+        setSafeState({ loading: false });
       }
     };
 
     if (task) {
-      setState({ fetchedTask: task });
+      setSafeState({ fetchedTask: task });
     } else {
       getTask();
     }

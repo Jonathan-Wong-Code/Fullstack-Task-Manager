@@ -1,5 +1,4 @@
-import React, { useEffect, useReducer } from "react";
-
+import React, { useEffect, useReducer, useRef } from "react";
 import TaskList from "../taskList";
 import Pagination from "../pagination";
 import FilterBar from "../filterBar";
@@ -8,7 +7,7 @@ import useGetNumTasks from "../../hooks/useGetNumTasks";
 import { useTaskState, useTaskDispatch } from "../../context/task-context";
 import { fetchAllTasks } from "../../async-helpers/tasks";
 import reducer from "./../../reducers/stateReducer";
-
+import useSafeDispatch from "./../../hooks/useSafeDispatch";
 export default function Dashboard({
   history,
   history: {
@@ -25,10 +24,21 @@ export default function Dashboard({
   const sort = params.get("sort") || "-createdAt";
   const query = params.get("query") || "";
 
+  // const [
+  //   { completedQueryStr, completedSortStr, completedSearchStr, loading, error },
+  //   setState
+  // ] = useReducer(reducer, {
+  //   completedQueryStr: "",
+  //   completedSortStr: "",
+  //   completedSearchStr: "",
+  //   loading: false,
+  //   error: ""
+  // });
+
   const [
     { completedQueryStr, completedSortStr, completedSearchStr, loading, error },
-    setState
-  ] = useReducer(reducer, {
+    setSafeState
+  ] = useSafeDispatch({
     completedQueryStr: "",
     completedSortStr: "",
     completedSearchStr: "",
@@ -37,6 +47,7 @@ export default function Dashboard({
   });
 
   const numTasks = useGetNumTasks(completed);
+
   useEffect(() => {
     fetchAllTasks(
       taskDispatch,
@@ -45,21 +56,21 @@ export default function Dashboard({
       completed,
       sort,
       query,
-      setState
+      setSafeState
     );
-  }, [page, perPage, taskDispatch, completed, sort, query]);
+  }, [page, perPage, completed, sort, query]);
 
   useEffect(() => {
     if (completed) {
-      setState({ completedQueryStr: `&completed=${completed}` });
+      setSafeState({ completedQueryStr: `&completed=${completed}` });
     }
     if (sort) {
-      setState({
+      setSafeState({
         completedSortStr: `&sort=${sort}`
       });
     }
     if (query) {
-      setState({ completedSearchStr: `&title=${query}` });
+      setSafeState({ completedSearchStr: `&title=${query}` });
     }
   }, [completed, sort, query]);
 

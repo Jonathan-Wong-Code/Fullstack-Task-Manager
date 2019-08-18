@@ -4,7 +4,7 @@ import useFetchTask from "./../../hooks/useFetchTask";
 
 export default function EditTask({ match }) {
   const { fetchedTask, loading, error } = useFetchTask(match.params.id);
-  if (loading || !fetchedTask) return <div> Loading Edit </div>;
+  if (loading || !fetchedTask) return <div> Loading Edit info </div>;
   return (
     <div>
       <h2>Edit Task</h2>
