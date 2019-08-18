@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 
 function useSafeSetState(initialState) {
   const [state, setState] = useState(initialState);
@@ -15,8 +15,8 @@ function useSafeSetState(initialState) {
   const safeSetState = (...args) => {
     return mountedRef.current && setState(...args);
   };
-
-  return [state, safeSetState];
+  const value = useMemo(() => [state, safeSetState], [state]);
+  return value;
 }
 
 export default useSafeSetState;

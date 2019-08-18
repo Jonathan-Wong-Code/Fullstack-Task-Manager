@@ -1,4 +1,4 @@
-import { useReducer, useEffect, useRef } from "react";
+import { useReducer, useEffect, useRef, useMemo } from "react";
 import reducer from "./../reducers/stateReducer";
 
 function useSafeDispatch(initialState) {
@@ -15,8 +15,8 @@ function useSafeDispatch(initialState) {
   const setSafeState = (...args) => {
     return mountedRef.current && setState(...args);
   };
-
-  return [state, setSafeState];
+  const value = useMemo(() => [state, setSafeState], [state]);
+  return value;
 }
 
 export default useSafeDispatch;

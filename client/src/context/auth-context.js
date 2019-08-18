@@ -6,6 +6,7 @@ import React, {
   useEffect
 } from "react";
 import { LOGIN_SUCCESS, LOGOUT, AUTH_ERROR, SIGNUP_SUCCESS } from "./types";
+import axios from "axios";
 
 const AuthStateContext = createContext();
 const AuthDispatchContext = createContext();
@@ -16,10 +17,12 @@ const reducer = (state, action) => {
     case LOGIN_SUCCESS:
     case SIGNUP_SUCCESS:
       return {
+        ...state,
         user: action.user
       };
     case LOGOUT:
       return {
+        ...state,
         user: action.user
       };
 
@@ -37,8 +40,40 @@ const reducer = (state, action) => {
 // CONTEXT
 export function AuthProvider({ children, value }) {
   const [state, authDispatch] = useReducer(reducer, {
-    user: null || value
+    user: null || value,
+    login
   });
+
+  async function login(dispatch, userDispatch, email, password, setState) {
+    try {
+      setState({ loading: true });
+      const response = await axios({
+        method: "POST",
+        url: "http://localhost:3000/api/v1/users/login",
+        withCredentials: true,
+        data: {
+          email,
+          password
+        }
+      });
+
+      if (response.data.user) {
+        dispatch({
+          type: LOGIN_SUCCESS,
+          user: response.data.user
+        });
+        userDispatch({
+          type: LOGIN_SUCCESS,
+          user: response.data.user
+        });
+      }
+    } catch (error) {
+      return error.response.data.message;
+    } finally {
+      setState({ loading: false });
+    }
+  }
+
   return (
     <AuthStateContext.Provider value={state}>
       <AuthDispatchContext.Provider value={authDispatch}>
@@ -50,6 +85,7 @@ export function AuthProvider({ children, value }) {
 
 export function useAuthState() {
   const context = useContext(AuthStateContext);
+  console.log(context);
   if (!context) {
     throw new Error("AuthStateProvider must use AuthStateContext");
   }

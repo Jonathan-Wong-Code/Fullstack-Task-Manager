@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { loginUser } from "../../async-helpers/auth";
-import { useAuthDispatch } from "../../context/auth-context";
+// import { loginUser } from "../../async-helpers/auth";
+import { useAuthDispatch, useAuthState } from "../../context/auth-context";
 import { useUserDispatch } from "../../context/user-context";
 import useSafeDispatch from "../../hooks/useSafeDispatch";
 
@@ -13,9 +13,11 @@ function LoginPage() {
     loading: ""
   });
 
+  const { login: loginUser } = useAuthState();
+
   const authDispatch = useAuthDispatch();
   const userDispatch = useUserDispatch();
-
+  const { login } = useAuthState();
   const handleSubmit = async e => {
     e.preventDefault();
     const message = await loginUser(
@@ -54,6 +56,7 @@ function LoginPage() {
       <Link to="/forgotPassword">Forgot your password?</Link>
       {error && <p>{error}</p>}
       {loading && <p>Logging in...</p>}
+      <button onClick={login}>Test</button>
     </div>
   );
 }

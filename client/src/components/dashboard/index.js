@@ -23,17 +23,6 @@ export default function Dashboard({
   const sort = params.get("sort") || "-createdAt";
   const query = params.get("query") || "";
 
-  // const [
-  //   { completedQueryStr, completedSortStr, completedSearchStr, loading, error },
-  //   setState
-  // ] = useReducer(reducer, {
-  //   completedQueryStr: "",
-  //   completedSortStr: "",
-  //   completedSearchStr: "",
-  //   loading: false,
-  //   error: ""
-  // });
-
   const [
     { completedQueryStr, completedSortStr, completedSearchStr, loading, error },
     setSafeState
@@ -46,7 +35,7 @@ export default function Dashboard({
   });
 
   const numTasks = useGetNumTasks(completed);
-
+  console.log("tasks");
   useEffect(() => {
     fetchAllTasks(
       taskDispatch,

@@ -30,7 +30,7 @@ function useGetNumTasks(completed) {
       }
     };
     fetchNumTasks();
-  }, [completed]);
+  }, [completed, safeSetState]);
 
   return state;
 }
