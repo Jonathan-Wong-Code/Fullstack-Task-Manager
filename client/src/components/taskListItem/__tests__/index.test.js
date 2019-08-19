@@ -34,7 +34,7 @@ describe("<TaskListItem />,", () => {
         }
       }
     };
-    const { getByLabelText, container } = renderWithContextRouter(
+    const { getByLabelText } = renderWithContextRouter(
       <TaskListItem task={task} editTask={editTask} />,
       {
         route: "/edit/test123"

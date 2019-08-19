@@ -62,9 +62,11 @@ export async function logoutUser(authDispatch, taskDispatch, userDispatch) {
 
 export async function signupUser(
   dispatch,
+  setState,
   { name, email, password, confirmPassword }
 ) {
   try {
+    setState({ loading: true });
     const response = await axios({
       method: "POST",
       url: "http://localhost:3000/api/v1/users/signup",
@@ -80,6 +82,8 @@ export async function signupUser(
     dispatch({ type: SIGNUP_SUCCESS, user });
   } catch (error) {
     return error.response.data.message;
+  } finally {
+    setState({ loading: false });
   }
 }
 

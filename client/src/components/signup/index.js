@@ -1,24 +1,25 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { useAuthDispatch } from "../../context/auth-context";
+import useSafeDispatch from "./../../hooks/useSafeDispatch";
 import { signupUser } from "../../async-helpers/auth";
-import reducer from "../../reducers/stateReducer";
 
 function Signup() {
   const dispatch = useAuthDispatch();
   const [
-    { name, email, password, confirmPassword, error },
-    setState
-  ] = useReducer(reducer, {
+    { name, email, password, confirmPassword, error, loading },
+    setSafeState
+  ] = useSafeDispatch({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
-    error: ""
+    error: "",
+    loading: ""
   });
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const error = await signupUser(dispatch, {
+    const error = await signupUser(dispatch, setSafeState, {
       name,
       email,
       password,
@@ -26,19 +27,19 @@ function Signup() {
     });
 
     if (error) {
-      setState({ error });
+      setSafeState({ error });
     }
   };
 
   return (
     <div>
-      <form action="" onSubmit={handleSubmit}>
+      <form action="" onSubmit={handleSubmit} data-testid="signup-form">
         <label htmlFor="name">Name</label>
         <input
           type="text"
           id="name"
           value={name}
-          onChange={e => setState({ name: e.target.value })}
+          onChange={e => setSafeState({ name: e.target.value })}
           required
         />
         <label htmlFor="email">Email</label>
@@ -46,7 +47,7 @@ function Signup() {
           type="email"
           id="email"
           value={email}
-          onChange={e => setState({ email: e.target.value })}
+          onChange={e => setSafeState({ email: e.target.value })}
           required
         />
         <label htmlFor="password">Password</label>
@@ -54,7 +55,7 @@ function Signup() {
           type="text"
           id="password"
           value={password}
-          onChange={e => setState({ password: e.target.value })}
+          onChange={e => setSafeState({ password: e.target.value })}
           required
         />
         <label htmlFor="confirmPassword">Confirm Password</label>
@@ -62,12 +63,13 @@ function Signup() {
           type="text"
           id="confirmPassword"
           value={confirmPassword}
-          onChange={e => setState({ confirmPassword: e.target.value })}
+          onChange={e => setSafeState({ confirmPassword: e.target.value })}
           required
         />
         <button type="submit">Signup</button>
       </form>
-      {error && <p>{error}</p>}
+      {error && <p data-testid="signup-error">{error}</p>}
+      {loading && <p>Signing up...</p>}
     </div>
   );
 }

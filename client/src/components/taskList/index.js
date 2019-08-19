@@ -2,9 +2,8 @@ import React from "react";
 
 import TaskListItem from "../taskListItem";
 
-export default function TaskList({ tasks }) {
-  // console.log(tasks);
-  console.log("tasklis");
+function TaskList({ tasks }) {
+  console.log("task");
   if (!tasks) return <div />;
   return (
     <div>
@@ -18,3 +17,5 @@ export default function TaskList({ tasks }) {
     </div>
   );
 }
+
+export default TaskList;

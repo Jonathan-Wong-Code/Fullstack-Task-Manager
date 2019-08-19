@@ -53,16 +53,25 @@ export default function Dashboard({
     if (completed) {
       setSafeState({ completedQueryStr: `&completed=${completed}` });
     }
+  }, [completed]);
+  useEffect(() => {
     if (sort) {
       setSafeState({
         completedSortStr: `&sort=${sort}`
       });
     }
+  }, [sort]);
+
+  useEffect(() => {
     if (query) {
       setSafeState({ completedSearchStr: `&query=${query}` });
     }
-  }, [completed, sort, query]);
+  }, [query]);
+  const MemoTaskList = useMemo(() => {
+    return <TaskList tasks={tasks} />;
+  }, [tasks]);
 
+  console.log("dashboard");
   if (loading) return <div>Loading...</div>;
 
   return (
@@ -80,8 +89,9 @@ export default function Dashboard({
         completedSearchStr={completedSearchStr}
         query={query}
       />
+      {MemoTaskList}
       {error && <p>{error}</p>}
-      <TaskList tasks={tasks} />
+
       <Pagination
         page={page}
         perPage={perPage}

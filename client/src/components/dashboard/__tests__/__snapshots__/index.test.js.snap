@@ -101,7 +101,6 @@ exports[`<Dashboard /> it renders 1`] = `
         </option>
       </select>
     </form>
-    
     <div>
       <ul>
         <li>
@@ -163,6 +162,7 @@ exports[`<Dashboard /> it renders 1`] = `
         </li>
       </ul>
     </div>
+    
     <div />
   </section>
 </div>
