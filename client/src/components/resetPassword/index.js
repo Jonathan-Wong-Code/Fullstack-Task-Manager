@@ -33,7 +33,7 @@ function ResetPassword({ match }) {
   return (
     <div>
       <h2>Reset password</h2>
-      <form action="" onSubmit={handleSubmit}>
+      <form action="" onSubmit={handleSubmit} data-testid="reset-password-form">
         <label htmlFor="reset-password">Enter Password</label>
         <input
           type="text"
@@ -50,7 +50,7 @@ function ResetPassword({ match }) {
         />
         <button type="submit">Submit</button>
       </form>
-      {error && <p>{error}</p>}
+      {error && <p data-testid="reset-password-error">{error}</p>}
     </div>
   );
 }

@@ -6,7 +6,7 @@ import Signup from "..";
 import axios from "axios";
 
 jest.mock("axios");
-
+afterEach(cleanup);
 describe("<Signup>", () => {
   test("it should successfully sign a user up", async () => {
     const response = {
@@ -18,7 +18,8 @@ describe("<Signup>", () => {
     const {
       getByLabelText,
       queryByTestId,
-      getByTestId
+      getByTestId,
+      container
     } = renderWithContextRouter(<Signup />, {
       route: "/signup"
     });
