@@ -1,10 +1,13 @@
 import React from "react";
 import { useAuthDispatch } from "../../context/auth-context";
+import { useUserDispatch } from "../../context/user-context";
 import useSafeDispatch from "./../../hooks/useSafeDispatch";
 import { signupUser } from "../../async-helpers/auth";
 
 function Signup() {
-  const dispatch = useAuthDispatch();
+  const authDispatch = useAuthDispatch();
+  const userDispatch = useUserDispatch();
+
   const [
     { name, email, password, confirmPassword, error, loading },
     setSafeState
@@ -19,7 +22,7 @@ function Signup() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const error = await signupUser(dispatch, setSafeState, {
+    const error = await signupUser(authDispatch, userDispatch, setSafeState, {
       name,
       email,
       password,

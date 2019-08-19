@@ -31,7 +31,7 @@ export async function loginUser(
       type: LOGIN_SUCCESS,
       user: response.data.user
     });
-    authDispatch({ type: LOGIN_SUCCESS, user: response.data.user });
+    authDispatch({ type: LOGIN_SUCCESS, user: true });
   } catch (error) {
     return error.response.data.message;
   } finally {
@@ -47,16 +47,17 @@ export async function logoutUser(authDispatch, taskDispatch, userDispatch) {
       withCredentials: true
     });
 
-    authDispatch({ type: LOGOUT, user: null });
     userDispatch({ type: CLEAR_USER, user: null });
     taskDispatch({ type: CLEAR_TASKS });
+    authDispatch({ type: LOGOUT, user: null });
   } catch (error) {
     authDispatch({ type: AUTH_ERROR, message: error.response.data.message });
   }
 }
 
 export async function signupUser(
-  dispatch,
+  authDispatch,
+  userDispatch,
   setState,
   { name, email, password, confirmPassword }
 ) {
@@ -73,8 +74,8 @@ export async function signupUser(
         confirmPassword
       }
     });
-    const user = response.data.user;
-    dispatch({ type: SIGNUP_SUCCESS, user });
+    userDispatch({ type: LOGIN_SUCCESS, user: response.data.user });
+    authDispatch({ type: SIGNUP_SUCCESS, user: true });
   } catch (error) {
     return error.response.data.message;
   } finally {
@@ -104,7 +105,8 @@ export async function sendResetToken(email, setState) {
 }
 
 export async function resetPassword(
-  dispatch,
+  authDispatch,
+  userDispatch,
   password,
   confirmPassword,
   token
@@ -119,13 +121,15 @@ export async function resetPassword(
         confirmPassword
       }
     });
+    userDispatch({
+      type: LOGIN_SUCCESS,
+      user: response.data.user
+    });
 
-    if (response.data.user) {
-      dispatch({
-        type: LOGIN_SUCCESS,
-        user: response.data.user
-      });
-    }
+    authDispatch({
+      type: LOGIN_SUCCESS,
+      user: true
+    });
   } catch (error) {
     return error.response.data.message;
   }

@@ -1,5 +1,7 @@
 import React, { useReducer } from "react";
 import { useAuthDispatch } from "../../context/auth-context";
+import { useUserDispatch } from "../../context/user-context";
+
 import { resetPassword } from "../../async-helpers/auth";
 import reducer from "../../reducers/stateReducer";
 
@@ -10,12 +12,14 @@ function ResetPassword({ match }) {
     error: ""
   });
 
-  const dispatch = useAuthDispatch();
+  const authDispatch = useAuthDispatch();
+  const userDispatch = useUserDispatch();
 
   const handleSubmit = async e => {
     e.preventDefault();
     const message = await resetPassword(
-      dispatch,
+      authDispatch,
+      userDispatch,
       password,
       confirmPassword,
       match.params.token

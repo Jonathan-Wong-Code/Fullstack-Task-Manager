@@ -14,9 +14,8 @@ const UserDispatchContext = createContext();
 const reducer = (state, action) => {
   switch (action.type) {
     case UPDATE_USER:
-      return { ...state, user: action.user };
+      return { user: action.user };
     case LOGIN_SUCCESS:
-      console.log("user login");
       return { user: action.user };
     case CLEAR_USER:
       return {
