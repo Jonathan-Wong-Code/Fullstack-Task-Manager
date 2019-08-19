@@ -15,6 +15,7 @@ function LoginPage() {
 
   const authDispatch = useAuthDispatch();
   const userDispatch = useUserDispatch();
+
   const handleSubmit = async e => {
     e.preventDefault();
     const message = await loginUser(

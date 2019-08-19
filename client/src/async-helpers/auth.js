@@ -9,7 +9,7 @@ import {
 } from "./../context/types";
 
 export async function loginUser(
-  dispatch,
+  authDispatch,
   userDispatch,
   email,
   password,
@@ -27,16 +27,11 @@ export async function loginUser(
       }
     });
 
-    if (response.data.user) {
-      dispatch({
-        type: LOGIN_SUCCESS,
-        user: response.data.user
-      });
-      userDispatch({
-        type: LOGIN_SUCCESS,
-        user: response.data.user
-      });
-    }
+    userDispatch({
+      type: LOGIN_SUCCESS,
+      user: response.data.user
+    });
+    authDispatch({ type: LOGIN_SUCCESS, user: response.data.user });
   } catch (error) {
     return error.response.data.message;
   } finally {

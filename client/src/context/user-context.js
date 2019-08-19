@@ -7,6 +7,7 @@ import React, {
   useCallback
 } from "react";
 import { UPDATE_USER, CLEAR_USER, LOGIN_SUCCESS } from "../context/types";
+
 const UserStateContext = createContext();
 const UserDispatchContext = createContext();
 
@@ -15,6 +16,7 @@ const reducer = (state, action) => {
     case UPDATE_USER:
       return { ...state, user: action.user };
     case LOGIN_SUCCESS:
+      console.log("user login");
       return { user: action.user };
     case CLEAR_USER:
       return {
@@ -56,7 +58,7 @@ function useUserDispatch() {
   useEffect(() => {
     mountedRef.current = true;
     return () => {
-      return (mountedRef.current = false);
+      mountedRef.current = false;
     };
   }, []);
 
