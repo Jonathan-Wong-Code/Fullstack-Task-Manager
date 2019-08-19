@@ -31,7 +31,7 @@ function LoginPage() {
 
   return (
     <div>
-      <form action="" onSubmit={handleSubmit}>
+      <form action="" onSubmit={handleSubmit} data-testid="login-form">
         <label htmlFor="email">Email</label>
         <input
           type="text"
@@ -51,7 +51,7 @@ function LoginPage() {
         <button type="submit">Login</button>
       </form>
       <Link to="/forgotPassword">Forgot your password?</Link>
-      {error && <p>{error}</p>}
+      {error && <p data-testid="login-error">{error}</p>}
       {loading && <p>Logging in...</p>}
     </div>
   );
