@@ -17,7 +17,6 @@ function useSafeDispatch(initialState) {
     },
     [setState]
   );
-
   return [state, setSafeState];
 }
 
