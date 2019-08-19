@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { createBrowserHistory } from "history";
@@ -51,7 +51,7 @@ function App() {
       }
     };
     checkLoggedIn();
-  }, []);
+  }, [authDispatch]);
 
   if (loading) return <p>Loading...</p>;
   return (

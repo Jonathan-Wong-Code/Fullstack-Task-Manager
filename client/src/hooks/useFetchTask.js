@@ -5,12 +5,6 @@ import axios from "axios";
 
 // Fetches task on page load
 function useFetchTask(id) {
-  // const [{ fetchedTask, error, loading }, setState] = useReducer(reducer, {
-  //   fetchedTask: null,
-  //   loading: false,
-  //   error: ""
-  // });
-
   const [{ fetchedTask, error, loading }, setSafeState] = useSafeDispatch({
     fetchedTask: null,
     loading: false,
@@ -44,7 +38,7 @@ function useFetchTask(id) {
     } else {
       getTask();
     }
-  }, [tasks, id]);
+  }, [tasks, id, setSafeState]);
 
   return { fetchedTask, error, loading };
 }

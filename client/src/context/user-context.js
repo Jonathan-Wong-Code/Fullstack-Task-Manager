@@ -3,7 +3,8 @@ import React, {
   useReducer,
   createContext,
   useRef,
-  useEffect
+  useEffect,
+  useCallback
 } from "react";
 import { UPDATE_USER, CLEAR_USER, LOGIN_SUCCESS } from "../context/types";
 const UserStateContext = createContext();
@@ -59,9 +60,12 @@ function useUserDispatch() {
     };
   }, []);
 
-  const safeDispatch = (...args) => {
-    return mountedRef.current && dispatch(...args);
-  };
+  const safeDispatch = useCallback(
+    (...args) => {
+      return mountedRef.current && dispatch(...args);
+    },
+    [dispatch]
+  );
 
   return safeDispatch;
 }

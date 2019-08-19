@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useAuthState } from "./../context/auth-context";
 

@@ -47,26 +47,27 @@ export default function Dashboard({
       query,
       setSafeState
     );
-  }, [page, perPage, completed, sort, query]);
+  }, [page, perPage, completed, sort, query, taskDispatch, setSafeState]);
 
   useEffect(() => {
     if (completed) {
       setSafeState({ completedQueryStr: `&completed=${completed}` });
     }
-  }, [completed]);
+  }, [completed, setSafeState]);
+
   useEffect(() => {
     if (sort) {
       setSafeState({
         completedSortStr: `&sort=${sort}`
       });
     }
-  }, [sort]);
+  }, [sort, setSafeState]);
 
   useEffect(() => {
     if (query) {
       setSafeState({ completedSearchStr: `&query=${query}` });
     }
-  }, [query]);
+  }, [query, setSafeState]);
   const MemoTaskList = useMemo(() => {
     return <TaskList tasks={tasks} />;
   }, [tasks]);

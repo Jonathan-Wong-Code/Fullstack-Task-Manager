@@ -3,7 +3,8 @@ import React, {
   useReducer,
   createContext,
   useRef,
-  useEffect
+  useEffect,
+  useCallback
 } from "react";
 
 import reducer from "./../reducers/authReducer";
@@ -50,9 +51,12 @@ export function useAuthDispatch() {
       mountedRef.current = false;
     };
   }, []);
-  const safeDispatch = (...args) => {
-    return mountedRef.current && dispatch(...args);
-  };
+  const safeDispatch = useCallback(
+    (...args) => {
+      return mountedRef.current && dispatch(...args);
+    },
+    [dispatch]
+  );
 
   return safeDispatch;
 }

@@ -3,7 +3,8 @@ import React, {
   useReducer,
   createContext,
   useEffect,
-  useRef
+  useRef,
+  useCallback
 } from "react";
 import reducer from "./../reducers/taskReducer";
 export const TaskStateContext = createContext();
@@ -46,9 +47,12 @@ export function useTaskDispatch() {
       mountedRef.current = false;
     };
   }, []);
-  const safeDispatch = (...args) => {
-    return mountedRef.current && dispatch(...args);
-  };
+  const safeDispatch = useCallback(
+    (...args) => {
+      return mountedRef.current && dispatch(...args);
+    },
+    [dispatch]
+  );
 
   return safeDispatch;
 }
