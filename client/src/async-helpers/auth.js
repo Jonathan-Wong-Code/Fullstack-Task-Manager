@@ -8,41 +8,41 @@ import {
   CLEAR_USER
 } from "./../context/types";
 
-// export async function loginUser(
-//   dispatch,
-//   userDispatch,
-//   email,
-//   password,
-//   setState
-// ) {
-//   try {
-//     setState({ loading: true });
-//     const response = await axios({
-//       method: "POST",
-//       url: "http://localhost:3000/api/v1/users/login",
-//       withCredentials: true,
-//       data: {
-//         email,
-//         password
-//       }
-//     });
+export async function loginUser(
+  dispatch,
+  userDispatch,
+  email,
+  password,
+  setState
+) {
+  try {
+    setState({ loading: true });
+    const response = await axios({
+      method: "POST",
+      url: "http://localhost:3000/api/v1/users/login",
+      withCredentials: true,
+      data: {
+        email,
+        password
+      }
+    });
 
-//     if (response.data.user) {
-//       dispatch({
-//         type: LOGIN_SUCCESS,
-//         user: response.data.user
-//       });
-//       userDispatch({
-//         type: LOGIN_SUCCESS,
-//         user: response.data.user
-//       });
-//     }
-//   } catch (error) {
-//     return error.response.data.message;
-//   } finally {
-//     setState({ loading: false });
-//   }
-// }
+    if (response.data.user) {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        user: response.data.user
+      });
+      userDispatch({
+        type: LOGIN_SUCCESS,
+        user: response.data.user
+      });
+    }
+  } catch (error) {
+    return error.response.data.message;
+  } finally {
+    setState({ loading: false });
+  }
+}
 
 export async function logoutUser(authDispatch, taskDispatch, userDispatch) {
   try {

@@ -4,7 +4,7 @@ import TaskListItem from "../taskListItem";
 
 export default function TaskList({ tasks }) {
   // console.log(tasks);
-
+  console.log("tasklis");
   if (!tasks) return <div />;
   return (
     <div>

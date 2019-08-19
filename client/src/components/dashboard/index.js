@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import TaskList from "../taskList";
 import Pagination from "../pagination";
 import FilterBar from "../filterBar";
@@ -7,6 +7,7 @@ import useGetNumTasks from "../../hooks/useGetNumTasks";
 import { useTaskState, useTaskDispatch } from "../../context/task-context";
 import { fetchAllTasks } from "../../async-helpers/tasks";
 import useSafeDispatch from "./../../hooks/useSafeDispatch";
+
 export default function Dashboard({
   history,
   history: {
@@ -35,7 +36,7 @@ export default function Dashboard({
   });
 
   const numTasks = useGetNumTasks(completed);
-  console.log("tasks");
+
   useEffect(() => {
     fetchAllTasks(
       taskDispatch,
@@ -58,7 +59,7 @@ export default function Dashboard({
       });
     }
     if (query) {
-      setSafeState({ completedSearchStr: `&title=${query}` });
+      setSafeState({ completedSearchStr: `&query=${query}` });
     }
   }, [completed, sort, query]);
 
@@ -76,6 +77,7 @@ export default function Dashboard({
         sort={sort}
         completedQueryStr={completedQueryStr}
         completedSortStr={completedSortStr}
+        completedSearchStr={completedSearchStr}
         query={query}
       />
       {error && <p>{error}</p>}

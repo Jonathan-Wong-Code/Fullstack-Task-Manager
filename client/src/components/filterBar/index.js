@@ -8,23 +8,9 @@ function FilterBar({
   completedQueryStr,
   sort,
   completedSortStr,
-  query
+  completedSearchStr
 }) {
   const [search, setSearch] = useState("");
-  // const [{ completedValue, sortBy }, setState] = useReducer(reducer, {
-  //   completedValue: completed,
-  //   sortBy: sort,
-  //   search: ""
-  // });
-
-  // useEffect(() => {
-  //   if (completed) {
-  //     setState({ completedValue: completed });
-  //   }
-  //   if (sort) {
-  //     setState({ sortBy: sort });
-  //   }
-  // }, [completed, sort]);
 
   const setCompletedQuery = completed => {
     if (completed) {
@@ -51,16 +37,16 @@ function FilterBar({
     history.push(
       `/dashboard?page=1&perPage=${perPage}${setCompletedQuery(
         e.target.value
-      )}${completedSortStr}`
+      )}${completedSortStr}${completedSearchStr}`
     );
   };
 
   const handleSubmit = e => {
     e.preventDefault();
     history.push(
-      `/dashboard?page=1&perPage=${perPage}${setCompletedQuery(
-        e.target.value
-      )}${completedSortStr}${setSearchQuery(search)}`
+      `/dashboard?page=1&perPage=${perPage}${completedQueryStr}${completedSortStr}${setSearchQuery(
+        search
+      )}`
     );
   };
 
@@ -83,7 +69,7 @@ function FilterBar({
           history.push(
             `/dashboard?page=${page}&perPage=${
               e.target.value
-            }${completedQueryStr}${completedSortStr}`
+            }${completedQueryStr}${completedSortStr}${completedSearchStr}`
           );
         }}
       >
@@ -113,7 +99,7 @@ function FilterBar({
           history.push(
             `/dashboard?page=${page}&perPage=${perPage}${completedQueryStr}${setSortQuery(
               e.target.value
-            )}`
+            )}${completedSearchStr}`
           );
         }}
       >

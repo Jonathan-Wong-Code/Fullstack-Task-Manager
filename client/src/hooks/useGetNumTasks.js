@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import axios from "axios";
 import useSafeSetState from "./useSafeSetState";
+
 function useGetNumTasks(completed) {
   const [state, safeSetState] = useSafeSetState();
-  // const [numTasks, setNumTasks] = useState();
 
   useEffect(() => {
     const fetchNumTasks = async () => {

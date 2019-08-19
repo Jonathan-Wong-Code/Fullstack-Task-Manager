@@ -3,7 +3,7 @@ import { renderWithContextRouter } from "./../../../testUtils/testUtils";
 import { cleanup, wait } from "@testing-library/react";
 import Dashboard from "..";
 import axios from "axios";
-afterEach(cleanup);
+
 jest.mock("axios");
 const mockData = {
   data: {
@@ -34,12 +34,15 @@ const mockNumTasks = {
     }
   }
 };
-describe("<Dashboard />", () => {
-  axios.get.mockImplementationOnce(() => Promise.resolve(mockNumTasks));
-  axios.get.mockImplementationOnce(() => Promise.resolve(mockData));
+afterEach(cleanup);
 
+describe("<Dashboard />", () => {
   const history = { location: { search: "" } };
   test("it renders", async () => {
+    axios.get.mockImplementationOnce(() => Promise.resolve(mockNumTasks));
+    axios.get.mockImplementationOnce(() => Promise.resolve(mockData));
+    axios.get.mockImplementationOnce(() => Promise.resolve(mockNumTasks));
+
     const testUser = { name: "Jon", email: "jon@jon.com" };
     const { container } = renderWithContextRouter(
       <Dashboard history={history} />,
