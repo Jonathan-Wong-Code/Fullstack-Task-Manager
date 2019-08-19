@@ -52,7 +52,7 @@ describe("<TaskForm>", () => {
     expect(queryByText("Edit")).toBeNull();
     const title = getByLabelText(/title:/i);
     const description = getByLabelText(/description:/i);
-    const completed = getByLabelText("completed?");
+    const completed = getByLabelText(/completed/i);
 
     fireEvent.change(title, { target: { value: mockTask.title } });
     fireEvent.change(description, { target: { value: mockTask.description } });
@@ -83,7 +83,7 @@ describe("<TaskForm>", () => {
 
     const title = getByLabelText(/title:/i);
     const description = getByLabelText(/description:/i);
-    const completed = getByLabelText("completed?");
+    const completed = getByLabelText(/completed:/i);
 
     fireEvent.change(title, { target: { value: mockTask.title } });
     fireEvent.change(description, {

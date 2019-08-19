@@ -15,7 +15,7 @@ function Header() {
   const handleLogoutClick = () => {
     logoutUser(authDispatch, taskDispatch, userDispatch);
   };
-  console.log();
+
   return (
     <header>
       <h1>TASK MANAGER APP!</h1>

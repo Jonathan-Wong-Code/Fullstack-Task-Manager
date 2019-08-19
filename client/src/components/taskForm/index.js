@@ -62,7 +62,7 @@ function TaskForm({ type, history, editedTask, fetchError }) {
           value={description}
           onChange={e => setState({ description: e.target.value })}
         />
-        <label htmlFor="completed">completed?</label>
+        <label htmlFor="completed">completed: </label>
         <input
           id="completed"
           type="checkbox"
