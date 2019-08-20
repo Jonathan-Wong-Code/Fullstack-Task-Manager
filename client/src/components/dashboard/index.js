@@ -79,7 +79,6 @@ export default function Dashboard({
   return (
     <DashboardSection>
       <Wrapper>
-        <h2>Task List!</h2>
         <FilterBar
           search={search}
           perPage={perPage}

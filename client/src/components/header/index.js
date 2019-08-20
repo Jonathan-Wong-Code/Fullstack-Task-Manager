@@ -11,7 +11,8 @@ import {
   Nav,
   NavList,
   NavListItem,
-  NavLink
+  NavLink,
+  Logout
 } from "./css";
 
 function Header() {
@@ -73,7 +74,7 @@ function Header() {
                   <NavLink to="/myAccount">My Account</NavLink>
                 </NavListItem>
                 <NavListItem>
-                  <NavLink onClick={handleLogoutClick}>Logout</NavLink>
+                  <Logout onClick={handleLogoutClick}>Logout</Logout>
                 </NavListItem>
               </>
             )}

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useTaskDispatch } from "../../context/task-context";
 import { useState } from "react";
 import { deleteTask, editTask } from "../../async-helpers/tasks";
-import { TaskCard, Buttons } from "./css";
+import { TaskCard, Buttons, H3 } from "./css";
 
 function TaskListItem({ task, index }) {
   const [completed, setCompleted] = useState(task.completed);
@@ -28,25 +28,27 @@ function TaskListItem({ task, index }) {
   };
   return (
     <TaskCard data-testid={`task-item-${index}`}>
-      <h3>Title: {task.title}</h3>
-      <p>Description: {task.description}</p>
-      <div>
-        <label htmlFor="completed">completed?</label>
-        <input
-          type="checkbox"
-          id="completed"
-          checked={completed}
-          ref={checkbox}
-          value={completed}
-          onChange={handleCheckChange}
-        />
+      <H3>{task.title}</H3>
+      <div className="content">
+        <p>{task.description}</p>
+        <div>
+          <label htmlFor="completed">completed?</label>
+          <input
+            type="checkbox"
+            id="completed"
+            checked={completed}
+            ref={checkbox}
+            value={completed}
+            onChange={handleCheckChange}
+          />
+        </div>
+        <Buttons>
+          <Link to={`/edit/${task._id}`}>Edit Task</Link>
+          <button onClick={() => deleteTask(task._id, taskDispatch)}>
+            Delete Task
+          </button>
+        </Buttons>
       </div>
-      <Buttons>
-        <Link to={`/edit/${task._id}`}>Edit Task</Link>
-        <button onClick={() => deleteTask(task._id, taskDispatch)}>
-          Delete Task
-        </button>
-      </Buttons>
     </TaskCard>
   );
 }
