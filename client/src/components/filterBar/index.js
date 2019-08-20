@@ -5,28 +5,28 @@ function FilterBar({
   page,
   history,
   completed,
-  completedQueryStr,
+  completedStr,
   sort,
-  completedSortStr,
-  completedSearchStr
+  sortStr,
+  searchStr
 }) {
   const [search, setSearch] = useState("");
 
-  const setCompletedQuery = completed => {
+  const setCompletedStr = completed => {
     if (completed) {
       return `&completed=${completed}`;
     }
     return "";
   };
 
-  const setSortQuery = sort => {
+  const setSortStr = sort => {
     if (sort) {
       return `&sort=${sort}`;
     }
     return "";
   };
 
-  const setSearchQuery = search => {
+  const setSearchStr = search => {
     if (search) {
       return `&query=${search}`;
     }
@@ -35,16 +35,16 @@ function FilterBar({
 
   const handleFilterChange = e => {
     history.push(
-      `/dashboard?page=1&perPage=${perPage}${setCompletedQuery(
+      `/dashboard?page=1&perPage=${perPage}${setCompletedStr(
         e.target.value
-      )}${completedSortStr}${completedSearchStr}`
+      )}${sortStr}${searchStr}`
     );
   };
 
   const handleSubmit = e => {
     e.preventDefault();
     history.push(
-      `/dashboard?page=1&perPage=${perPage}${completedQueryStr}${completedSortStr}${setSearchQuery(
+      `/dashboard?page=1&perPage=${perPage}${completedStr}${sortStr}${setSearchStr(
         search
       )}`
     );
@@ -69,7 +69,7 @@ function FilterBar({
           history.push(
             `/dashboard?page=${page}&perPage=${
               e.target.value
-            }${completedQueryStr}${completedSortStr}${completedSearchStr}`
+            }${completedStr}${sortStr}${searchStr}`
           );
         }}
       >
@@ -97,9 +97,9 @@ function FilterBar({
         value={sort}
         onChange={e => {
           history.push(
-            `/dashboard?page=${page}&perPage=${perPage}${completedQueryStr}${setSortQuery(
+            `/dashboard?page=${page}&perPage=${perPage}${completedStr}${setSortStr(
               e.target.value
-            )}${completedSearchStr}`
+            )}${searchStr}`
           );
         }}
       >

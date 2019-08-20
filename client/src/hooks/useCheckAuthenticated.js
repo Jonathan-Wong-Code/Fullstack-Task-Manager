@@ -30,7 +30,7 @@ function useCheckAuthenticated() {
       }
     };
     checkLoggedIn();
-  }, [authDispatch]);
+  }, [authDispatch, setSafeState]);
   return { user, loading };
 }
 

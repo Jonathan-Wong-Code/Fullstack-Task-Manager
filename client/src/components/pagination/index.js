@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 function Pagination({
   page,
   perPage,
-  completedQueryStr,
-  completedSortStr,
-  completedSearchStr,
+  completedStr,
+  sortStr,
+  searchStr,
   numTasks
 }) {
   return (
@@ -16,7 +16,7 @@ function Pagination({
           to={{
             pathname: "/dashboard",
             search: `?page=${page * 1 -
-              1}&perPage=${perPage}${completedQueryStr}${completedSortStr}${completedSearchStr}`
+              1}&perPage=${perPage}${completedStr}${sortStr}${searchStr}`
           }}
         >
           Prev
@@ -27,7 +27,7 @@ function Pagination({
           to={{
             pathname: "/dashboard",
             search: `?page=${page * 1 +
-              1}&perPage=${perPage}${completedQueryStr}${completedSortStr}${completedSearchStr}`
+              1}&perPage=${perPage}${completedStr}${sortStr}${searchStr}`
           }}
         >
           Next

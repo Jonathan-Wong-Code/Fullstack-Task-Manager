@@ -25,12 +25,12 @@ export default function Dashboard({
   const query = params.get("query") || "";
 
   const [
-    { completedQueryStr, completedSortStr, completedSearchStr, loading, error },
+    { completedStr, sortStr, searchStr, loading, error },
     setSafeState
   ] = useSafeDispatch({
-    completedQueryStr: "",
-    completedSortStr: "",
-    completedSearchStr: "",
+    completedStr: "",
+    sortStr: "",
+    searchStr: "",
     loading: false,
     error: ""
   });
@@ -51,21 +51,21 @@ export default function Dashboard({
 
   useEffect(() => {
     if (completed) {
-      setSafeState({ completedQueryStr: `&completed=${completed}` });
+      setSafeState({ completedStr: `&completed=${completed}` });
     }
   }, [completed, setSafeState]);
 
   useEffect(() => {
     if (sort) {
       setSafeState({
-        completedSortStr: `&sort=${sort}`
+        sortStr: `&sort=${sort}`
       });
     }
   }, [sort, setSafeState]);
 
   useEffect(() => {
     if (query) {
-      setSafeState({ completedSearchStr: `&query=${query}` });
+      setSafeState({ searchStr: `&query=${query}` });
     }
   }, [query, setSafeState]);
   const MemoTaskList = useMemo(() => {
@@ -84,9 +84,9 @@ export default function Dashboard({
         history={history}
         completed={completed}
         sort={sort}
-        completedQueryStr={completedQueryStr}
-        completedSortStr={completedSortStr}
-        completedSearchStr={completedSearchStr}
+        completedStr={completedStr}
+        sortStr={sortStr}
+        searchStr={searchStr}
         query={query}
       />
       {MemoTaskList}
@@ -96,9 +96,9 @@ export default function Dashboard({
         page={page}
         perPage={perPage}
         completed={completed}
-        completedQueryStr={completedQueryStr}
-        completedSortStr={completedSortStr}
-        completedSearchStr={completedSearchStr}
+        completedStr={completedStr}
+        sortStr={sortStr}
+        searchStr={searchStr}
         numTasks={numTasks}
       />
     </section>
