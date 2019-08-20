@@ -1,12 +1,9 @@
 import React from "react";
 import { cleanup, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { createMemoryHistory } from "history";
-import { Router } from "react-router-dom";
 
 import { renderContext } from "../../../testUtils/testUtils";
 import FilterBar from "..";
-// const history = createMemoryHistory();
 afterEach(cleanup);
 
 describe("<FilterBar>", () => {

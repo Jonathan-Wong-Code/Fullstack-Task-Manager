@@ -60,8 +60,8 @@ function Header() {
         <div>
           {user && (
             <>
-              <h3>{user.name}</h3>
-              <p>{user.email}</p>
+              <h3 data-testid="header-name">{user.name}</h3>
+              <p data-testid="header-email">{user.email}</p>
             </>
           )}
         </div>
