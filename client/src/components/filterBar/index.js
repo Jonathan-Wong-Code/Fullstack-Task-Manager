@@ -11,7 +11,6 @@ function FilterBar({
   searchStr
 }) {
   const [search, setSearch] = useState("");
-
   const setCompletedStr = completed => {
     if (completed) {
       return `&completed=${completed}`;
@@ -51,7 +50,7 @@ function FilterBar({
   };
 
   return (
-    <form action="" onSubmit={handleSubmit}>
+    <form action="" onSubmit={handleSubmit} data-testid="filter-bar-form">
       <label htmlFor="search"> Search by title</label>
       <input
         type="text"
@@ -78,7 +77,7 @@ function FilterBar({
         <option value={15}>15</option>
         <option value={20}>20</option>
       </select>
-      <label htmlFor="showCompleted">Show tasks:</label>
+      <label htmlFor="showCompleted">Show tasks</label>
       <select
         name="showCompleted"
         id="showCompleted"
@@ -90,7 +89,7 @@ function FilterBar({
         <option value="true">completed</option>
       </select>
 
-      <label htmlFor="sortBy">Sort By:</label>
+      <label htmlFor="sortBy">Sort By</label>
       <select
         name="sortBy"
         id="sortBy"
