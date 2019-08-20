@@ -5,3 +5,10 @@ export const colors = {
 };
 
 export const wrapperWidth = "1300px";
+
+export const breakPoints = {
+  small: "576px",
+  medium: "768px",
+  large: "992px",
+  xLarge: "1200px"
+};

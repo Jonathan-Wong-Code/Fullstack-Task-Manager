@@ -26,9 +26,6 @@ describe("<Header />", () => {
     expect(getByText(/my account/i)).toBeTruthy();
     expect(getByText(/logout/i)).toBeTruthy();
 
-    expect(getByText("jon")).toBeTruthy();
-    expect(getByText("jon@jon.com")).toBeTruthy();
-
     fireEvent.click(getByText(/logout/i));
     expect(logoutUser).toHaveBeenCalledTimes(1);
   });
@@ -46,8 +43,7 @@ describe("<Header />", () => {
     expect(getByText(/login/i)).toBeTruthy();
     expect(queryByText(/my account/i)).toBeNull();
     expect(queryByText(/logout/i)).toBeNull();
-    expect(queryByText("jon")).toBeNull();
-    expect(queryByText("jon@jon.com")).toBeNull();
+
     expect(queryByText(/logout/i)).toBeNull();
   });
 });

@@ -43,7 +43,7 @@ describe("<TaskListItem />,", () => {
 
     axios.mockImplementation(() => Promise.resolve(response));
 
-    const checkbox = getByLabelText("completed?");
+    const checkbox = getByLabelText("complete:");
     expect(checkbox).toHaveAttribute("value", "false");
     fireEvent.click(checkbox);
 

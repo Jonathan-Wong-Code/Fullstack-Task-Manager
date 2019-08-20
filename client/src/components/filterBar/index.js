@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Form, Select, Input } from "./css";
 function FilterBar({
   perPage,
   page,
@@ -50,9 +50,9 @@ function FilterBar({
   };
 
   return (
-    <form action="" onSubmit={handleSubmit} data-testid="filter-bar-form">
+    <Form action="" onSubmit={handleSubmit} data-testid="filter-bar-form">
       <label htmlFor="search"> Search by title</label>
-      <input
+      <Input
         type="text"
         id="search"
         name="search"
@@ -60,7 +60,7 @@ function FilterBar({
         onChange={e => setSearch(e.target.value)}
       />
       <label htmlFor="perPage">Number of results</label>
-      <select
+      <Select
         name="perPage"
         id="perPage"
         value={perPage}
@@ -76,9 +76,9 @@ function FilterBar({
         <option value={10}>10</option>
         <option value={15}>15</option>
         <option value={20}>20</option>
-      </select>
+      </Select>
       <label htmlFor="showCompleted">Show tasks</label>
-      <select
+      <Select
         name="showCompleted"
         id="showCompleted"
         value={completed}
@@ -87,10 +87,10 @@ function FilterBar({
         <option value="">All</option>
         <option value="false">incomplete</option>
         <option value="true">completed</option>
-      </select>
+      </Select>
 
       <label htmlFor="sortBy">Sort By</label>
-      <select
+      <Select
         name="sortBy"
         id="sortBy"
         value={sort}
@@ -105,8 +105,8 @@ function FilterBar({
         <option value="-createdAt">newest</option>
         <option value="-completed">completed</option>
         <option value="completed">incomplete</option>
-      </select>
-    </form>
+      </Select>
+    </Form>
   );
 }
 

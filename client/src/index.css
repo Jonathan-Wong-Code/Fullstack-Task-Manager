@@ -21,6 +21,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  word-break: break-all;
+  word-wrap: break-word;
 }
 
 a {

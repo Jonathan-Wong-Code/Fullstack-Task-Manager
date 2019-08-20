@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useTaskDispatch } from "../../context/task-context";
 import { useState } from "react";
 import { deleteTask, editTask } from "../../async-helpers/tasks";
@@ -7,9 +6,16 @@ import {
   TaskCard,
   Buttons,
   H3,
-  CardContent,
+  Todo,
   TaskDescription,
-  CardBottom
+  CardBottom,
+  CheckboxContainer,
+  CheckIcon,
+  CheckboxCaption,
+  CheckInput,
+  CheckIconInner,
+  EditLink,
+  DeleteButton
 } from "./css";
 
 function TaskListItem({ task, index }) {
@@ -19,7 +25,7 @@ function TaskListItem({ task, index }) {
 
   useEffect(() => {
     checkbox.current.checked = task.completed;
-  });
+  }, [completed]);
 
   const handleCheckChange = async () => {
     setCompleted(checkbox.current.checked);
@@ -36,23 +42,38 @@ function TaskListItem({ task, index }) {
   return (
     <TaskCard data-testid={`task-item-${index}`}>
       <H3>{task.title}</H3>
-      <TaskDescription>{task.description}</TaskDescription>
+      <TaskDescription>
+        <Todo>Todo: </Todo>
+        {task.description}
+      </TaskDescription>
       <CardBottom>
-        <label htmlFor="completed">completed?</label>
-        <input
-          type="checkbox"
-          id="completed"
-          checked={completed}
-          ref={checkbox}
-          value={completed}
-          onChange={handleCheckChange}
-        />
-
+        <CheckboxContainer>
+          <CheckboxCaption>Complete:</CheckboxCaption>
+          <CheckInput
+            type="checkbox"
+            id={`completed-${index}`}
+            checked={completed}
+            ref={checkbox}
+            value={completed}
+            onChange={handleCheckChange}
+            className={`check-box-${index}`}
+            completed={completed}
+          />
+          <CheckIcon
+            htmlFor={`completed-${index}`}
+            className={`check-box-outer`}
+          >
+            <CheckIconInner
+              className={`check-box-inner`}
+              completed={completed}
+            />
+          </CheckIcon>
+        </CheckboxContainer>
         <Buttons>
-          <Link to={`/edit/${task._id}`}>Edit Task</Link>
-          <button onClick={() => deleteTask(task._id, taskDispatch)}>
+          <EditLink to={`/edit/${task._id}`}>Edit Task</EditLink>
+          <DeleteButton onClick={() => deleteTask(task._id, taskDispatch)}>
             Delete Task
-          </button>
+          </DeleteButton>
         </Buttons>
       </CardBottom>
     </TaskCard>

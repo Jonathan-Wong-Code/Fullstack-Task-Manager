@@ -31,14 +31,6 @@ function Header() {
       <Wrapper>
         <H1>TASK MANAGER APP!</H1>
         <Nav>
-          {/* <UserInfo>
-            {user && (
-              <>
-                <h3 data-testid="header-name">{user.name}</h3>
-                <p data-testid="header-email">{user.email}</p>
-              </>
-            )}
-          </UserInfo> */}
           <NavList>
             {authUser && (
               <>
