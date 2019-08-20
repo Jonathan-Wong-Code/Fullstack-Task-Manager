@@ -72,7 +72,6 @@ export default function Dashboard({
     return <TaskList tasks={tasks} />;
   }, [tasks]);
 
-  console.log("dashboard");
   if (loading) return <div>Loading...</div>;
 
   return (
@@ -91,7 +90,7 @@ export default function Dashboard({
         query={query}
       />
       {MemoTaskList}
-      {error && <p>{error}</p>}
+      {error && <p data-testid="dashboard-error">{error}</p>}
 
       <Pagination
         page={page}

@@ -25,7 +25,7 @@ function EditUser() {
   return (
     <section data-testid="edit-me-screen">
       <h2>Change your details</h2>
-      <form action="" onSubmit={handleSubmit}>
+      <form action="" onSubmit={handleSubmit} data-testid="edit-me-form">
         <label htmlFor="user-name">Name:</label>
         <input
           type="text"
@@ -44,7 +44,7 @@ function EditUser() {
         />
         <button type="submit">Submit</button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p data-testid="edit-me-message">{message}</p>}
       {loading && <p>Updating info</p>}
     </section>
   );

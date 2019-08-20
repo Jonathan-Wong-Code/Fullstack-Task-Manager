@@ -3,13 +3,12 @@ import React from "react";
 import TaskListItem from "../taskListItem";
 
 function TaskList({ tasks }) {
-  console.log("task");
   if (!tasks) return <div />;
   return (
     <div>
       <ul>
-        {tasks.map(task => (
-          <li key={task._id}>
+        {tasks.map((task, index) => (
+          <li key={task._id} data-testid={`task-item-${index}`}>
             <TaskListItem task={task} />
           </li>
         ))}

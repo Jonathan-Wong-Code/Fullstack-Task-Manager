@@ -5,15 +5,15 @@ import { Router, Switch, Route } from "react-router-dom";
 
 import AccountPage from "./components/accountPage";
 import CreateTask from "./components/createTask";
+import Dashboard from "./components/dashboard";
 import EditTask from "./components/editTask";
 import EditUser from "./components/editUser";
 import ForgotPassword from "./components/forgotPassword";
-import Dashboard from "./components/dashboard";
 import Header from "./components/header";
 import LoginPage from "./components/loginPage";
+import NotFoundPage from "./components/notFoundPage";
 import ResetPassword from "./components/resetPassword";
 import Signup from "./components/signup";
-import NotFoundPage from "./components/notFoundPage";
 import UpdatePassword from "./components/updatePassword";
 
 import { TaskProvider } from "./context/task-context";
@@ -27,8 +27,6 @@ import useCheckAuthenticated from "./hooks/useCheckAuthenticated";
 export const history = createBrowserHistory();
 
 function App() {
-  // const [loading, setLoading] = useState(true);
-  // const [user, setUser] = useState(null);
   const { user, loading } = useCheckAuthenticated();
   if (loading) return <p>Loading...</p>;
   return (

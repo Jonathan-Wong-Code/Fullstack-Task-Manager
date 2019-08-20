@@ -36,6 +36,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: "Success",
+    message: "User details updated!",
     data: {
       user
     }

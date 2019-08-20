@@ -15,7 +15,7 @@ export async function updateUser(dispatch, { name, email }, setState) {
     });
 
     dispatch({ type: UPDATE_USER, user: response.data.data.user });
-    return "Updated your details";
+    return response.data.message;
   } catch (error) {
     return error.response.data.message;
   } finally {
