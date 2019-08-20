@@ -1,12 +1,13 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { fireEvent, wait, cleanup } from "@testing-library/react";
+import { fireEvent, cleanup } from "@testing-library/react";
 import Header from "..";
 import { renderWithContextRouter } from "./../../../testUtils/testUtils";
 import { logoutUser } from "./../../../async-helpers/auth";
 
 jest.mock("./../../../async-helpers/auth");
 
+afterEach(cleanup);
 describe("<Header />", () => {
   test("Should logout a logged in user", () => {
     const { getByText, queryByText } = renderWithContextRouter(<Header />, {

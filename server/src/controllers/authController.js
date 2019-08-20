@@ -16,7 +16,7 @@ const createSendToken = (res, user, statusCode, message = null) => {
     httpOnly: true,
     expiry: new Date(Date.now() + 24 * 60 * 60 * 1000)
   };
-  if (process.env.NODE_ENV.trim() === "production") cookieOptions.secure = true;
+  // if (process.env.NODE_ENV.trim() === "production") cookieOptions.secure = true;
 
   res.cookie("jwt", token, cookieOptions);
 
@@ -30,8 +30,14 @@ const createSendToken = (res, user, statusCode, message = null) => {
     }
   });
 };
+
 exports.signup = catchAsync(async (req, res, next) => {
   const { name, email, password, confirmPassword } = req.body;
+  const existingUser = await User.findOne({ email });
+
+  if (existingUser) {
+    return next(new APIError("Account already exists with this email", 400));
+  }
   const user = await User.create({
     name,
     email,

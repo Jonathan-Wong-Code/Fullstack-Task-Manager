@@ -13,14 +13,14 @@ describe("<AccountPage />", () => {
   test("it should render", () => {
     renderWithContextRouter(<AccountPage />, {
       route: "/myAccount",
-      authValue: testUser
+      userValue: testUser
     });
   });
 
   test("it renders with proper context values", () => {
     const { getByTestId } = renderWithContextRouter(<AccountPage />, {
       route: "/myAccount",
-      authValue: testUser
+      userValue: testUser
     });
     expect(getByTestId("account-name")).toHaveTextContent(testUser.name);
     expect(getByTestId("account-email")).toHaveTextContent(testUser.email);

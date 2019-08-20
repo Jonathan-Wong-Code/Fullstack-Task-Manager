@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuthState } from "./../../context/auth-context";
+import { useUserState } from "./../../context/user-context";
 
 function AccountPage() {
-  const { user } = useAuthState();
+  const { user } = useUserState();
   return (
     <section data-testid="account-page-screen">
       <h1>Your account</h1>
