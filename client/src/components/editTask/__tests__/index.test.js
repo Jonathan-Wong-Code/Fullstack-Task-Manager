@@ -1,6 +1,6 @@
 import React from "react";
 import EditTask from "..";
-import { cleanup, wait } from "@testing-library/react";
+import { cleanup, wait, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { renderWithContextRouter } from "./../../../testUtils/testUtils";
 import axios from "axios";
