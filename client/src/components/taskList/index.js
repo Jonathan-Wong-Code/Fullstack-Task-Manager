@@ -1,19 +1,16 @@
 import React from "react";
 
 import TaskListItem from "../taskListItem";
+import { TaskGrid } from "./css";
 
 function TaskList({ tasks }) {
   if (!tasks) return <div />;
   return (
-    <div>
-      <ul>
-        {tasks.map((task, index) => (
-          <li key={task._id} data-testid={`task-item-${index}`}>
-            <TaskListItem task={task} />
-          </li>
-        ))}
-      </ul>
-    </div>
+    <TaskGrid>
+      {tasks.map((task, index) => (
+        <TaskListItem task={task} index={index} key={task._id} />
+      ))}
+    </TaskGrid>
   );
 }
 

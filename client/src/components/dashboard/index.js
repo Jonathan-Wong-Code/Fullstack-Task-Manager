@@ -8,6 +8,8 @@ import { useTaskState, useTaskDispatch } from "../../context/task-context";
 import { fetchAllTasks } from "../../async-helpers/tasks";
 import useSafeDispatch from "./../../hooks/useSafeDispatch";
 
+import { DashboardSection, Wrapper } from "./css";
+
 export default function Dashboard({
   history,
   history: {
@@ -75,32 +77,34 @@ export default function Dashboard({
   if (loading) return <div>Loading...</div>;
 
   return (
-    <section>
-      <h2>Task List!</h2>
-      <FilterBar
-        search={search}
-        perPage={perPage}
-        page={page}
-        history={history}
-        completed={completed}
-        sort={sort}
-        completedStr={completedStr}
-        sortStr={sortStr}
-        searchStr={searchStr}
-        query={query}
-      />
-      {MemoTaskList}
-      {error && <p data-testid="dashboard-error">{error}</p>}
+    <DashboardSection>
+      <Wrapper>
+        <h2>Task List!</h2>
+        <FilterBar
+          search={search}
+          perPage={perPage}
+          page={page}
+          history={history}
+          completed={completed}
+          sort={sort}
+          completedStr={completedStr}
+          sortStr={sortStr}
+          searchStr={searchStr}
+          query={query}
+        />
+        {MemoTaskList}
+        {error && <p data-testid="dashboard-error">{error}</p>}
 
-      <Pagination
-        page={page}
-        perPage={perPage}
-        completed={completed}
-        completedStr={completedStr}
-        sortStr={sortStr}
-        searchStr={searchStr}
-        numTasks={numTasks}
-      />
-    </section>
+        <Pagination
+          page={page}
+          perPage={perPage}
+          completed={completed}
+          completedStr={completedStr}
+          sortStr={sortStr}
+          searchStr={searchStr}
+          numTasks={numTasks}
+        />
+      </Wrapper>
+    </DashboardSection>
   );
 }
