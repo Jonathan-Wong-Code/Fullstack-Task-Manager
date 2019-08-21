@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Select, Input } from "./css";
+import { Form, Select, Input, Label, FormCell } from "./css";
 function FilterBar({
   perPage,
   page,
@@ -51,61 +51,68 @@ function FilterBar({
 
   return (
     <Form action="" onSubmit={handleSubmit} data-testid="filter-bar-form">
-      <label htmlFor="search"> Search by title</label>
-      <Input
-        type="text"
-        id="search"
-        name="search"
-        value={search}
-        onChange={e => setSearch(e.target.value)}
-      />
-      <label htmlFor="perPage">Number of results</label>
-      <Select
-        name="perPage"
-        id="perPage"
-        value={perPage}
-        onChange={e => {
-          history.push(
-            `/dashboard?page=${page}&perPage=${
-              e.target.value
-            }${completedStr}${sortStr}${searchStr}`
-          );
-        }}
-      >
-        <option value={5}>5</option>
-        <option value={10}>10</option>
-        <option value={15}>15</option>
-        <option value={20}>20</option>
-      </Select>
-      <label htmlFor="showCompleted">Show tasks</label>
-      <Select
-        name="showCompleted"
-        id="showCompleted"
-        value={completed}
-        onChange={handleFilterChange}
-      >
-        <option value="">All</option>
-        <option value="false">incomplete</option>
-        <option value="true">completed</option>
-      </Select>
-
-      <label htmlFor="sortBy">Sort By</label>
-      <Select
-        name="sortBy"
-        id="sortBy"
-        value={sort}
-        onChange={e => {
-          history.push(
-            `/dashboard?page=${page}&perPage=${perPage}${completedStr}${setSortStr(
-              e.target.value
-            )}${searchStr}`
-          );
-        }}
-      >
-        <option value="-createdAt">newest</option>
-        <option value="-completed">completed</option>
-        <option value="completed">incomplete</option>
-      </Select>
+      <FormCell>
+        <Label htmlFor="search"> Search by title</Label>
+        <Input
+          type="text"
+          id="search"
+          name="search"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+        />
+      </FormCell>
+      <FormCell>
+        <Label htmlFor="perPage">Number of results</Label>
+        <Select
+          name="perPage"
+          id="perPage"
+          value={perPage}
+          onChange={e => {
+            history.push(
+              `/dashboard?page=${page}&perPage=${
+                e.target.value
+              }${completedStr}${sortStr}${searchStr}`
+            );
+          }}
+        >
+          <option value={5}>5</option>
+          <option value={10}>10</option>
+          <option value={15}>15</option>
+          <option value={20}>20</option>
+        </Select>
+      </FormCell>
+      <FormCell>
+        <Label htmlFor="showCompleted">Show tasks</Label>
+        <Select
+          name="showCompleted"
+          id="showCompleted"
+          value={completed}
+          onChange={handleFilterChange}
+        >
+          <option value="">All</option>
+          <option value="false">incomplete</option>
+          <option value="true">completed</option>
+        </Select>
+      </FormCell>
+      <FormCell>
+        <Label htmlFor="sortBy">Sort By</Label>
+        <Select
+          name="sortBy"
+          id="sortBy"
+          value={sort}
+          onChange={e => {
+            history.push(
+              `/dashboard?page=${page}&perPage=${perPage}${completedStr}${setSortStr(
+                e.target.value
+              )}${searchStr}`
+            );
+          }}
+        >
+          <option value="-createdAt">newest</option>
+          <option value="-completed">completed</option>
+          <option value="completed">incomplete</option>
+        </Select>
+      </FormCell>
     </Form>
   );
 }

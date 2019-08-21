@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { logoutUser } from "../../async-helpers/auth";
 import { useAuthDispatch, useAuthState } from "../../context/auth-context";
 import { useTaskDispatch } from "../../context/task-context";
-import { useUserState, useUserDispatch } from "../../context/user-context";
+import { useUserDispatch } from "../../context/user-context";
 
 import {
   HeaderSection,
@@ -12,11 +12,15 @@ import {
   NavList,
   NavListItem,
   NavLink,
-  Logout
+  Logout,
+  Hamburger,
+  HamburgerIcon,
+  Checkbox
 } from "./css";
 
 function Header() {
-  const { user } = useUserState();
+  const checkbox = useRef();
+
   const { user: authUser } = useAuthState();
   const authDispatch = useAuthDispatch();
   const userDispatch = useUserDispatch();
@@ -28,13 +32,17 @@ function Header() {
 
   return (
     <HeaderSection>
+      <Checkbox type="checkbox" id="mobile" name="mobile-menu" ref={checkbox} />
+      <Hamburger htmlFor="mobile">
+        <HamburgerIcon />
+      </Hamburger>
       <Wrapper>
-        <H1>TASK MANAGER APP!</H1>
+        <H1>TASK MANAGER</H1>
         <Nav>
           <NavList>
             {authUser && (
               <>
-                <NavListItem>
+                <NavListItem onClick={() => (checkbox.current.checked = false)}>
                   <NavLink
                     to={{
                       pathname: "/dashboard",
@@ -44,7 +52,7 @@ function Header() {
                     Dashboard
                   </NavLink>
                 </NavListItem>
-                <NavListItem>
+                <NavListItem onClick={() => (checkbox.current.checked = false)}>
                   <NavLink to="/create">Create</NavLink>
                 </NavListItem>
               </>
@@ -52,10 +60,10 @@ function Header() {
 
             {!authUser && (
               <>
-                <NavListItem>
+                <NavListItem onClick={() => (checkbox.current.checked = false)}>
                   <NavLink to="/signup">Signup</NavLink>
                 </NavListItem>
-                <NavListItem>
+                <NavListItem onClick={() => (checkbox.current.checked = false)}>
                   <NavLink to="/">Login</NavLink>
                 </NavListItem>
               </>
@@ -63,9 +71,14 @@ function Header() {
             {authUser && (
               <>
                 <NavListItem>
-                  <NavLink to="/myAccount">My Account</NavLink>
+                  <NavLink
+                    to="/myAccount"
+                    onClick={() => (checkbox.current.checked = false)}
+                  >
+                    My Account
+                  </NavLink>
                 </NavListItem>
-                <NavListItem>
+                <NavListItem onClick={() => (checkbox.current.checked = false)}>
                   <Logout onClick={handleLogoutClick}>Logout</Logout>
                 </NavListItem>
               </>

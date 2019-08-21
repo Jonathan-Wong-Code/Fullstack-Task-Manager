@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "./../../themes/constants";
+import { colors, breakPoints } from "./../../themes/constants";
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -7,12 +7,18 @@ export const Form = styled.form`
   padding: 2rem 1rem;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+  @media (min-width: ${breakPoints.large}) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 5rem;
+  }
 `;
 
 export const Select = styled.select`
   display: block;
   font-size: 16px;
-  font-family: sans-serif;
   font-weight: 700;
   color: #444;
   line-height: 1.3;
@@ -23,6 +29,12 @@ export const Select = styled.select`
   background: ${colors.WHITE};
   border-radius: 10px;
   appearance: none;
+  text-align: center;
+
+  @media (min-width: ${breakPoints.large}) {
+    margin-right: 1rem;
+    width: 200%;
+  }
 `;
 
 export const Input = styled.input`
@@ -37,4 +49,21 @@ export const Input = styled.input`
   box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
   border-radius: 0.5em;
   appearance: none;
+
+  @media (min-width: ${breakPoints.large}) {
+    margin-right: 1rem;
+    width: 100%;
+  }
+`;
+
+export const Label = styled.label`
+  @media (min-width: ${breakPoints.large}) {
+    margin-right: 1rem;
+  }
+`;
+
+export const FormCell = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-right: 3rem;
 `;

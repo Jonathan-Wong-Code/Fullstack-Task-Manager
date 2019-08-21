@@ -7,6 +7,7 @@ export const HeaderSection = styled.header`
   width: 100%;
   background: ${colors.BLUE};
   color: ${colors.WHITE};
+  position: relative;
 `;
 
 export const Wrapper = styled.div`
@@ -19,23 +20,31 @@ export const Wrapper = styled.div`
 
 export const H1 = styled.h1`
   font-size: 3rem;
+  padding: 2rem;
+  @media (min-width: ${breakPoints.large}) {
+    font-size: 5rem;
+  }
 `;
 
 export const Nav = styled.nav`
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
-  display: flex;
   height: 100vh;
   width: 100vw;
-  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  transition: 0.3s all;
+  background: none;
+  transform: scale(0);
+
   @media (min-width: ${breakPoints.large}) {
     position: relative;
     height: auto;
     width: auto;
     background: none;
+    transform: scale(1);
   }
 `;
 
@@ -52,7 +61,7 @@ export const NavList = styled.ul`
     flex-direction: row;
     margin: 0;
     transform: translateY(0);
-    font-size: 2rem;
+    font-size: 3rem;
   }
 `;
 
@@ -82,11 +91,85 @@ export const Logout = styled.button`
   cursor: pointer;
 
   @media (min-width: ${breakPoints.large}) {
-    font-size: 2rem;
+    font-size: 3rem;
   }
 `;
 
 export const UserInfo = styled.div`
   display: flex;
   align-items: center;
+`;
+
+export const Hamburger = styled.label`
+  height: 60px;
+  width: 60px;
+  display: block;
+  border: 2px solid ${colors.WHITE};
+  border-radius: 50%;
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  z-index: 50;
+  display: flex;
+  background: ${colors.BLUE};
+  cursor: pointer;
+
+  @media (min-width: ${breakPoints.large}) {
+    display: none;
+  }
+`;
+
+export const HamburgerIcon = styled.span`
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: ${colors.WHITE};
+  margin: auto;
+  z-index: 50;
+  transition: 0.2s all;
+  ::before,
+  ::after {
+    display: block;
+    content: "";
+    width: 40px;
+    height: 2px;
+    background: ${colors.WHITE};
+  }
+
+  ::before {
+    transform: translateY(-10px);
+  }
+
+  ::after {
+    transform: translateY(10px);
+  }
+`;
+
+export const Checkbox = styled.input`
+  position: absolute;
+  display: none;
+
+  &:checked ~ div nav {
+    display: flex;
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1);
+  }
+
+  &:checked + label span::after {
+    width: 2px;
+    height: 40px;
+    transform: translateY(0);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -18px;
+  }
+
+  &:checked + label span::before {
+    display: none;
+  }
+
+  &:checked + label span {
+    position: relative;
+  }
 `;

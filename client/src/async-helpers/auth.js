@@ -47,9 +47,9 @@ export async function logoutUser(authDispatch, taskDispatch, userDispatch) {
       withCredentials: true
     });
 
-    userDispatch({ type: CLEAR_USER, user: null });
     taskDispatch({ type: CLEAR_TASKS });
     authDispatch({ type: LOGOUT, user: null });
+    userDispatch({ type: CLEAR_USER, user: null });
   } catch (error) {
     authDispatch({ type: AUTH_ERROR, message: error.response.data.message });
   }

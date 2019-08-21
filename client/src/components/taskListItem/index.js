@@ -25,7 +25,7 @@ function TaskListItem({ task, index }) {
 
   useEffect(() => {
     checkbox.current.checked = task.completed;
-  }, [completed]);
+  }, [task.completed]);
 
   const handleCheckChange = async () => {
     setCompleted(checkbox.current.checked);
