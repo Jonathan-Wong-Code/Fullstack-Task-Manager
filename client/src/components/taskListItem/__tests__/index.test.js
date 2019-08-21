@@ -34,7 +34,7 @@ describe("<TaskListItem />,", () => {
         }
       }
     };
-    const { getByLabelText } = renderWithContextRouter(
+    const { getByTestId } = renderWithContextRouter(
       <TaskListItem task={task} editTask={editTask} />,
       {
         route: "/edit/test123"
@@ -43,7 +43,7 @@ describe("<TaskListItem />,", () => {
 
     axios.mockImplementation(() => Promise.resolve(response));
 
-    const checkbox = getByLabelText("complete:");
+    const checkbox = getByTestId("checkbox");
     expect(checkbox).toHaveAttribute("value", "false");
     fireEvent.click(checkbox);
 

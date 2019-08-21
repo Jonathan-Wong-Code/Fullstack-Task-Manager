@@ -48,7 +48,7 @@ function TaskListItem({ task, index }) {
       </TaskDescription>
       <CardBottom>
         <CheckboxContainer>
-          <CheckboxCaption>Complete:</CheckboxCaption>
+          <CheckboxCaption>Completed:</CheckboxCaption>
           <CheckInput
             type="checkbox"
             id={`completed-${index}`}
@@ -58,6 +58,7 @@ function TaskListItem({ task, index }) {
             onChange={handleCheckChange}
             className={`check-box-${index}`}
             completed={completed}
+            data-testid="checkbox"
           />
           <CheckIcon
             htmlFor={`completed-${index}`}
