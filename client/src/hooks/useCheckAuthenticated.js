@@ -6,14 +6,13 @@ import axios from "axios";
 
 function useCheckAuthenticated() {
   const [{ loading, user }, setSafeState] = useSafeDispatch({
-    loading: false,
+    loading: true,
     user: null
   });
   const authDispatch = useAuthDispatch();
 
   useEffect(() => {
     const checkLoggedIn = async () => {
-      setSafeState({ loading: true });
       try {
         const response = await axios({
           method: "GET",
@@ -31,6 +30,7 @@ function useCheckAuthenticated() {
     };
     checkLoggedIn();
   }, [authDispatch, setSafeState]);
+
   return { user, loading };
 }
 

@@ -1,7 +1,6 @@
 import axios from "axios";
 import {
   LOGIN_SUCCESS,
-  AUTH_ERROR,
   SIGNUP_SUCCESS,
   LOGOUT,
   CLEAR_TASKS,
@@ -51,7 +50,7 @@ export async function logoutUser(authDispatch, taskDispatch, userDispatch) {
     authDispatch({ type: LOGOUT, user: null });
     userDispatch({ type: CLEAR_USER, user: null });
   } catch (error) {
-    authDispatch({ type: AUTH_ERROR, message: error.response.data.message });
+    console.log(error.response.data.message);
   }
 }
 

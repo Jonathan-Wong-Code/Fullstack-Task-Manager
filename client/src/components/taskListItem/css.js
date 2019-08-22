@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { colors } from "../../themes/constants";
+import { colors, boxShadow } from "../../themes/constants";
 import { Link } from "react-router-dom";
 
 export const TaskCard = styled.li`
   border: 1px solid #000;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: ${boxShadow};
   display: flex;
   flex-direction: column;
   min-height: 40rem;

@@ -12,3 +12,5 @@ export const breakPoints = {
   large: "992px",
   xLarge: "1200px"
 };
+
+export const boxShadow = "0 2px 10px rgba(0, 0, 0, 0.3)";

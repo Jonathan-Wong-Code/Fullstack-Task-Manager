@@ -33,7 +33,7 @@ export default function Dashboard({
     completedStr: "",
     sortStr: "",
     searchStr: "",
-    loading: false,
+    loading: true,
     error: ""
   });
 
@@ -73,7 +73,6 @@ export default function Dashboard({
   const MemoTaskList = useMemo(() => {
     return <TaskList tasks={tasks} />;
   }, [tasks]);
-
   if (loading) return <div>Loading...</div>;
 
   return (

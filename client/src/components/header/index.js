@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { logoutUser } from "../../async-helpers/auth";
 import { useAuthDispatch, useAuthState } from "../../context/auth-context";
 import { useTaskDispatch } from "../../context/task-context";

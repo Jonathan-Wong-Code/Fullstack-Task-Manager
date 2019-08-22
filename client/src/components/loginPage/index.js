@@ -3,6 +3,15 @@ import { Link } from "react-router-dom";
 import { loginUser } from "../../async-helpers/auth";
 import { useAuthDispatch } from "../../context/auth-context";
 import { useUserDispatch } from "../../context/user-context";
+import {
+  Form,
+  Label,
+  Input,
+  Button,
+  FormContainer,
+  FormSection,
+  FormHeader
+} from "../../themes/forms";
 import useSafeDispatch from "../../hooks/useSafeDispatch";
 
 function LoginPage() {
@@ -31,30 +40,34 @@ function LoginPage() {
   };
 
   return (
-    <div>
-      <form action="" onSubmit={handleSubmit} data-testid="login-form">
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          id="email"
-          value={email}
-          onChange={e => setSafeState({ email: e.target.value })}
-          required
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="text"
-          id="password"
-          value={password}
-          onChange={e => setSafeState({ password: e.target.value })}
-          required
-        />
-        <button type="submit">Login</button>
-      </form>
-      <Link to="/forgotPassword">Forgot your password?</Link>
-      {error && <p data-testid="login-error">{error}</p>}
-      {loading && <p>Logging in...</p>}
-    </div>
+    <FormSection>
+      <FormContainer>
+        <FormHeader>Login</FormHeader>
+        <Form action="" onSubmit={handleSubmit} data-testid="login-form">
+          <Label htmlFor="email">Email</Label>
+          <Input
+            type="text"
+            id="email"
+            value={email}
+            onChange={e => setSafeState({ email: e.target.value })}
+            required
+          />
+          <Label htmlFor="password">Password</Label>
+          <Input
+            type="text"
+            id="password"
+            value={password}
+            onChange={e => setSafeState({ password: e.target.value })}
+            required
+          />
+          {error && <p data-testid="login-error">{error}</p>}
+          {loading && <p>Logging in...</p>}
+          <Link to="/forgotPassword">Forgot your password?</Link>
+
+          <Button type="submit">Login</Button>
+        </Form>
+      </FormContainer>
+    </FormSection>
   );
 }
 

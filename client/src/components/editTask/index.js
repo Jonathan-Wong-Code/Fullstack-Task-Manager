@@ -1,14 +1,17 @@
 import React from "react";
 import TaskForm from "../taskForm";
 import useFetchTask from "./../../hooks/useFetchTask";
-
+import { FormSection, FormHeader, FormContainer } from "../../themes/forms";
 export default function EditTask({ match }) {
   const { fetchedTask, loading, error } = useFetchTask(match.params.id);
+  console.log("edit");
   if (loading || !fetchedTask) return <div> Loading Edit info </div>;
   return (
-    <div>
-      <h2>Edit Task</h2>
-      <TaskForm type="edit" editedTask={fetchedTask} fetchError={error} />
-    </div>
+    <FormSection>
+      <FormContainer>
+        <FormHeader>Edit Task</FormHeader>
+        <TaskForm type="edit" editedTask={fetchedTask} fetchError={error} />
+      </FormContainer>
+    </FormSection>
   );
 }

@@ -1,10 +1,14 @@
 import React from "react";
 import TaskForm from "../taskForm";
+import { FormSection, FormContainer, FormHeader } from "./../../themes/forms";
+
 export default function CreateTask() {
   return (
-    <section>
-      <h2>CreateTask</h2>
-      <TaskForm type="create" />
-    </section>
+    <FormSection>
+      <FormContainer>
+        <FormHeader>CreateTask</FormHeader>
+        <TaskForm type="create" />
+      </FormContainer>
+    </FormSection>
   );
 }

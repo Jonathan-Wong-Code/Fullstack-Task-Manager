@@ -2,7 +2,6 @@ import axios from "axios";
 import {
   SET_SAVED_TASKS,
   ADD_TASK,
-  TASK_ERROR,
   DELETE_TASK,
   EDIT_TASK
 } from "./../context/types";
@@ -38,7 +37,6 @@ export async function fetchAllTasks(
   };
 
   try {
-    setState({ loading: true });
     const response = await axios.get(
       `http://localhost:3000/api/v1/tasks?limit=${limit}&page=${page}
       ${setCompletedQuery(completed)}${setSortQuery(sort)}${setSearchQuery(
@@ -90,7 +88,7 @@ export async function deleteTask(taskId, dispatch) {
 
     dispatch({ type: DELETE_TASK, id: taskId });
   } catch (error) {
-    dispatch({ type: TASK_ERROR, message: error.response.data.message });
+    console.log(error.response.data.error);
   }
 }
 

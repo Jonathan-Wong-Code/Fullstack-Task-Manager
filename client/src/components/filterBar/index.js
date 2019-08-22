@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Form, Select, Input, Label, FormCell } from "./css";
+import { Form, Select, FormCell } from "./css";
+import { Label, Input } from "../../themes/forms";
 function FilterBar({
   perPage,
   page,

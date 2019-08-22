@@ -7,7 +7,7 @@ import axios from "axios";
 function useFetchTask(id) {
   const [{ fetchedTask, error, loading }, setSafeState] = useSafeDispatch({
     fetchedTask: null,
-    loading: false,
+    loading: true,
     error: ""
   });
 
@@ -16,8 +16,6 @@ function useFetchTask(id) {
   useEffect(() => {
     const task = tasks.find(task => task._id === id);
     const getTask = async () => {
-      setSafeState({ loading: true });
-
       try {
         const response = await axios.get(
           `http://localhost:3000/api/v1/tasks/${id}`,
@@ -34,7 +32,7 @@ function useFetchTask(id) {
     };
 
     if (task) {
-      setSafeState({ fetchedTask: task });
+      setSafeState({ fetchedTask: task, loading: false });
     } else {
       getTask();
     }

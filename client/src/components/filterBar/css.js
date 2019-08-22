@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { colors, breakPoints } from "./../../themes/constants";
+import { colors, breakPoints, boxShadow } from "./../../themes/constants";
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
   border: 1px solid ${colors.BLACK};
   padding: 2rem 1rem;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: ${boxShadow};
 
   @media (min-width: ${breakPoints.large}) {
     flex-direction: row;
@@ -53,12 +53,6 @@ export const Input = styled.input`
   @media (min-width: ${breakPoints.large}) {
     margin-right: 1rem;
     width: 100%;
-  }
-`;
-
-export const Label = styled.label`
-  @media (min-width: ${breakPoints.large}) {
-    margin-right: 1rem;
   }
 `;
 

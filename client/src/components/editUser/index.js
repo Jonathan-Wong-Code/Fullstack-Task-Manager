@@ -3,7 +3,15 @@ import { useUserState } from "../../context/user-context";
 import { useUserDispatch } from "../../context/user-context";
 import useSafeDispatch from "../../hooks/useSafeDispatch";
 import { updateUser } from "../../async-helpers/users";
-
+import {
+  FormSection,
+  FormContainer,
+  FormHeader,
+  Form,
+  Input,
+  Button,
+  Label
+} from "../../themes/forms";
 function EditUser() {
   const { user } = useUserState();
   const userDispatch = useUserDispatch();
@@ -23,30 +31,32 @@ function EditUser() {
   };
 
   return (
-    <section data-testid="edit-me-screen">
-      <h2>Change your details</h2>
-      <form action="" onSubmit={handleSubmit} data-testid="edit-me-form">
-        <label htmlFor="user-name">Name:</label>
-        <input
-          type="text"
-          id="user-name"
-          name="user-name"
-          value={name}
-          onChange={e => setSafeState({ name: e.target.value })}
-        />
-        <label htmlFor="user-email">Email:</label>
-        <input
-          type="text"
-          id="user-email"
-          name="user-email"
-          value={email}
-          onChange={e => setSafeState({ email: e.target.value })}
-        />
-        <button type="submit">Submit</button>
-      </form>
-      {message && <p data-testid="edit-me-message">{message}</p>}
-      {loading && <p>Updating info</p>}
-    </section>
+    <FormSection data-testid="edit-me-screen">
+      <FormContainer>
+        <FormHeader>Change your details</FormHeader>
+        <Form action="" onSubmit={handleSubmit} data-testid="edit-me-form">
+          <Label htmlFor="user-name">Name:</Label>
+          <Input
+            type="text"
+            id="user-name"
+            name="user-name"
+            value={name}
+            onChange={e => setSafeState({ name: e.target.value })}
+          />
+          <Label htmlFor="user-email">Email:</Label>
+          <Input
+            type="text"
+            id="user-email"
+            name="user-email"
+            value={email}
+            onChange={e => setSafeState({ email: e.target.value })}
+          />
+          {message && <p data-testid="edit-me-message">{message}</p>}
+          {loading && <p>Updating info</p>}
+          <Button type="submit">Submit</Button>
+        </Form>
+      </FormContainer>
+    </FormSection>
   );
 }
 

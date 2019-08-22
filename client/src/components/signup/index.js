@@ -3,6 +3,15 @@ import { useAuthDispatch } from "../../context/auth-context";
 import { useUserDispatch } from "../../context/user-context";
 import useSafeDispatch from "./../../hooks/useSafeDispatch";
 import { signupUser } from "../../async-helpers/auth";
+import {
+  Form,
+  Input,
+  Label,
+  Button,
+  FormHeader,
+  FormContainer,
+  FormSection
+} from "../../themes/forms";
 
 function Signup() {
   const authDispatch = useAuthDispatch();
@@ -35,45 +44,48 @@ function Signup() {
   };
 
   return (
-    <div>
-      <form action="" onSubmit={handleSubmit} data-testid="signup-form">
-        <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={e => setSafeState({ name: e.target.value })}
-          required
-        />
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={e => setSafeState({ email: e.target.value })}
-          required
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="text"
-          id="password"
-          value={password}
-          onChange={e => setSafeState({ password: e.target.value })}
-          required
-        />
-        <label htmlFor="confirmPassword">Confirm Password</label>
-        <input
-          type="text"
-          id="confirmPassword"
-          value={confirmPassword}
-          onChange={e => setSafeState({ confirmPassword: e.target.value })}
-          required
-        />
-        <button type="submit">Signup</button>
-      </form>
-      {error && <p data-testid="signup-error">{error}</p>}
-      {loading && <p>Signing up...</p>}
-    </div>
+    <FormSection>
+      <FormContainer>
+        <FormHeader>Signup</FormHeader>
+        <Form action="" onSubmit={handleSubmit} data-testid="signup-form">
+          <Label htmlFor="name">Name</Label>
+          <Input
+            type="text"
+            id="name"
+            value={name}
+            onChange={e => setSafeState({ name: e.target.value })}
+            required
+          />
+          <Label htmlFor="email">Email</Label>
+          <Input
+            type="email"
+            id="email"
+            value={email}
+            onChange={e => setSafeState({ email: e.target.value })}
+            required
+          />
+          <Label htmlFor="password">Password</Label>
+          <Input
+            type="text"
+            id="password"
+            value={password}
+            onChange={e => setSafeState({ password: e.target.value })}
+            required
+          />
+          <Label htmlFor="confirmPassword">Confirm Password</Label>
+          <Input
+            type="text"
+            id="confirmPassword"
+            value={confirmPassword}
+            onChange={e => setSafeState({ confirmPassword: e.target.value })}
+            required
+          />
+          <Button type="submit">Signup</Button>
+        </Form>
+        {error && <p data-testid="signup-error">{error}</p>}
+        {loading && <p>Signing up...</p>}
+      </FormContainer>
+    </FormSection>
   );
 }
 export default Signup;
