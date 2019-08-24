@@ -1,17 +1,14 @@
 import axios from "axios";
 import { UPDATE_USER } from "../context/types";
 
-export async function updateUser(dispatch, { name, email }, setState) {
+export async function updateUser(dispatch, data, setState) {
   try {
     setState({ loading: true });
     const response = await axios({
       method: "PATCH",
       url: "http://localhost:3000/api/v1/users/updateMe",
       withCredentials: true,
-      data: {
-        name,
-        email
-      }
+      data
     });
 
     dispatch({ type: UPDATE_USER, user: response.data.data.user });

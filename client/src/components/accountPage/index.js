@@ -1,20 +1,37 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useUserState } from "./../../context/user-context";
+import {
+  Section,
+  InfoContainer,
+  InfoButton,
+  ButtonContainer,
+  H2,
+  ImgContainer,
+  Img,
+  Text,
+  ContentContainer
+} from "./css";
 
 function AccountPage() {
   const { user } = useUserState();
   return (
-    <section data-testid="account-page-screen">
-      <h1>Your account</h1>
-      <div>
-        <img src="https://www.fillmurray.com/200/300" alt="Your profile" />
-      </div>
-      <p data-testid="account-name">Name: {user.name}</p>
-      <p data-testid="account-email">Email: {user.email}</p>
-      <Link to="/editMe">Edit details</Link>
-      <Link to="/updatePassword">Edit password</Link>
-    </section>
+    <Section data-testid="account-page-screen">
+      <InfoContainer>
+        <H2>Your account</H2>
+        <ContentContainer>
+          <ImgContainer>
+            <Img src={`/img/users/${user.photo}`} alt="Your profile" />
+          </ImgContainer>
+          <Text data-testid="account-name">Name: {user.name}</Text>
+          <Text data-testid="account-email">Email: {user.email}</Text>
+          <ButtonContainer>
+            <InfoButton to="/editMe">Edit details</InfoButton>
+            <InfoButton to="/updatePassword">Edit password</InfoButton>
+          </ButtonContainer>
+        </ContentContainer>
+      </InfoContainer>
+    </Section>
   );
 }
 

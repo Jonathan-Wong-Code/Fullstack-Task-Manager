@@ -55,6 +55,8 @@ const userSchema = new mongoose.Schema(
       }
     },
 
+    photo: String,
+
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpiry: Date,

@@ -13,6 +13,7 @@ app.use(
     credentials: true
   })
 );
+
 const userRouter = require("./src/routes/users.js");
 const taskRouter = require("./src/routes/tasks.js");
 const globalErrorHandler = require("./src/controllers/errorController");
@@ -21,6 +22,13 @@ app.use(helmet());
 app.use(mongoSanitize());
 app.use(xss());
 
+const limiter = rateLimit({
+  max: 100,
+  windowMs: 60 * 60 * 1000,
+  message: "Too many requests from this IP, please try again in an hour!"
+});
+
+app.use("/api", limiter);
 app.use(cookieParser());
 app.use(express.json());
 app.use("/api/v1/users", userRouter);

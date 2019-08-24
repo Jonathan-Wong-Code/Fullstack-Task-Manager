@@ -26,7 +26,8 @@ const createSendToken = (res, user, statusCode, message = null) => {
     message: message ? message : undefined,
     user: {
       name: user.name,
-      email: user.email
+      email: user.email,
+      photo: user.photo
     }
   });
 };

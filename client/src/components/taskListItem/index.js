@@ -14,9 +14,10 @@ import {
   CheckboxCaption,
   CheckInput,
   CheckIconInner,
-  EditLink,
   DeleteButton
 } from "./css";
+
+import { LinkButton } from "./../../themes/general";
 
 function TaskListItem({ task, index }) {
   const [completed, setCompleted] = useState(task.completed);
@@ -71,7 +72,7 @@ function TaskListItem({ task, index }) {
           </CheckIcon>
         </CheckboxContainer>
         <Buttons>
-          <EditLink to={`/edit/${task._id}`}>Edit Task</EditLink>
+          <LinkButton to={`/edit/${task._id}`}>Edit Task</LinkButton>
           <DeleteButton onClick={() => deleteTask(task._id, taskDispatch)}>
             Delete Task
           </DeleteButton>
