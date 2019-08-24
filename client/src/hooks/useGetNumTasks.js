@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import axios from "axios";
 import useSafeSetState from "./useSafeSetState";
 
-function useGetNumTasks(completed) {
+function useGetNumTasks(completed, query) {
   const [state, safeSetState] = useSafeSetState();
 
   useEffect(() => {
     const fetchNumTasks = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/v1/tasks/numTasks",
+          `http://localhost:3000/api/v1/tasks/numTasks?query=${query}`,
           {
             withCredentials: true
           }

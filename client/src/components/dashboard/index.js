@@ -37,7 +37,7 @@ export default function Dashboard({
     error: ""
   });
 
-  const numTasks = useGetNumTasks(completed);
+  const numTasks = useGetNumTasks(completed, query);
 
   useEffect(() => {
     fetchAllTasks(
