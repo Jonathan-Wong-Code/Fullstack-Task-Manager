@@ -81,8 +81,7 @@ exports.updateTask = catchAsync(async (req, res, next) => {
 
 exports.getNumTasks = catchAsync(async (req, res, next) => {
   const query = req.query.query;
-  console.log(query);
-  const queryReg = new RegExp(query, "g");
+  const queryReg = new RegExp(query, "gi");
   const stats = await Task.aggregate([
     {
       $match: { user: req.user._id, title: queryReg ? queryReg : "" }
@@ -95,7 +94,6 @@ exports.getNumTasks = catchAsync(async (req, res, next) => {
     }
   ]);
 
-  console.log(stats);
   res.status(200).json({
     status: "Success",
     data: {

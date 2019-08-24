@@ -31,7 +31,7 @@ export async function fetchAllTasks(
 
   const setSearchQuery = sort => {
     if (sort) {
-      return `&title=${query}`;
+      return `&title=${query.toLowerCase()}`;
     }
     return "";
   };

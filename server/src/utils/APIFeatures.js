@@ -14,7 +14,9 @@ class APIFeatures {
     );
 
     if (queryStr) {
-      queryStr.title = new RegExp(queryStr.title, "g");
+      queryStr.title = new RegExp(queryStr.title, "gi");
+      console.log(queryStr.title);
+      // queryStr.title = /`${queryStr.title}`/i;
     }
 
     this.returnedQueryObj = this.returnedQueryObj.find(queryStr);
