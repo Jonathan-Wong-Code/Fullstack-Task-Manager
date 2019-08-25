@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
@@ -6,6 +7,9 @@ const rateLimit = require("express-rate-limit");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
+
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "src/views"));
 
 app.use(
   cors({
