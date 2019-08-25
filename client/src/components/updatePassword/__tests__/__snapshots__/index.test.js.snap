@@ -2,55 +2,71 @@
 
 exports[`<updatePassword /> should display an error from the API or when fields are missing 1`] = `
 <div>
-  <div>
-    <h2>
-      Update password
-    </h2>
-    <form
-      action=""
-      data-testid="update-pass-form"
+  <section
+    class="sc-bdVaJa fAwhMM"
+  >
+    <div
+      class="sc-bwzfXH isbPbn"
     >
-      <label
-        for="update-password"
+      <h2
+        class="sc-htpNat grApgW"
       >
-        Enter Current Password
-      </label>
-      <input
-        id="update-password"
-        type="text"
-        value=""
-      />
-      <label
-        for="update-new-password"
+        Update password
+      </h2>
+      <form
+        action=""
+        class="sc-bxivhb jYYiVS"
+        data-testid="update-pass-form"
       >
-        Enter New Password
-      </label>
-      <input
-        id="update-new-password"
-        type="text"
-        value=""
-      />
-      <label
-        for="update-confirm-updated-password"
-      >
-        Confirm Updated Password
-      </label>
-      <input
-        id="update-confirm-updated-password"
-        type="text"
-        value=""
-      />
-      <button
-        type="submit"
-      >
-        Submit
-      </button>
-    </form>
-    <p
-      data-testid="update-pass-message"
-    >
-      error
-    </p>
-  </div>
+        <label
+          class="sc-ifAKCX fuIFlH"
+          for="update-password"
+        >
+          Enter Current Password
+        </label>
+        <input
+          class="sc-EHOje jUaPja"
+          id="update-password"
+          type="text"
+          value=""
+        />
+        <label
+          class="sc-ifAKCX fuIFlH"
+          for="update-new-password"
+        >
+          Enter New Password
+        </label>
+        <input
+          class="sc-EHOje jUaPja"
+          id="update-new-password"
+          type="text"
+          value=""
+        />
+        <label
+          class="sc-ifAKCX fuIFlH"
+          for="update-confirm-updated-password"
+        >
+          Confirm Updated Password
+        </label>
+        <input
+          class="sc-EHOje jUaPja"
+          id="update-confirm-updated-password"
+          type="text"
+          value=""
+        />
+        <p
+          data-testid="update-pass-message"
+        >
+          error
+        </p>
+        <button
+          class="sc-gzVnrw fJpaBs"
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </section>
 </div>
 `;

@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
+import { LinkButton } from "../../themes/general";
 function Pagination({
   page,
   perPage,
@@ -12,7 +11,7 @@ function Pagination({
   return (
     <div>
       {page > 1 && (
-        <Link
+        <LinkButton
           to={{
             pathname: "/dashboard",
             search: `?page=${page * 1 -
@@ -20,10 +19,10 @@ function Pagination({
           }}
         >
           Prev
-        </Link>
+        </LinkButton>
       )}
       {page < Math.ceil(numTasks / perPage) && (
-        <Link
+        <LinkButton
           to={{
             pathname: "/dashboard",
             search: `?page=${page * 1 +
@@ -31,7 +30,7 @@ function Pagination({
           }}
         >
           Next
-        </Link>
+        </LinkButton>
       )}
     </div>
   );
