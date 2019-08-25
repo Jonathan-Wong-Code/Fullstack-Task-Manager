@@ -1,6 +1,15 @@
 import React from "react";
 import { sendResetToken } from "../../async-helpers/auth";
 import useSafeDispatch from "./../../hooks/useSafeDispatch";
+import {
+  Form,
+  Button,
+  FormHeader,
+  FormContainer,
+  FormSection,
+  Label,
+  Input
+} from "./../../themes/forms";
 
 function ForgotPassword() {
   const [{ email, message, loading }, setSafeState] = useSafeDispatch({
@@ -16,21 +25,23 @@ function ForgotPassword() {
   };
 
   return (
-    <section>
-      <h2>Forgot your password?</h2>
-      <form action="" onSubmit={handleSubmit} data-testid="forgot-pass-form">
-        <label htmlFor="reset-email">Enter email:</label>
-        <input
-          type="email"
-          id="reset-email"
-          value={email}
-          onChange={e => setSafeState({ email: e.target.value })}
-        />
-        <button type="submit">Submit</button>
-      </form>
-      {message && <p>{message}</p>}
-      {loading && <p>Sending email...</p>}
-    </section>
+    <FormSection>
+      <FormContainer>
+        <FormHeader>Forgot your password?</FormHeader>
+        <Form action="" onSubmit={handleSubmit} data-testid="forgot-pass-Form">
+          <Label htmlFor="reset-email">Enter email:</Label>
+          <Input
+            type="email"
+            id="reset-email"
+            value={email}
+            onChange={e => setSafeState({ email: e.target.value })}
+          />
+          {message && <p>{message}</p>}
+          {loading && <p>Sending email...</p>}
+          <Button type="submit">Submit</Button>
+        </Form>
+      </FormContainer>
+    </FormSection>
   );
 }
 

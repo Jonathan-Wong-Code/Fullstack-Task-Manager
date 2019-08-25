@@ -80,10 +80,10 @@ function Signup() {
             onChange={e => setSafeState({ confirmPassword: e.target.value })}
             required
           />
+          {error && !loading && <p data-testid="signup-error">{error}</p>}
+          {loading && <p>Signing up...</p>}
           <Button type="submit">Signup</Button>
         </Form>
-        {error && <p data-testid="signup-error">{error}</p>}
-        {loading && <p>Signing up...</p>}
       </FormContainer>
     </FormSection>
   );

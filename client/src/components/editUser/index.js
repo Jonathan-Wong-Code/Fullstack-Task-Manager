@@ -13,6 +13,8 @@ import {
   Label
 } from "../../themes/forms";
 
+import { FileInput } from "./css";
+
 import { ImgContainer, Img } from "./../accountPage/css";
 function EditUser() {
   const { user } = useUserState();
@@ -33,12 +35,10 @@ function EditUser() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log(photo);
     const formData = new FormData();
     formData.append("name", name);
     formData.append("email", email);
     formData.append("photo", photo);
-    // const user = { name, email, photo };
     const message = await updateUser(userDispatch, formData, setSafeState);
     setSafeState({ message, name: "", email: "" });
   };
@@ -52,7 +52,7 @@ function EditUser() {
             <Img src={`/img/users/${user.photo}`} alt="Your profile" />
           </ImgContainer>
           <Label htmlFor="photo">Upload New Photo</Label>
-          <Input
+          <FileInput
             type="file"
             accept="image/*"
             id="photo"
@@ -79,7 +79,9 @@ function EditUser() {
             value={email}
             onChange={e => setSafeState({ email: e.target.value })}
           />
-          {message && <p data-testid="edit-me-message">{message}</p>}
+          {message && !loading && (
+            <p data-testid="edit-me-message">{message}</p>
+          )}
           {loading && <p>Updating info</p>}
           <Button type="submit">Submit</Button>
         </Form>

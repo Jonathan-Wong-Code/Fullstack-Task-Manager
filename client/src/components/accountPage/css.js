@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { LinkButton } from "./../../themes/general";
 import { colors, boxShadow, breakPoints } from "./../../themes/constants";
+
 export const Section = styled.section`
   padding: 5rem 1rem;
   display: flex;

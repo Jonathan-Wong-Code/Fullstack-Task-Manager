@@ -4,7 +4,18 @@ import { useTaskDispatch } from "../../context/task-context";
 import { createTask, editTask } from "../../async-helpers/tasks";
 import reducer from "../../reducers/stateReducer";
 
-import { Form, Input, Label, TextArea, Button } from "./../../themes/forms";
+import {
+  Form,
+  Input,
+  Label,
+  TextArea,
+  Button,
+  CheckIcon,
+  CheckboxContainer,
+  CheckInput,
+  CheckboxCaption,
+  CheckIconInner
+} from "./../../themes/forms";
 
 function TaskForm({ type, history, editedTask, fetchError }) {
   const [{ title, description, completed, _id, error }, setState] = useReducer(
@@ -64,17 +75,25 @@ function TaskForm({ type, history, editedTask, fetchError }) {
           value={description}
           onChange={e => setState({ description: e.target.value })}
         />
-        <Label htmlFor="completed">completed: </Label>
-        <input
-          id="completed"
-          type="checkbox"
-          checked={completed}
-          value={completed}
-          ref={checkbox}
-          onChange={e => {
-            setState({ completed: checkbox.current.checked });
-          }}
-        />
+        <CheckboxContainer>
+          <CheckInput
+            id="completed"
+            type="checkbox"
+            checked={completed}
+            value={completed}
+            ref={checkbox}
+            onChange={e => {
+              setState({ completed: checkbox.current.checked });
+            }}
+          />
+          <CheckboxCaption>completed: </CheckboxCaption>
+          <CheckIcon htmlFor={`completed`} className={`check-box-outer`}>
+            <CheckIconInner
+              className={`check-box-inner`}
+              completed={completed}
+            ></CheckIconInner>
+          </CheckIcon>
+        </CheckboxContainer>
         {error && <p data-testid="task-form-error">{error}</p>}
         {fetchError && <p>{fetchError}</p>}
         <Button> {type === "create" ? "Create" : "Edit"}</Button>

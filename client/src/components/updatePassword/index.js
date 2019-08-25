@@ -34,10 +34,7 @@ function UpdatePassword() {
     );
 
     setSafeState({
-      message: message,
-      password: "",
-      confirmUpdatedPassword: "",
-      updatedPassword: ""
+      message: message
     });
   };
 

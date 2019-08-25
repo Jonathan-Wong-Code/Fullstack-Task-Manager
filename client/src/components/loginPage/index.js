@@ -60,7 +60,7 @@ function LoginPage() {
             onChange={e => setSafeState({ password: e.target.value })}
             required
           />
-          {error && <p data-testid="login-error">{error}</p>}
+          {error && !loading && <p data-testid="login-error">{error}</p>}
           {loading && <p>Logging in...</p>}
           <Link to="/forgotPassword">Forgot your password?</Link>
 

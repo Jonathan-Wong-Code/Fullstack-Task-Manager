@@ -45,7 +45,6 @@ export const Input = styled.input`
   line-height: 1.3;
   padding: 1rem 2rem;
   border: 1px solid #aaa;
-  box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
   border-radius: 10px;
   appearance: none;
 
@@ -62,6 +61,7 @@ export const TextArea = styled.textarea`
   font-family: sans-serif;
   font-weight: 700;
   padding: 2rem;
+  margin-bottom: 2rem;
 `;
 
 export const Button = styled.button`
@@ -75,4 +75,41 @@ export const Button = styled.button`
   cursor: pointer;
   text-align: center;
   margin: 2rem auto 0 auto;
+`;
+
+export const CheckboxContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const CheckboxCaption = styled.p`
+  margin-right: 0.75rem;
+  font-size: 2rem;
+`;
+
+export const CheckIcon = styled.label`
+  width: 25px;
+  height: 25px;
+  border: 1.5px solid ${colors.BLUE};
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+`;
+
+export const CheckIconInner = styled.span`
+  width: 15px;
+  height: 15px;
+  background: ${colors.BLUE}
+  border-radius: 50%;
+  margin: auto;
+  display: none;
+`;
+
+export const CheckInput = styled.input`
+  transform: scale(0);
+  display: none;
+  position: absolute;
+  &:checked ~ label span {
+    display: block;
+  }
 `;
