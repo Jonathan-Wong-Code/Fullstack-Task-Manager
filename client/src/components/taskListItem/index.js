@@ -9,13 +9,16 @@ import {
   Todo,
   TaskDescription,
   CardBottom,
+  DeleteButton
+} from "./css";
+
+import {
   CheckboxContainer,
   CheckIcon,
   CheckboxCaption,
   CheckInput,
-  CheckIconInner,
-  DeleteButton
-} from "./css";
+  CheckIconInner
+} from './../../themes/forms'
 
 import { LinkButton } from "./../../themes/general";
 

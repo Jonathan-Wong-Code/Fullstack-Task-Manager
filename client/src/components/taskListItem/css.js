@@ -37,43 +37,6 @@ export const Todo = styled.span`
   font-size: 2rem;
 `;
 
-export const CheckboxContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-export const CheckboxCaption = styled.p`
-  margin-right: 0.75rem;
-  font-size: 2rem;
-`;
-
-export const CheckIcon = styled.label`
-  width: 25px;
-  height: 25px;
-  border: 1.5px solid ${colors.BLUE};
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-`;
-
-export const CheckIconInner = styled.span`
-  width: 15px;
-  height: 15px;
-  background: ${colors.BLUE}
-  border-radius: 50%;
-  margin: auto;
-  display: none;
-`;
-
-export const CheckInput = styled.input`
-  transform: scale(0);
-  display: none;
-  position: absolute;
-  &:checked ~ label span {
-    display: block;
-  }
-`;
-
 export const Buttons = styled.div`
   display: flex;
   flex-shrink: 0;
