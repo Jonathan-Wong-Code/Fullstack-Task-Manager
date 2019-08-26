@@ -28,6 +28,7 @@ export const history = createBrowserHistory();
 
 function App() {
   const { user, loading } = useCheckAuthenticated();
+  console.log(process.env.REACT_APP_NODE_ENV);
   if (loading) return <p>Loading...</p>;
   return (
     <Router history={history}>

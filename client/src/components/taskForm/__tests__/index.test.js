@@ -56,7 +56,7 @@ describe("<TaskForm>", () => {
     expect(queryByText("Edit")).toBeNull();
     const title = getByLabelText(/title:/i);
     const description = getByLabelText(/description:/i);
-    const completed = getByLabelText(/completed/i);
+    const completed = getByTestId("completed-checkbox");
 
     fireEvent.change(title, { target: { value: mockTask.title } });
     fireEvent.change(description, { target: { value: mockTask.description } });
@@ -87,7 +87,7 @@ describe("<TaskForm>", () => {
 
     const title = getByLabelText(/title:/i);
     const description = getByLabelText(/description:/i);
-    const completed = getByLabelText(/completed:/i);
+    const completed = getByTestId("completed-checkbox");
 
     fireEvent.change(title, { target: { value: mockTask.title } });
     fireEvent.change(description, {
@@ -124,7 +124,7 @@ describe("<TaskForm>", () => {
     expect(getByText("Edit")).toBeDefined();
     const title = getByLabelText(/title:/i);
     const description = getByLabelText(/description:/i);
-    const completed = getByLabelText(/completed/i);
+    const completed = getByTestId("completed-checkbox");
 
     expect(title).toHaveValue("Test task");
     expect(description).toHaveValue("Test descript");
@@ -163,7 +163,7 @@ describe("<TaskForm>", () => {
 
     const title = getByLabelText("Title:");
     const description = getByLabelText("Description:");
-    const completed = getByLabelText("completed:");
+    const completed = getByTestId("completed-checkbox");
 
     fireEvent.change(title, { target: { value: "test title" } });
     fireEvent.change(description, { target: { value: "test description" } });

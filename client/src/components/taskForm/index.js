@@ -79,6 +79,7 @@ function TaskForm({ type, history, editedTask, fetchError }) {
           <CheckInput
             id="completed"
             type="checkbox"
+            data-testid='completed-checkbox'
             checked={completed}
             value={completed}
             ref={checkbox}
@@ -86,7 +87,7 @@ function TaskForm({ type, history, editedTask, fetchError }) {
               setState({ completed: checkbox.current.checked });
             }}
           />
-          <CheckboxCaption>completed: </CheckboxCaption>
+          <CheckboxCaption>completed:</CheckboxCaption>
           <CheckIcon htmlFor={`completed`} className={`check-box-outer`}>
             <CheckIconInner
               className={`check-box-inner`}

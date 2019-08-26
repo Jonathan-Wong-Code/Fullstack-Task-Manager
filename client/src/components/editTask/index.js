@@ -4,7 +4,6 @@ import useFetchTask from "./../../hooks/useFetchTask";
 import { FormSection, FormHeader, FormContainer } from "../../themes/forms";
 export default function EditTask({ match }) {
   const { fetchedTask, loading, error } = useFetchTask(match.params.id);
-  console.log("edit");
   if (loading || !fetchedTask) return <div> Loading Edit info </div>;
   return (
     <FormSection>

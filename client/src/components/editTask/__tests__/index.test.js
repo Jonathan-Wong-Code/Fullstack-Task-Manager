@@ -28,7 +28,7 @@ describe("<EditTask />", () => {
 
   test("it renders with pre-existing task", async () => {
     const testUser = { name: "Jon", email: "jon@jon.com" };
-    const { getByLabelText } = renderWithContextRouter(
+    const { getByLabelText, getByTestId } = renderWithContextRouter(
       <EditTask match={match} />,
       {
         route: "/create",
@@ -40,7 +40,7 @@ describe("<EditTask />", () => {
     await wait(() => {
       const title = getByLabelText("Title:");
       const description = getByLabelText("Description:");
-      const completed = getByLabelText("completed:");
+      const completed = getByTestId("completed-checkbox");
       expect(title).toHaveValue("task 1");
       expect(description).toHaveValue("task 1");
       expect(completed).toHaveAttribute("value", "true");

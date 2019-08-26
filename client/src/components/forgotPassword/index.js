@@ -28,7 +28,7 @@ function ForgotPassword() {
     <FormSection>
       <FormContainer>
         <FormHeader>Forgot your password?</FormHeader>
-        <Form action="" onSubmit={handleSubmit} data-testid="forgot-pass-Form">
+        <Form action="" onSubmit={handleSubmit} data-testid="forgot-pass-form">
           <Label htmlFor="reset-email">Enter email:</Label>
           <Input
             type="email"
