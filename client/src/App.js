@@ -28,7 +28,6 @@ export const history = createBrowserHistory();
 
 function App() {
   const { user, loading } = useCheckAuthenticated();
-  console.log(loading);
   if (loading) return <p>Loading...</p>;
   return (
     <Router history={history}>

@@ -2,7 +2,7 @@ import React from "react";
 import TaskForm from "../taskForm";
 import { FormSection, FormContainer, FormHeader } from "./../../themes/forms";
 
-export default function CreateTask() {
+function CreateTask() {
   return (
     <FormSection>
       <FormContainer>
@@ -12,3 +12,5 @@ export default function CreateTask() {
     </FormSection>
   );
 }
+
+export default CreateTask;
